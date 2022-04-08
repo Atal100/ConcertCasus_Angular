@@ -5,6 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './core/dashboard/dashboard.component';
 import { NavbarComponent } from './core/navbar/navbar.component';
+import { ArtistDetailComponent } from './artist/artist-detail/artist-detail.component';
+import { ArtistEditComponent } from './artist/artist-edit/artist-edit.component';
+import { ArtistModule } from './artist/artist.module';
+import { ArtistRoutingModule } from './artist/artist-routing.module';
 
 
 @NgModule({
@@ -12,11 +16,16 @@ import { NavbarComponent } from './core/navbar/navbar.component';
     AppComponent,
     DashboardComponent,
     NavbarComponent,
+   
+
 
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+
+    ArtistModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
