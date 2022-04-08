@@ -14,62 +14,36 @@
 
 
 <div class="container">
+  
  <div class="row">
 
       <div class="card" style="width: 18rem;">
-        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" class="card-img-top" alt="...">
+        <a routerLink="{{artist._id}}">
+        <img src="{{artist.image}}" alt="Photo of a Shiba Inu" class="card-img-top" alt="...">
+      </a>
+
         <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
+          <h1>{{artist.name}}</h1>
+          <h2>{{artist.genre}}</h2>
+        </div>
+     
+      </div>
+
+      
+     
+      <div class="card" style="width: 18rem;">
+        <img src="{{artist.image}}" alt="Photo of a Shiba Inu" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h1>{{artist.name}}</h1>
+          <h2>{{artist.genre}}</h2>
         </div>
       </div>
+
       <div class="card" style="width: 18rem;">
-        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" class="card-img-top" alt="...">
+        <img src="{{artist.image}}" alt="Photo of a Shiba Inu" class="card-img-top" alt="...">
         <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div class="card" style="width: 18rem;">
-        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" class="card-img-top" alt="...">
-        <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div class="card" style="width: 18rem;">
-        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" class="card-img-top" alt="...">
-        <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div class="card" style="width: 18rem;">
-        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" class="card-img-top" alt="...">
-        <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div class="card" style="width: 18rem;">
-        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" class="card-img-top" alt="...">
-        <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div class="card" style="width: 18rem;">
-        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" class="card-img-top" alt="...">
-        <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div class="card" style="width: 18rem;">
-        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" class="card-img-top" alt="...">
-        <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
+          <h1>{{artist.name}}</h1>
+          <h2>{{artist.genre}}</h2>
         </div>
       </div>
 

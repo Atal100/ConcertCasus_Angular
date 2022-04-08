@@ -11,7 +11,7 @@ export class ArtistComponent implements OnInit {
     _id: "fadfaffsffddsaf",
     name: "Dj Azura",
     genre: "Techno",
-    image: "Coole Image"
+    image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
   }
   constructor() { }
 
