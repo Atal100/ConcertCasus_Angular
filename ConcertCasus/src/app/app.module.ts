@@ -12,6 +12,9 @@ import { ArtistRoutingModule } from './artist/artist-routing.module';
 import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { AlertsComponent } from './alerts/alerts.component';
 
 
 @NgModule({
@@ -19,6 +22,9 @@ import { MatInputModule } from '@angular/material/input';
     AppComponent,
     DashboardComponent,
     NavbarComponent,
+    LoginComponent,
+    RegisterComponent,
+    AlertsComponent,
     //ArtistDetailComponent,
    
 
