@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" routerLink="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -21,26 +21,39 @@
           <li class="nav-item">
             <a
             class="nav-link"
-            href="artist/list"
+            routerLink="artist/list"
             style="color: #FFFF">Artists</a>
           </li>
          
           <li class="nav-item">
-            <a class="nav-link" href="concert"style="color: #FFFF">Concerts</a>
+            <a class="nav-link" routerLink="concert"style="color: #FFFF">Concerts</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="music"style="color: #FFFF">Music</a>
+            <a class="nav-link" routerLink="music"style="color: #FFFF">Music</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="about"style="color: #FFFF">About</a>
           </li>
 
           <!--When logged in-->
           <li class="nav-item">
-            <a class="nav-link" href="tickets"style="color: #FFFF">My Tickets</a>
+            <a class="nav-link" routerLink="tickets"style="color: #FFFF">My Tickets</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="tickets"style="color: #FFFF">Admin Panel</a>
+            <a class="nav-link" routerLink="tickets"style="color: #FFFF">Admin Panel</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="tickets"style="color: #FFFF;">Log in</a>
+        </ul>
+
+
+        <ul class="navbar-nav">
+          <li *ngIf="(isLoggedIn$ | async) === false" class="nav-item">
+            <a class="nav-link" routerLink="/login" style="color: #FFFF">Login in</a>
+          </li>
+          <li *ngIf="(isLoggedIn$ | async) === false" class="nav-item">
+            <a class="nav-link" routerLink="/register" style="color: #FFFF">Register</a>
+          </li>
+          <li *ngIf="(isLoggedIn$ | async) === true" class="nav-item">
+            <a class="nav-link" (click)="(onLogout())" routerLink=""style="color: #FFFF">Log Out</a>
           </li>
         </ul>
       </div>
