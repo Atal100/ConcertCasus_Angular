@@ -1,17 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from "@angular/core";
+import { Observable } from "rxjs";
+import { AuthService } from "../../auth/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  selector: "app-navbar",
+  styleUrls: ["./navbar.component.css"],
+  templateUrl: "./navbar.component.html"
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
+  constructor(private authService: AuthService, private router: Router) {}
 
-  constructor() { }
+  @Input() apptitle: string;
+  isLoggedIn$: Observable<boolean>;
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.isLoggedIn$ = this.authService.userIsLoggedIn;
   }
 
-  isNavbarCollapsed = true;
+  onLogout() {
+    this.authService.userLogOut();
+  }
 
+  @Input() title: string;
+  isNavbarCollapsed = true;
 }

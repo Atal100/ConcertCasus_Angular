@@ -8,6 +8,7 @@ export class Ticket {
     music: Music;
     concert: Concert;
     date: Date;
+    price: DoubleRange;
     userId: number;
 
 }

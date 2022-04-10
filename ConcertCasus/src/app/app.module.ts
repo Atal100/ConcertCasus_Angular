@@ -18,6 +18,8 @@ import { AlertsComponent } from './alerts/alerts.component';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { AlertService } from './alerts/alert.service';
 import { AuthService } from './auth/auth.service';
+import { UsecasesComponent } from './about/usercases/usecases.component';
+import { UsecaseComponent } from './about/usercases/usecase/usecase.component';
 
 
 
@@ -29,6 +31,8 @@ import { AuthService } from './auth/auth.service';
     LoginComponent,
     RegisterComponent,
     AlertsComponent,
+    UsecasesComponent,
+    UsecaseComponent,
     //ArtistDetailComponent,
    
 

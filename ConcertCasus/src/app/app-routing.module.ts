@@ -7,14 +7,22 @@ import { MusicComponent } from './music/music.component';
 import { ConcertComponent } from './concert/concert.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { UsecasesComponent } from './about/usercases/usecases.component';
 
 
 const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
+
+  {path: 'about', component: UsecasesComponent},
   {path: 'music', component: MusicComponent},
   {path: 'concert', component: ConcertComponent},
+
+
+  //Authenticatie
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+
+
   { path: "", redirectTo: "dashboard", pathMatch: "full" },
 
 ];
