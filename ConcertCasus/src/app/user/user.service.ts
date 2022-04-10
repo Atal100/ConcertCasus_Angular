@@ -20,7 +20,7 @@ export class UserService {
 
   public getUsers(): Observable<User[]> {
     console.log("getUsers");
-    return this.http.get<User[]>(`${environment.apiUrl}/api/users`, {});
+    return this.http.get<User[]>(`${environment.apiUrl}/api/user`, {});
   }
 
   getUser(id: number) {
@@ -30,8 +30,9 @@ export class UserService {
 
   register(user: User) {
     console.log("createUser");
+    console.log('user', user)
     return this.http
-      .post(`${environment.apiUrl}/api/users/register`, user)
+      .post(`${environment.apiUrl}/api/user/register`, user)
       .pipe(
         catchError(this.handleError),
         tap(data => console.log(data))
@@ -41,11 +42,11 @@ export class UserService {
   updateUser(user: User) {
     console.log("updateUser");
 
-    return this.http.put(`${environment.apiUrl}/api/users/` + user.id, user);
+    return this.http.put(`${environment.apiUrl}/api/user/` + user.id, user);
   }
 
   private handleError(error: HttpErrorResponse) {
-    console.log("handleError" + error);
+    console.log("handleError" + error.message);
 
     return throwError(error.message || error.error.message);
   }

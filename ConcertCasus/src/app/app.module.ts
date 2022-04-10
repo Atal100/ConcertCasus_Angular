@@ -15,6 +15,10 @@ import { MatInputModule } from '@angular/material/input';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AlertsComponent } from './alerts/alerts.component';
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { AlertService } from './alerts/alert.service';
+import { AuthService } from './auth/auth.service';
+
 
 
 @NgModule({
@@ -38,11 +42,15 @@ import { AlertsComponent } from './alerts/alerts.component';
     ArtistModule,
     MatFormFieldModule,
     MatInputModule,
+    ReactiveFormsModule 
 
 
 
   ],
-  providers: [],
+  providers: [
+    AlertService,
+    AuthService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

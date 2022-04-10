@@ -5,15 +5,16 @@ import { ArtistComponent } from './artist/artist.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MusicComponent } from './music/music.component';
 import { ConcertComponent } from './concert/concert.component';
-import { ArtistListComponent } from './artist/artist-list/artist-list.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 
 const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
   {path: 'music', component: MusicComponent},
   {path: 'concert', component: ConcertComponent},
-  //{path: 'login', component: LoginComponent},
-  //{path: 'register', component: Registercomponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
   { path: "", redirectTo: "dashboard", pathMatch: "full" },
 
 ];
