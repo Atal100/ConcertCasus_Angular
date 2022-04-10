@@ -1,0 +1,41 @@
+<section *ngIf="artist">
+    <div class="row">
+      <div class="col-xs-12">
+        <h1>{{ artist.name }}</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <label for="genre">Genre:</label>
+        {{ artist.genre }} 
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <label for="image">Image:</label>
+        {{ artist.image }}
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-xs-12">
+        <button
+         
+          type="button"
+          class="btn btn-primary"
+          (click)="onEditArtist()"
+        >
+          Edit Artist
+        </button>
+        <button
+          
+          type="button"
+          class="btn btn-danger"
+          (click)="onDeleteArtist()"
+        >
+          Delete Artist
+        </button>
+      </div>
+    </div>
+  </section>
+  

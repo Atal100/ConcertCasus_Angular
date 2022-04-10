@@ -8,5 +8,6 @@ export class Ticket {
     music: Music;
     concert: Concert;
     date: Date;
+    userId: number;
 
 }
