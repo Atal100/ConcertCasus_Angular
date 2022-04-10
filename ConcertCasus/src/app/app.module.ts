@@ -9,6 +9,9 @@ import { ArtistDetailComponent } from './artist/artist-detail/artist-detail.comp
 import { ArtistEditComponent } from './artist/artist-edit/artist-edit.component';
 import { ArtistModule } from './artist/artist.module';
 import { ArtistRoutingModule } from './artist/artist-routing.module';
+import { RouterModule } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -16,6 +19,7 @@ import { ArtistRoutingModule } from './artist/artist-routing.module';
     AppComponent,
     DashboardComponent,
     NavbarComponent,
+    //ArtistDetailComponent,
    
 
 
@@ -23,8 +27,13 @@ import { ArtistRoutingModule } from './artist/artist-routing.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-
+    RouterModule,
+    ArtistRoutingModule,
     ArtistModule,
+    MatFormFieldModule,
+    MatInputModule,
+
+
 
   ],
   providers: [],
