@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Artist } from '../artist.model';
 import { ArtistService } from '../artist.service';
+import {    MatTableDataSource } from '@angular/material/table'
 
 @Component({
   selector: 'app-artist-list',
@@ -10,11 +11,16 @@ import { ArtistService } from '../artist.service';
   styleUrls: ['./artist-list.component.css']
 })
 export class ArtistListComponent implements OnInit {
-  artists: Artist[];
+  artists: Artist[]
+  
+
+  displayedColumns: string[] = ['name','genre']
+  dataSource: MatTableDataSource<Artist>;
+
+  
 
   private selectArtist: Artist;
   private _loading: boolean;
-
 
   artist: Artist = {
     _id: "fadfaffsffddsaf",
@@ -26,7 +32,8 @@ export class ArtistListComponent implements OnInit {
   constructor(
     private router: Router,
     private artistService: ArtistService,
-  ) { }
+  ) { 
+  }
   
   
   ngOnInit() {
@@ -34,10 +41,15 @@ export class ArtistListComponent implements OnInit {
     console.log(this.artists)
     this.artistService.getArtists().subscribe(
       artists => {
+    
         this.artists = artists;
+        console.log(this.artists)
         this._loading = false;
+        this.dataSource = new MatTableDataSource(this.artists)
       }
     );
+   
+    
   }
 
   public get loading(): boolean {

@@ -19,6 +19,9 @@ import { MatInputModule } from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatDialogModule} from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { ArtistNewComponent } from './artist-new/artist-new.component'
+
 
 
 
@@ -29,6 +32,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     ArtistDetailComponent,
     ArtistEditComponent,
     ArtistListComponent,
+    ArtistNewComponent,
 
   ],
   imports: [
@@ -51,6 +55,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatListModule,
     MatDividerModule,
     MatDialogModule,
+    MatTableModule
 
 
 

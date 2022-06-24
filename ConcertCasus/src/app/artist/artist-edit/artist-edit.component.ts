@@ -59,40 +59,20 @@ export class ArtistEditComponent implements OnInit {
   }
 
   fillForm(): void{
-    this.subscription = this._route.paramMap
+    this._route.paramMap
     .pipe(
       tap(console.log),
       switchMap((params: ParamMap) => {
-        if(!params.get('id')){
-          return of({
-            name: '',
-            genre: '',
-            image: ''
-          });
-        } else {
           return this._artistService.getArtist(params.get('id') as string);
-          
-        }
+
       }),
       tap(console.log)
     )
     .subscribe((artist) => {
       this.artist = artist;
+      console.log(this.artist)
     })
-    this.subscription.add(this._route.params.subscribe((params) => {
-      this.params = params;
-      console.log("params",)
-      this._artistService.getArtist(params['id']).subscribe((artist) => {
-        this.artist = artist;
-        if(artist !=null) {
-          this.artistForm = this._formBuilder.group({
-            name: [artist['name'], [Validators.required]],
-            genre: [artist['genre'], [Validators.required]],
-            image: [artist['image'], [Validators.required]]
-          })
-        }
-      })
-    }))
+    
   }
 
   onArtistSubmit(){
@@ -107,14 +87,7 @@ export class ArtistEditComponent implements OnInit {
       this._router.navigate(['artist/list']);
     }
     else {
-      const artist = new Artist();
-
-      artist.name = this.artistForm.controls['name'].value;
-      artist.genre = this.artistForm.controls['genre'].value;
-      artist.image = this.artistForm.controls['image'].value;
-
-      this.subscription.add(this._artistService.createArtist(artist).subscribe());
-      this._router.navigate(['artist/list'])
+      
     }
   }
 

@@ -1,0 +1,57 @@
+table {
+    width: 100%;
+    table-layout: fixed;
+    box-shadow: 1px 1px 1px #999;
+    border-collapse: collapse;
+}
+.container {
+    border: rgb(230, 72, 72) solid;
+    width: 100%;
+}
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+td, th {
+    width: 25%;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-weight: bold;   
+}
+
+
+
+.inline-button{
+    width: 125px;
+}
+
+.inline-form-field{
+    width: 300px;
+    float: right;
+}
+
+.inline-form{
+    margin-bottom: 20px;
+}
+
+.mat-column-delete{
+    width: 50px !important;
+    text-align: center;
+}
+
+a:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.table-empty{
+    text-align: center;
+}
+
+.empty-icon{
+    font-size: 20vh;
+    width: 20vh;
+    height: 20vh;
+}
+

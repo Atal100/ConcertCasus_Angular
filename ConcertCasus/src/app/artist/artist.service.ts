@@ -13,7 +13,7 @@ export class ArtistService {
   artist: Artist;
   private ArtistUrl = "http://localhost:3000/api/artist/"
   constructor(private http: HttpClient) { 
-    console.log("MovieService constructed");
+    console.log("ArtistService constructed");
     console.log("Connected to" + this.ArtistUrl);
   }
 

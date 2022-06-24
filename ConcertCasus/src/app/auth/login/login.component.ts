@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
         },
         (error: string) => {
           console.log(error);
-          this.alertService.error(error);
+          this.alertService.error("Er ging iets mis");
           this.loading = false;
         }
       );
