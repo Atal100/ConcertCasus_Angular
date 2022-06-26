@@ -9,9 +9,14 @@ import { Artist } from './artist.model';
 export class ArtistService {
 
   artists: Artist[];
-  
   artist: Artist;
   private ArtistUrl = "http://localhost:3000/api/artist/"
+
+  private extractData(res: Response) {
+    let body = res;
+    return body || {};
+}
+
   constructor(private http: HttpClient) { 
     console.log("ArtistService constructed");
     console.log("Connected to" + this.ArtistUrl);
@@ -28,9 +33,10 @@ export class ArtistService {
   getArtist(id: string): Observable<Artist> {
     console.log('getArtist ' + this.ArtistUrl + id)
     console.log('https' + this.http
-      .get<any>(this.ArtistUrl + id))
+      .get<Artist>(this.ArtistUrl + id))
 
-    return this.http.get<any>(this.ArtistUrl + id)
+    return this.http.get<Artist>(this.ArtistUrl + id)
+   
     
     
 
