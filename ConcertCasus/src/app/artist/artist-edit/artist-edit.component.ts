@@ -1,0 +1,111 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
+import { of, Subject, Subscription, switchMap, tap } from 'rxjs';
+import { Artist } from '../artist.model';
+import { ArtistService } from '../artist.service';
+
+@Component({
+  selector: 'app-artist-edit',
+  templateUrl: './artist-edit.component.html',
+  styleUrls: ['./artist-edit.component.css']
+})
+export class ArtistEditComponent implements OnInit {
+
+
+  
+  artist = new Artist();
+  subscription:  Subscription = new Subscription;
+  submitWaiting: boolean;
+
+  protected onDestroy = new Subject<void>();
+
+  genres = [
+    { genre: "Techno" },
+    { genre: "Dupstep" },
+    { genre: "Rock" },
+    { genre: "Punk" },
+    { genre: "Classic"},
+    { genre: "HipHop"}
+  ];
+
+
+
+  //Form
+  artistForm: FormGroup
+  params: Params;
+
+ 
+
+
+  constructor(
+    private _router: Router,
+    private _artistService: ArtistService,
+    private _route: ActivatedRoute,
+    private _formBuilder: FormBuilder
+    ) {
+      this.artistForm = this._formBuilder.group({
+        name: ['', [Validators.required]],
+        genre: ['',[Validators.required]],
+        image: ['', [Validators.required]]
+      })
+
+      this.submitWaiting = false;
+
+     }
+
+  ngOnInit() {
+    this.subscription.add(this._route.params.subscribe((params) => {
+      this.params = params
+      if(this.params != null) {
+        this.subscription.add(this._artistService.getArtist(params['id']).subscribe(data => {
+          this.artist = data;
+          console.log('Artist ' + this.artist.name )
+          if(data != null) {
+            this.fillForm(this.artist)
+          }
+        }))
+      }
+    }))
+  }
+
+  fillForm(artist: Artist): void{
+  this.artistForm = this._formBuilder.group({
+        name:  [artist['name']],
+        image: [artist['image']],
+        genre: [artist['genre']]
+      })
+  
+  }
+
+  onArtistSubmit(){
+    this.subscription.add(this._route.params.subscribe((params) => {
+      this.params = params
+    }))
+    this.submitWaiting = true;
+    console.log("artist update", this.artist)
+    if(this.artist != null){
+    console.log(this.params.id)
+      this.artist._id = this.params.id
+      this.artist.name = this.artistForm.controls['name'].value;
+      this.artist.genre = this.artistForm.controls['genre'].value;
+      this.artist.image = this.artistForm.controls['image'].value;
+      console.log("After add " + this.artist.name)
+
+      this.subscription.add(this._artistService.updateArtist(this.artist, this.artist._id).subscribe(response =>{
+        console.log(response)
+        this._router.navigate(['artist/list']);
+      }))
+
+     
+    }
+    else {
+      
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+}
+
+}
