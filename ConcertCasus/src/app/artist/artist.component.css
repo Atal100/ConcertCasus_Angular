@@ -13,3 +13,6 @@
     border-top-left-radius: 6mm;
     border-top-right-radius: 6mm;
 }
+.row {
+  border: rgb(25, 199, 103) solid;
+}

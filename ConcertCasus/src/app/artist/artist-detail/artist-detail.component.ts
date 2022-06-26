@@ -11,12 +11,7 @@ import { ArtistService } from '../artist.service';
   styleUrls: ['./artist-detail.component.css']
 })
 export class ArtistDetailComponent implements OnInit {
-  artist: Artist = {
-    _id: "fadfaffsffddsaf",
-    name: "Dj Azura",
-    genre: "Techno",
-    image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-  }
+  artist: Artist 
    //artist: Artist
   private params: Subscription
   constructor(
@@ -34,10 +29,10 @@ export class ArtistDetailComponent implements OnInit {
       
       this.getArtist();
     }
-
     
      
     );  
+    console.log("id",this.artist)
   }
 
   onEditArtist(){
@@ -45,9 +40,11 @@ export class ArtistDetailComponent implements OnInit {
   }
 
   onDeleteArtist() {
-    this.artistService.deleteArtist(this.artist._id);
-    this.router.navigate(["/artist/list"])
-  }
+    /*this.artistService.deleteArtist(this.artist._id).subscribe(() => {
+      this.getArtist();
+    });
+    this.router.navigate(["/artist/list"])*/
+  } 
   
   getArtist(){
     this.artistService.getArtist(this.artist._id)

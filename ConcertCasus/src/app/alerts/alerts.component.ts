@@ -8,8 +8,15 @@ import { AlertService } from './alert.service';
   styleUrls: ['./alerts.component.css']
 })
 export class AlertsComponent implements OnInit, OnDestroy {
+
+
 private subs: Subscription;
 msg: any;
+ /**
+     * Constructor
+     *
+     * @param {MatDialogRef<AlertsComponent>} dialogRef
+     */
   constructor(private alertService: AlertService) { }
 
   ngOnInit() {
