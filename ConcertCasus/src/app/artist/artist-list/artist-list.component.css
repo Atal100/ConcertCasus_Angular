@@ -1,13 +1,22 @@
-table {
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px; /* 5px rounded corners */
+  }
+  
+  /* Add rounded corners to the top left and the top right corner of the image */
+  img {
+    border-radius: 5px 5px 0 0;
+  }
+
+
+
+
+  table {
     width: 100%;
     table-layout: fixed;
-    box-shadow: 1px 1px 1px #999;
-    border-collapse: collapse;
 }
-.container {
-    border: rgb(230, 72, 72) solid;
-    width: 100%;
-}
+
 .mat-form-field {
     font-size: 14px;
     width: 100%;
@@ -15,12 +24,7 @@ table {
 
 td, th {
     width: 25%;
-    border: 1px solid #ddd;
-    text-align: center;
-    font-weight: bold;   
 }
-
-
 
 .inline-button{
     width: 125px;
@@ -54,4 +58,5 @@ a:hover{
     width: 20vh;
     height: 20vh;
 }
+
 

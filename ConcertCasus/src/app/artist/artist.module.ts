@@ -55,7 +55,8 @@ import { ArtistNewComponent } from './artist-new/artist-new.component'
     MatListModule,
     MatDividerModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    
 
 
 

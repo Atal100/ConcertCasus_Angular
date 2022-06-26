@@ -20,6 +20,7 @@ import { AlertService } from './alerts/alert.service';
 import { AuthService } from './auth/auth.service';
 import { UsecasesComponent } from './about/usercases/usecases.component';
 import { UsecaseComponent } from './about/usercases/usecase/usecase.component';
+import { FooterComponent } from './core/footer/footer.component';
 
 
 
@@ -33,6 +34,7 @@ import { UsecaseComponent } from './about/usercases/usecase/usecase.component';
     AlertsComponent,
     UsecasesComponent,
     UsecaseComponent,
+    FooterComponent,
     //ArtistDetailComponent,
    
 

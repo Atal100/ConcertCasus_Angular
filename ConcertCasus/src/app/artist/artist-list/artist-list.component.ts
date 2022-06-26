@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Artist } from '../artist.model';
 import { ArtistService } from '../artist.service';
 import {    MatTableDataSource } from '@angular/material/table'
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { AlertsComponent } from 'src/app/alerts/alerts.component';
 
 @Component({
   selector: 'app-artist-list',
@@ -11,13 +13,42 @@ import {    MatTableDataSource } from '@angular/material/table'
   styleUrls: ['./artist-list.component.css']
 })
 export class ArtistListComponent implements OnInit {
-  artists: Artist[]
-  
+  artists: Artist[] = [
+    {
+      _id: "fadfaffsffddsaf",
+      name: "Dj Azura",
+      genre: "Techno",
+      image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
+    },
+    {
+      _id: "fadfaffsffddsaf",
+      name: "Dj Azura",
+      genre: "Techno",
+      image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
+    },
+    {
+      _id: "fadfaffsffddsaf",
+      name: "Dj Azura",
+      genre: "Techno",
+      image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
+    },
+    {
+      _id: "fadfaffsffddsaf",
+      name: "Dj Azura",
+      genre: "Techno",
+      image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
+    },
+    {
+      _id: "fadfaffsffddsaf",
+      name: "Dj Azura",
+      genre: "Techno",
+      image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
+    }
+  ]
 
-  displayedColumns: string[] = ['name','genre']
+  displayedColumns: string[] = ['name','genre','delete']
   dataSource: MatTableDataSource<Artist>;
-
-  
+  confirmDialogRef: MatDialogRef<AlertsComponent>;
 
   private selectArtist: Artist;
   private _loading: boolean;
@@ -32,13 +63,17 @@ export class ArtistListComponent implements OnInit {
   constructor(
     private router: Router,
     private artistService: ArtistService,
+    private _matDialog: MatDialog
   ) { 
   }
   
   
   ngOnInit() {
-
     console.log(this.artists)
+    this.loadArtist()   
+  }
+
+  loadArtist() {
     this.artistService.getArtists().subscribe(
       artists => {
     
@@ -48,8 +83,6 @@ export class ArtistListComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.artists)
       }
     );
-   
-    
   }
 
   public get loading(): boolean {
@@ -65,9 +98,12 @@ export class ArtistListComponent implements OnInit {
     this.router.navigate(["/artist/list/" + this.selectArtist._id])
   }
 
-  onCreate() {
-    this.router.navigate(["artist/list/new"])
+  deleteartist(artistId: string): void{
+    this.artistService.deleteArtist(artistId).subscribe(response => {
+      console.log(response)
+    })
   }
+
 }
 
 

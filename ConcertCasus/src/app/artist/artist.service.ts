@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, tap, throwError } from 'rxjs';
+import { catchError, concatMap, map, Observable, pipe, tap, throwError } from 'rxjs';
 import { Artist } from './artist.model';
 
 @Injectable({
@@ -26,9 +26,14 @@ export class ArtistService {
 
   }
   getArtist(id: string): Observable<Artist> {
-    console.log('getArtist ' + id)
-    return this.http
-    .get<Artist>(this.ArtistUrl + id)
+    console.log('getArtist ' + this.ArtistUrl + id)
+    console.log('https' + this.http
+      .get<any>(this.ArtistUrl + id))
+
+    return this.http.get<any>(this.ArtistUrl + id)
+    
+    
+
     //.pipe(catchError(this.handleError));
   }
 
@@ -40,15 +45,16 @@ export class ArtistService {
     //.pipe(catchError(this.handleError), tap(console.log)); 
    }
 
-  updateArtist(artist: Artist){
+  updateArtist(artist: Artist, id: string){
     console.log('updateArtist')
-    console.log(artist);
+    console.log(id);
     return this.http.put(this.ArtistUrl + artist._id, artist);
   }
   
   deleteArtist(id: string){
     console.log('deleteArtist ' + id)
-    this.http.delete(this.ArtistUrl + id);
+    console.log(this.http.delete(this.ArtistUrl + id))
+    return this.http.delete(this.ArtistUrl + id);
   }
 
   private handleError(error: HttpErrorResponse) {

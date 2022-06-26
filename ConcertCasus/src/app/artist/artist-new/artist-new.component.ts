@@ -59,6 +59,7 @@ export class ArtistNewComponent implements OnInit {
       artist.image = this.artistForm.controls['image'].value;
 
       this._artistService.createArtist(artist).subscribe(response =>{
+        console.log(response)
         this._router.navigate(['artist/list'])
       })
 

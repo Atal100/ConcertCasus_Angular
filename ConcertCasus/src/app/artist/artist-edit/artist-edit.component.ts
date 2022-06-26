@@ -55,36 +55,49 @@ export class ArtistEditComponent implements OnInit {
      }
 
   ngOnInit() {
-    this.fillForm();
+    this.subscription.add(this._route.params.subscribe((params) => {
+      this.params = params
+      if(this.params != null) {
+        this.subscription.add(this._artistService.getArtist(params['id']).subscribe(data => {
+          this.artist = data;
+          console.log('Artist ' + this.artist.name )
+          if(data != null) {
+            this.fillForm(this.artist)
+          }
+        }))
+      }
+    }))
   }
 
-  fillForm(): void{
-    this._route.paramMap
-    .pipe(
-      tap(console.log),
-      switchMap((params: ParamMap) => {
-          return this._artistService.getArtist(params.get('id') as string);
-
-      }),
-      tap(console.log)
-    )
-    .subscribe((artist) => {
-      this.artist = artist;
-      console.log(this.artist)
-    })
-    
+  fillForm(artist: Artist): void{
+  this.artistForm = this._formBuilder.group({
+        name:  [artist['name']],
+        image: [artist['image']],
+        genre: [artist['genre']]
+      })
+  
   }
 
   onArtistSubmit(){
+    this.subscription.add(this._route.params.subscribe((params) => {
+      this.params = params
+    }))
     this.submitWaiting = true;
     console.log("artist update", this.artist)
     if(this.artist != null){
+    console.log(this.params.id)
+      this.artist._id = this.params.id
       this.artist.name = this.artistForm.controls['name'].value;
       this.artist.genre = this.artistForm.controls['genre'].value;
       this.artist.image = this.artistForm.controls['image'].value;
+      console.log("After add " + this.artist.name)
 
-      this.subscription.add(this._artistService.updateArtist(this.artist).subscribe())
-      this._router.navigate(['artist/list']);
+      this.subscription.add(this._artistService.updateArtist(this.artist, this.artist._id).subscribe(response =>{
+        console.log(response)
+        this._router.navigate(['artist/list']);
+      }))
+
+     
     }
     else {
       

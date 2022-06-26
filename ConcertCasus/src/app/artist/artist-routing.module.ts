@@ -14,7 +14,7 @@ const routes: Routes =[
         {path: "new", component: ArtistNewComponent},
         {path: ":id", component: ArtistDetailComponent},
         
-        {path: ":id/edit", component: ArtistEditComponent,
+        {path: "edit/:id", component: ArtistEditComponent,
         data: {
             title: "Edit Artist"
         }}
@@ -29,7 +29,7 @@ const routes: Routes =[
         {path: "new", component: ArtistNewComponent},
         {path: ":id", component: ArtistDetailComponent},
         
-        {path: ":id/edit", component: ArtistEditComponent,
+        {path: "edit/:id", component: ArtistEditComponent,
         data: {
             title: "Edit Artist"
         }}
