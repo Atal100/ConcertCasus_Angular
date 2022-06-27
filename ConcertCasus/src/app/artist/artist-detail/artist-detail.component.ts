@@ -12,7 +12,7 @@ import { ArtistService } from '../artist.service';
 })
 export class ArtistDetailComponent implements OnInit {
   artist: Artist 
-   //artist: Artist
+   artists: Artist[]
   private params: Subscription
   constructor(
     private router: Router,
@@ -36,7 +36,7 @@ export class ArtistDetailComponent implements OnInit {
   }
 
   onEditArtist(){
-    this.router.navigate(["/artist/" + this.artist._id + "/edit"]);
+    this.router.navigate(["/artist/" + "/edit/" + this.artist._id ]);
   }
 
   onDeleteArtist() {
@@ -47,7 +47,18 @@ export class ArtistDetailComponent implements OnInit {
   } 
   
   getArtist(){
-    this.artistService.getArtist(this.artist._id)
+    
+  this.artistService.getArtists().subscribe(
+    artists => {
+    this.artists = artists
+
+   this.artists.forEach(c => {
+     if(c._id == this.artist._id){
+       this.artist = c;
+
+     }
+   })
+    })
   }
 
 }
