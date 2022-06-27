@@ -103,7 +103,23 @@
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
         
       </div>
+    
+       <div *ngIf="(isLoggedIn$ | async) === false" class="nav-item">
+         
+          <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" routerLinkActive="active"routerLink="/login" style="color: #FFFF">Login</a>
+        </div>
+       <div *ngIf="(isLoggedIn$ | async) === false" class="nav-item">
+          <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" routerLinkActive="active"routerLink="/register" style="color: #FFFF">Register</a>
+        </div>
+        
+        <div *ngIf="(isLoggedIn$ | async) === true" class="nav-item">
+          <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" routerLinkActive="active" (click)="(onLogout())" routerLink=""style="color: #FFFF">Log Out</a>
+        </div>
+
+      
+  
     </div>
+    
   </div>
 
 </nav>

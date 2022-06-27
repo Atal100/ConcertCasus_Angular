@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     console.log("onSubmit");
-    console.log(this.loginForm);
+    console.log(this.loginForm.value);
 
     if (this.loginForm.invalid) {
       return console.log("called when invalid");

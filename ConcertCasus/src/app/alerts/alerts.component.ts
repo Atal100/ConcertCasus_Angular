@@ -22,6 +22,7 @@ msg: any;
   ngOnInit() {
     this.subs = this.alertService.getMessage().subscribe(msg => {
       this.msg = msg;
+    
     });
   }
 

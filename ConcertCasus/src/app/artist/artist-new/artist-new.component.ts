@@ -61,6 +61,7 @@ export class ArtistNewComponent implements OnInit {
       this._artistService.createArtist(artist).subscribe(response =>{
         console.log(response)
         this._router.navigate(['artist/list'])
+        
       })
 
   }
