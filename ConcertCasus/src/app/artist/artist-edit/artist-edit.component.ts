@@ -15,6 +15,7 @@ export class ArtistEditComponent implements OnInit {
 
   
   artist = new Artist();
+  artists:  Artist[]
   subscription:  Subscription = new Subscription;
   submitWaiting: boolean;
 
@@ -58,13 +59,18 @@ export class ArtistEditComponent implements OnInit {
     this.subscription.add(this._route.params.subscribe((params) => {
       this.params = params
       if(this.params != null) {
-        this.subscription.add(this._artistService.getArtist(params['id']).subscribe(data => {
-          this.artist = data;
-          console.log('Artist ' + this.artist.name )
-          if(data != null) {
-            this.fillForm(this.artist)
-          }
-        }))
+        this._artistService.getArtists().subscribe(
+          artists => {
+          this.artists = artists
+      
+         this.artists.forEach(c => {
+           if(c._id == this.params['id']){
+             this.artist = c;
+             console.log("this.Artist d" + this.artist)
+             this.fillForm(this.artist)
+           }
+         })
+          })
       }
     }))
   }
