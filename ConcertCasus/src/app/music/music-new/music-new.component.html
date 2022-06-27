@@ -1,0 +1,95 @@
+<!-- <form
+  name="musicForm"
+  autocomplete="off"
+  [formGroup]="musicForm"
+  (ngSubmit)="onMusicSubmit()"
+  novalidate
+>
+<div class="form-group">
+    <label for="name">Music Name</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Music name"
+      formControlName="name"
+      name="name"
+      required
+      minlength="3"
+    />
+  </div>
+
+  <div class='form-group'>
+    <label>Duration</label>
+    <input
+      required
+      type='number'
+      class='form-control'
+      min='1'
+      maxval='5'
+      max='5'
+      [(ngModel)]='music.duration'
+      #duration='ngModel'
+      placeholder='Music time in minutes'
+      name='duration'
+    />
+    <div
+      [hidden]='duration.valid || duration.pristine'
+      class='alert alert-danger'
+    >
+      <span>A duration needs to be in between 1 and 5 minutes</span>
+    </div>
+  </div>
+
+
+  <div class="form-row align-items-center">
+    <div class="col-auto my-1">
+      <label class="mr-sm-2" for="duration">Artiesten</label>
+      <select
+        class="custom-select mr-sm-2"
+        id="artist"
+        name="duration"
+        formControlName="duration"
+        required
+      >
+      <option value="Techno">Techno</option>
+      <option value="Dupstep">Dupstep</option>
+      <option value="Rock">Rock</option>
+      <option value="Punk">Punk</option>
+      <option value="Classic">Classic</option>
+      <option value="HipHop">Hip Hop</option>
+      </select>
+      
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label for="image">image url</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Image url"
+      formControlName="image"
+      name="image"
+      required
+      minlength="3"
+    />
+  </div>
+
+  
+
+  <div class="form-group">
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="musicForm.invalid"
+    >
+      Save
+    </button>
+    <button type="button" class="btn btn-danger" routerLink="../">
+      Cancel
+    </button>
+  </div>
+
+
+</form> -->

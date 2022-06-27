@@ -6,4 +6,8 @@ export class Music {
     artist: Artist;
     duration: Number;
     image: string;
+
+    constructor(values = {}) {
+        Object.assign(this, values);
+      }
 }
