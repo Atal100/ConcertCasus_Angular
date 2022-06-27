@@ -100,6 +100,7 @@ export class ArtistListComponent implements OnInit {
 
   deleteartist(artistId: string): void{
     this.artistService.deleteArtist(artistId).subscribe(response => {
+      this.loadArtist();
       console.log(response)
     })
   }

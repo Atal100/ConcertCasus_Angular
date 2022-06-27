@@ -1,4 +1,4 @@
-<link rel="stylesheet" routerLink="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- <link rel="stylesheet" routerLink="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -36,20 +36,20 @@
             <a class="nav-link" routerLinkActive="active"routerLink="about"style="color: #FFFF">About</a>
           </li>
 
-          <!--When logged in-->
-        <!--  <li class="nav-item">
+          When logged in-
+          <li class="nav-item">
             <a class="nav-link" routerLinkActive="active"routerLink="tickets"style="color: #FFFF">My Tickets</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active"routerLink="tickets"style="color: #FFFF">Admin Panel</a>
           </li>
           
-      -->
+      
         </ul>
 
 
 
-      <!--  <ul class="navbar-nav">
+        <ul class="navbar-nav">
           <li *ngIf="(isLoggedIn$ | async) === false" class="nav-item">
             <a class="nav-link" routerLinkActive="active"routerLink="/login" style="color: #FFFF">Login in</a>
           </li>
@@ -60,10 +60,50 @@
             <a class="nav-link"routerLinkActive="active" (click)="(onLogout())" routerLink=""style="color: #FFFF">Log Out</a>
           </li>
         </ul>
-      -->
+    
       </div>
     </div>
   </nav>
 
 
-  
+   -->
+
+   <!-- This example requires Tailwind CSS v2.0+ -->
+<nav class="bg-gray-800">
+  <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+    <div class="relative flex items-center justify-between h-16">
+      <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+
+        <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+
+          <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+    
+          <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+        <div class="hidden sm:block sm:ml-6">
+          <div class="flex space-x-4">
+            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+            <a routerLinkActive="active" routerLink="dashboard" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
+
+            <a routerLinkActive="active" routerLink="artist/list" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Artists</a>
+
+            <a routerLinkActive="active" routerLink="concert/list" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Concerts</a>
+
+            <a routerLinkActive="active" routerLink="music/list" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Music</a>
+          </div>
+        </div>
+      </div>
+      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+        
+      </div>
+    </div>
+  </div>
+
+</nav>
