@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AlertsComponent } from 'src/app/alerts/alerts.component';
+import { Artist } from 'src/app/artist/artist.model';
 import { ArtistService } from 'src/app/artist/artist.service';
 import { Music } from '../music.model';
 import { MusicService } from '../music.service';
@@ -15,6 +16,7 @@ import { MusicService } from '../music.service';
 export class MusicListComponent implements OnInit {
 
   musics: Music[];
+  artists: Artist[];
 
   displayedColumns: string[] = ['name','artist','duration','delete']
   dataSource: MatTableDataSource<Music>;
@@ -27,11 +29,13 @@ export class MusicListComponent implements OnInit {
   constructor(
     private router: Router,
     private musicService: MusicService,
-    private _matDialog: MatDialog
+    private _matDialog: MatDialog,
+    private _artistService: ArtistService
   ) { }
 
   ngOnInit(){
     this.loadMusic();
+    this.getArtists();
   }
 
   loadMusic() {
@@ -59,8 +63,21 @@ export class MusicListComponent implements OnInit {
     this.router.navigate(["/music/list/" + this.selectMusic._id])
   }
 
+  getArtists(): any{
+    this._artistService.getArtists().subscribe(
+      
+      artists => {
+        console.log("artisten" + artists)
+        this.artists = artists;
+        this._loading = false
+      }
+      
+    )
+  }
+
   deletemusic(musicId: string): void{
     this.musicService.deleteMusic(musicId).subscribe(response => {
+      this.loadMusic();
       console.log(response)
     })
   }
