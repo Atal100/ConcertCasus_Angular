@@ -24,6 +24,7 @@ export class ConcertNewComponent implements OnInit {
   private _error: boolean;
   subscription: Subscription = new Subscription;
   submitWaiting: boolean;
+  currentDate: any = new Date();
 
   protected onDestroy = new Subject<void>();
 
@@ -40,9 +41,9 @@ export class ConcertNewComponent implements OnInit {
 
   ) {
     this.concertForm = this._formBuilder.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.minLength(4)]],
       music: ['',[Validators.required]],
-      adres: ['', [Validators.required]],
+      adres: ['', [Validators.required, Validators.minLength(4)]],
       date: ['', [Validators.required]]
     })
     this.submitWaiting = false;
@@ -51,6 +52,10 @@ export class ConcertNewComponent implements OnInit {
   ngOnInit() {
     this.getArtists();
     this.getMusics();
+  }
+
+  public get fields() {
+    return this.concertForm.controls;
   }
 
   onConcertSubmit(){

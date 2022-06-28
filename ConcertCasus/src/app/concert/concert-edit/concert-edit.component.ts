@@ -1,3 +1,4 @@
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Params, Router, ActivatedRoute } from '@angular/router';
@@ -40,10 +41,10 @@ export class ConcertEditComponent implements OnInit {
 
   ) {
     this.concertForm = this._formBuilder.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.minLength(4)]],
       music: ['',[Validators.required]],
       date: ['', [Validators.required]],
-      adres: ['', [Validators.required]]
+      adres: ['', [Validators.required, Validators.minLength(4)]]
     })
 
     this.submitWaiting = false;
@@ -71,6 +72,9 @@ export class ConcertEditComponent implements OnInit {
     this.getMusic()
   }
 
+  public get fields() {
+    return this.concertForm.controls;
+  }
 
   fillForm(concert:Concert){
     this.concertForm = this._formBuilder.group({

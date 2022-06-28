@@ -46,9 +46,9 @@ export class ArtistEditComponent implements OnInit {
     private _formBuilder: FormBuilder
     ) {
       this.artistForm = this._formBuilder.group({
-        name: ['', [Validators.required]],
+        name: ['', [Validators.required, Validators.minLength(4)]],
         genre: ['',[Validators.required]],
-        image: ['', [Validators.required]]
+        image: ['', [Validators.required, Validators.minLength(4)]]
       })
 
       this.submitWaiting = false;
@@ -74,6 +74,10 @@ export class ArtistEditComponent implements OnInit {
       }
     }))
   }
+  public get fields() {
+    return this.artistForm.controls;
+  }
+
 
   fillForm(artist: Artist): void{
   this.artistForm = this._formBuilder.group({

@@ -50,8 +50,4 @@ image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
   fit('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  fit('should get list of artists', (done: DoneFn) => {
-    
-  })
 });

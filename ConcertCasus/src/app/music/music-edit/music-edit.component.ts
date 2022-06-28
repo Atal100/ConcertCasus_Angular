@@ -36,10 +36,10 @@ export class MusicEditComponent implements OnInit {
 
   ) {
     this.musicForm = this._formBuilder.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.minLength(4)]],
       artist: ['',[Validators.required]],
-      duration: ['', [Validators.required]],
-      image: ['', [Validators.required]]
+      duration: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
+      image: ['', [Validators.required, Validators.minLength(4)]]
     })
 
     this.submitWaiting = false;
@@ -65,6 +65,10 @@ export class MusicEditComponent implements OnInit {
        }
      }))
     this.getArtist()
+  }
+  
+  public get fields() {
+    return this.musicForm.controls;
   }
 
   fillForm(music: Music): void{
