@@ -21,7 +21,7 @@ fdescribe('ArtistService', () => {
   genre: "DupStep",
   image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
 },{
-_id: "Test1",
+_id: "Test3",
 name: "Dj Azuras1",
 genre: "Classic",
 image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
@@ -33,12 +33,18 @@ name: "Dj Azuras1",
 genre: "Classic",
 image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
 }
+const updateartist: Artist ={
+  _id: "Update1",
+name: "Dj Azuras1 Edit",
+genre: "Classic",
+image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
+}
 
 
   
 
   beforeEach(() => {
-    httpSpy = jasmine.createSpyObj('HttpClient', ['get', 'post']);
+    httpSpy = jasmine.createSpyObj('HttpClient', ['get', 'post','put','delete']);
 
     TestBed.configureTestingModule({
       
@@ -62,7 +68,7 @@ image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
     });
   });
 
-  it('should get artist', () => {})
+  
 
   fit('should create artist', (done: DoneFn) => {
     httpSpy.post.and.returnValue(of(artist));
@@ -76,9 +82,24 @@ image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
     })
   });
 
-  it('should edit artist',(done: DoneFn) =>{
+  fit('should edit artist',(done: DoneFn) =>{
     httpSpy.put.and.returnValue(of(artist))
+
+     service.updateArtist(updateartist,artist._id).subscribe(artistupdate => {
+       console.log(artistupdate)
+       expect(artistupdate).toBe(artist)
+      
+       done();
+     })
   });
 
-  it('should delete artist',() =>{})
+  fit('should delete artist',(done:DoneFn) =>{
+    httpSpy.delete.and.returnValue(of(artist))
+
+    service.deleteArtist(artist._id).subscribe(response => {
+      expect(response).toBe(artist)
+       
+      done();
+    })
+  })
 });

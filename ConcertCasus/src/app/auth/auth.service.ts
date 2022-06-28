@@ -27,6 +27,7 @@ export class AuthService {
           if (user && user.token) {
             console.log("after login if");
             this.isLoggedInUser.next(true);
+            console.log("user1111" + user.value)
             localStorage.setItem("currentUser", JSON.stringify(user));
           }
           return user;
@@ -35,6 +36,7 @@ export class AuthService {
   }
 
   userLogOut() {
+    console.log("LocalStorage " + localStorage.getItem("currentUser"))
     localStorage.removeItem("currenUser");
 
     this.isLoggedInUser.next(false);
@@ -48,4 +50,6 @@ export class AuthService {
     console.log("userIsLoggedIn() " + this.isLoggedInUser.value);
     return this.isLoggedInUser.asObservable();
   }
+
+
 }
