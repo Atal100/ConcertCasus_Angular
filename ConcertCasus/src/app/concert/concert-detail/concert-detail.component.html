@@ -1,0 +1,32 @@
+<section *ngIf="concert">
+    <div class="row">
+      <div class="col-xs-12">
+        <h1>{{ concert.name }}</h1>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+          <label for="artist">music:</label>
+          {{ this.music.name }} 
+        </div>
+      </div>
+    
+    <div class="row">
+      <div class="col-xs-12">
+        <label for="genre">date:</label>
+        {{ concert.date }} 
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <label for="image">adres:</label>
+        {{ concert.adres }}
+      </div>
+    </div>
+    
+   
+
+        <button type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white 
+            shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"(click)="onEditConcert()">Edit Music</button>
+  </section>
+  

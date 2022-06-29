@@ -1,15 +1,4 @@
-<!-- <div class="container"> 
-
-<button (click)="onCreate()" class="btn btn-success">New Artist</button>
-
-<div class="card">
-    <div class="container">
-      <h4><b>John Doe</b></h4>
-      <p>Architect & Engineer</p>
-      {{this.artist.name}}
-    </div>
-  </div>
-</div> -->
+<!-- <!-- <div class="container"> 
 
 
 <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
@@ -24,44 +13,45 @@
 <div class="container">
 <div class="page-layout carded fullwidth inner-scroll">
 
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+
     <div class="inline-form" *ngIf="dataSource != null && dataSource?.data?.length != 0">    
-        <button mat-raised-button routerLink="new" class="inline-button">Nieuw</button>                        
+        <button mat-raised-button routerLink="../new" class="inline-button">Nieuw</button>                        
      </div>
     <div class="card">
-    <!-- TOP BACKGROUND -->
-    <div class="top-bg accent"></div>
-    <!-- / TOP BACKGROUND -->
 
-    <!-- CENTER -->
+    <div class="top-bg accent"></div>
+
+
+ 
     <div class="center">
 
-        <!-- CONTENT CARD -->
+   
         <div class="content-card">
 
-            <!-- CONTENT TOOLBAR -->
             <div class="toolbar px-24 py-8">
                 <span></span>
             </div>
-            <!-- / CONTENT TOOLBAR -->
+         
 
-            <!-- CONTENT -->
             <div class="content p-24" >
                    
                     
 
-                        <router-outlet></router-outlet>
+                   
 
 
                         <div class="mat-elevation-z8" *ngIf="dataSource?.data?.length != 0">
                             <table mat-table [dataSource]="dataSource" matSort>
 
-                                <!-- Name Column -->
+
                                 <ng-container matColumnDef="name">
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Naam </th>
-                                    <td mat-cell *matCellDef="let row"><a class="tableLink" [routerLink]="['../list/edit', row._id]"> {{row.name}}</a></td>
+                                    <td mat-cell *matCellDef="let row"><a class="tableLink" [routerLink]="['../list', row._id]"> {{row.name}}</a></td>
                                 </ng-container>
+                                
 
-                                <!-- Name Column -->
+        
                                 <ng-container matColumnDef="genre">
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Genre</th>
                                     <td mat-cell *matCellDef="let row"> {{row.genre}} </td>
@@ -76,6 +66,7 @@
                                 <tr mat-row *matRowDef="let row; columns: displayedColumns;">
                                 </tr>
                             </table>
+                            
                         </div>
 
                         <div class="table-empty" *ngIf="dataSource == null || this.dataSource.data?.length == 0">
@@ -87,14 +78,81 @@
                  
                       
             </div>
-            <!-- / CONTENT -->
+
 
         </div>
-        <!-- / CONTENT CARD -->
+  
 
     </div>
-    <!-- / CENTER -->
+
 </div>
 
 </div>
 </div>
+</div> -->
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+<div class="lg:flex lg:items-center lg:justify-between">
+    
+
+    <div class="px-4 sm:px-6 lg:px-20">
+        <div class="sm:flex sm:items-center">
+          <div class="sm:flex-auto">
+            <h1 class="text-xl font-semibold text-gray-900">Artist</h1>
+           
+          </div>
+          <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+            <button type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white 
+            shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" routerLink="../new">Add Artist</button>
+          </div>
+        </div>
+        <div class="mt-8 flex flex-col">
+          <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+              <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                <div class="mat-elevation-z8" *ngIf="dataSource?.data?.length != 0">
+                    <table mat-table [dataSource]="dataSource" matSort>
+
+
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name artist </th>
+                            <td mat-cell *matCellDef="let row"><a class="tableLink" [routerLink]="['../list', row._id]"> {{row.name}}</a></td>
+                        </ng-container>
+                        
+
+
+                        <ng-container matColumnDef="genre">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Genre</th>
+                            <td mat-cell *matCellDef="let row"> {{row.genre}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="country">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Country</th>
+                          <td mat-cell *matCellDef="let row"> {{row.country}} </td>
+                      </ng-container>
+
+                        <ng-container matColumnDef="delete">
+                            <th mat-header-cell [ngClass]="'deleteCell'" *matHeaderCellDef> Delete  </th>
+                            <td mat-cell class="deleteCell" *matCellDef="let row" > <a (click)="deleteartist(row._id)" style="color: red">&#10008;</a> </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                        </tr>
+                    </table>
+                   
+                    
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <img [src]= "string">
+        <input type="file"(change)="onselectFile($event)"> -->
+
+        <router-outlet></router-outlet>
+      </div>
+      
+  
+
+  </div>

@@ -13,52 +13,17 @@ import { AlertsComponent } from 'src/app/alerts/alerts.component';
   styleUrls: ['./artist-list.component.css']
 })
 export class ArtistListComponent implements OnInit {
-  artists: Artist[] = [
-    {
-      _id: "fadfaffsffddsaf",
-      name: "Dj Azura",
-      genre: "Techno",
-      image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-    },
-    {
-      _id: "fadfaffsffddsaf",
-      name: "Dj Azura",
-      genre: "Techno",
-      image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-    },
-    {
-      _id: "fadfaffsffddsaf",
-      name: "Dj Azura",
-      genre: "Techno",
-      image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-    },
-    {
-      _id: "fadfaffsffddsaf",
-      name: "Dj Azura",
-      genre: "Techno",
-      image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-    },
-    {
-      _id: "fadfaffsffddsaf",
-      name: "Dj Azura",
-      genre: "Techno",
-      image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-    }
-  ]
-
-  displayedColumns: string[] = ['name','genre','delete']
+  
+  displayedColumns: string[] = ['name','genre','country', 'delete']
   dataSource: MatTableDataSource<Artist>;
   confirmDialogRef: MatDialogRef<AlertsComponent>;
 
   private selectArtist: Artist;
   private _loading: boolean;
 
-  artist: Artist = {
-    _id: "fadfaffsffddsaf",
-    name: "Dj Azura",
-    genre: "Techno",
-    image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-  }
+  artist: Artist;
+  artists: Artist[]
+
 
   constructor(
     private router: Router,
@@ -72,6 +37,19 @@ export class ArtistListComponent implements OnInit {
     console.log(this.artists)
     this.loadArtist()   
   }
+
+  // onselectFile(e){
+  //   if(e.target.files){
+  //     var reader = new FileReader();
+  //     reader.readAsDataURL(e.target.files[0])
+  //     reader.onload=(event: any) => {
+  //       this.string = event.target.result;
+  //     }
+
+  //   }
+  // }
+
+  string ="../../assets/img/placeholder.png "
 
   loadArtist() {
     this.artistService.getArtists().subscribe(
@@ -100,6 +78,7 @@ export class ArtistListComponent implements OnInit {
 
   deleteartist(artistId: string): void{
     this.artistService.deleteArtist(artistId).subscribe(response => {
+      this.loadArtist();
       console.log(response)
     })
   }

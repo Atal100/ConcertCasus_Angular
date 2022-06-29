@@ -1,0 +1,135 @@
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+    <form class="space-y-8  justify-end"  
+    name="concertForm"
+    autocomplete="off"
+    [formGroup]="concertForm"
+    (ngSubmit)="onConcertSubmit()"
+    novalidate>
+    
+        <div class="pt-8">
+    
+          <div>
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Edit Concert</h3>
+            <p class="mt-1 text-sm text-gray-500">These Concerts will be displayed</p>
+          </div>
+    
+          <div class="form-group">
+          <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div class="sm:col-span-3">
+              <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
+              <div class="mt-1">
+                <input
+                type="text"
+                class="form-control"
+                placeholder="Concert name"
+                formControlName="name"
+                name="name"
+                required
+                minlength="3"
+                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+            
+                <div *ngIf="fields.name.invalid && (fields.name.dirty || fields.name.touched)"
+                class="alert">
+              
+                <div *ngIf="fields.name.errors?.['required']">
+                   Name is required.
+                </div>
+                <div *ngIf="fields.name.errors?.['minlength']">
+                  Name must be at least 4 characters long.
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+     
+          <div class="form-group">
+            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div class="sm:col-span-3">            
+              <label for="music" class="block text-sm font-medium text-gray-700"> Musics </label>
+              <div class="mt-1">
+                <select     class="custom-select mr-sm-2"
+                id="music"
+                name="music"
+                formControlName="music"
+                required
+                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                
+                <option *ngFor="let music of musics" value="{{music._id}}"> {{music.name}}</option>
+                </select>
+              </div>
+            </div>
+            </div>
+          </div>
+            
+
+            <div class="form-group">
+                <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div class="sm:col-span-3">
+                <label for="date" class="block text-sm font-medium text-gray-700">Select a date</label>
+                <div class="datepicker relative form-floating mb-3 xl:w-96">
+                  <input type="date"
+                    class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    placeholder="Select a date"
+                    formControlName="date"
+                    required
+                   
+                     />
+                  
+                </div>
+              </div>
+              </div>    
+              </div>
+  
+        
+      
+    
+            <div class="form-group">
+              <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                <div class="sm:col-span-3">
+                  <label for="adres" class="block text-sm font-medium text-gray-700"> City </label>
+                  <div class="mt-1">
+                    <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Adres"
+                    formControlName="adres"
+                    name="adres"
+                    required
+                    minlength="3"
+                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                    
+                    <div *ngIf="fields.adres.invalid && (fields.adres.dirty || fields.adres.touched)"
+                    class="alert">
+                  
+                    <div *ngIf="fields.adres.errors?.['required']">
+                       City is required.
+                    </div>
+                    <div *ngIf="fields.adres.errors?.['minlength']">
+                      City must be at least 4 characters long.
+                    </div>
+                  </div>    
+                
+                </div>
+                </div>
+              </div>
+              </div>  
+         
+    
+           
+          </div>
+        </div>
+        <div>
+        </div>
+        
+    
+      <div class="pt-5">
+        <div class="flex justify-end">
+     
+          <button type="button" routerLink="../../list" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Cancel</button>
+          <div *ngIf="concertForm.valid">
+          <button type="submit"  class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save</button>
+        </div>
+        </div>
+      </div>
+    </form>
+    </div> 

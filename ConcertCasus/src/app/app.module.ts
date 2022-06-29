@@ -21,6 +21,12 @@ import { AuthService } from './auth/auth.service';
 import { UsecasesComponent } from './about/usercases/usecases.component';
 import { UsecaseComponent } from './about/usercases/usecase/usecase.component';
 import { FooterComponent } from './core/footer/footer.component';
+import { MusicDetailComponent } from './music/music-detail/music-detail.component';
+import { MusicListComponent } from './music/music-list/music-list.component';
+import { MusicEditComponent } from './music/music-edit/music-edit.component';
+import { MusicNewComponent } from './music/music-new/music-new.component';
+import { MusicModule } from './music/music.module';
+import { ConcertModule } from './concert/concert.module';
 
 
 
@@ -45,7 +51,10 @@ import { FooterComponent } from './core/footer/footer.component';
     AppRoutingModule,
     RouterModule,
     ArtistRoutingModule,
+    ConcertModule,
     ArtistModule,
+    MusicModule,
+   
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule 

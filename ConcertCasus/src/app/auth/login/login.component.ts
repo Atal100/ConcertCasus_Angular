@@ -38,29 +38,26 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  onSubmit() {
-    this.submitted = true;
-    console.log("onSubmit");
-    console.log(this.loginForm);
-
-    if (this.loginForm.invalid) {
-      return console.log("called when invalid");
+  onSubmit(): void  {
+    if (this.loginForm.valid) {
+      this.submitted = true;
+      const email = this.loginForm.value.email;
+      const password = this.loginForm.value.password;
+      this.authService
+        .userLogin(email, password)
+        // .pipe(delay(1000))
+        .subscribe((user: any) => {
+          if (user) {
+            console.log('Logged in');
+            this.router.navigate(['/']);
+            this.alertService.success("Login successful");
+          }
+          this.submitted = false;
+        });
+    } else {
+      this.submitted = false;
+      console.error('loginForm invalid');
     }
-    console.log("Good Way");
-    this.loading = true;
-    this.authService
-      .userLogin(this.fields['email'].value, this.fields['password'].value)
-      .pipe(first())
-      .subscribe(
-        () => {
-          console.log("route");
-          this.router.navigate(["/dashboard"]);
-        },
-        (error: string) => {
-          console.log(error);
-          this.alertService.error("Er ging iets mis");
-          this.loading = false;
-        }
-      );
   }
-}
+
+  }

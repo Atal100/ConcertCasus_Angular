@@ -28,16 +28,7 @@ export class UserService {
     return this.http.get(`${environment.apiUrl}` + id);
   }
 
-  register(user: User) {
-    console.log("createUser");
-    console.log('user', user)
-    return this.http
-      .post(`${environment.apiUrl}/api/user/register`, user)
-      .pipe(
-        catchError(this.handleError),
-        tap(data => console.log(data))
-      );
-  }
+  
 
   updateUser(user: User) {
     console.log("updateUser");
