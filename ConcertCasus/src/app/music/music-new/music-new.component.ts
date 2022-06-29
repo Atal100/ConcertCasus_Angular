@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
+import { AlertService } from 'src/app/alerts/alert.service';
 import { Artist } from 'src/app/artist/artist.model';
 import { ArtistService } from 'src/app/artist/artist.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Music } from '../music.model';
 import { MusicService } from '../music.service';
 
@@ -31,7 +33,9 @@ export class MusicNewComponent implements OnInit {
     private _musicService: MusicService,
     private _route: ActivatedRoute,
     private _formBuilder: FormBuilder,
-    private _artistService: ArtistService
+    private _artistService: ArtistService,
+    private _authService: AuthService,
+    private alertService: AlertService
 
   ) {
     this.musicForm = this._formBuilder.group({
@@ -62,9 +66,12 @@ export class MusicNewComponent implements OnInit {
     music.duration = this.musicForm.controls['duration'].value;
     music.image = this.musicForm.controls['image'].value;
     music.artist = this.musicForm.controls['artist'].value;
+    music.user = this._authService.currentUser$.value
 
     this._musicService.createMusic(music).subscribe(response => {
+  
       this._router.navigate(['music/list'])
+      this.alertService.success("Succesfully added Music ");
     })
   }
 

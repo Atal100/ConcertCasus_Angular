@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
+import { AlertService } from '../alerts/alert.service';
 import { Music } from './music.model';
 
 @Injectable({
@@ -14,7 +15,7 @@ export class MusicService {
 
   private MusicUrl = "http://localhost:3000/api/music/"
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private alertService: AlertService) {
     console.log("MusicService constructed");
     console.log("Connected to" + this.MusicUrl);
    }
@@ -39,19 +40,55 @@ export class MusicService {
     console.log('createMusic')
 
     return this.http
-    .post<Music>(this.MusicUrl, music)
+    .post<Music>(this.MusicUrl, music).pipe(
+      map((music) => {
+        this.alertService.success("You have succesfully created a Music")
+        return music
+      }),
+      catchError((error: any) => {
+        console.log('error:', error);
+        console.log('error.message:', error.message);
+        console.log('error.error.message:', error.error.message);
+        this.alertService.error(error.error.message || error.message);
+        return of(undefined);
+      })
+    )
    }
 
   updateMusic(music: Music, id: string){
     console.log('updateMusic')
     console.log(id);
-    return this.http.put(this.MusicUrl + music._id, music);
+    return this.http.put(this.MusicUrl + music._id, music).pipe(
+      map((music) => {
+        this.alertService.success("You have succesfully updated a Music")
+        return music
+      }),
+      catchError((error: any) => {
+        console.log('error:', error);
+        console.log('error.message:', error.message);
+        console.log('error.error.message:', error.error.message);
+        this.alertService.error(error.error.message || error.message);
+        return of(undefined);
+      })
+    )
   }
   
   deleteMusic(id: string){
     console.log('deleteMusic ' + id)
     console.log(this.http.delete(this.MusicUrl + id))
-    return this.http.delete(this.MusicUrl + id);
+    return this.http.delete(this.MusicUrl + id).pipe(
+      map((music) => {
+        this.alertService.success("You have succesfully deleted a music")
+        return music
+      }),
+      catchError((error: any) => {
+        console.log('error:', error);
+        console.log('error.message:', error.message);
+        console.log('error.error.message:', error.error.message);
+        this.alertService.error(error.error.message || error.message);
+        return of(undefined);
+      })
+    )
   }
 }
 export interface ApiResponse{

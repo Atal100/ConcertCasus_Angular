@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Params, Router, ActivatedRoute } from '@angular/router';
 import { Subscription, Subject } from 'rxjs';
+import { AlertService } from 'src/app/alerts/alert.service';
 import { Artist } from 'src/app/artist/artist.model';
 import { ArtistService } from 'src/app/artist/artist.service';
 import { Music } from 'src/app/music/music.model';
@@ -37,7 +38,8 @@ export class ConcertEditComponent implements OnInit {
     private _route: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private _artistService: ArtistService,
-    private _concertService: ConcertService
+    private _concertService: ConcertService,
+    private alertService: AlertService
 
   ) {
     this.concertForm = this._formBuilder.group({
@@ -103,6 +105,7 @@ export class ConcertEditComponent implements OnInit {
       this.subscription.add(this._concertService.updateConcert(this.concert, this.concert._id).subscribe(response =>{
         console.log(response)
         this._router.navigate(['concert/list']);
+        this.alertService.success("Succesfully edited concert ");
       }))
 
      

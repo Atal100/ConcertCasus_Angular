@@ -13,39 +13,7 @@ import { AlertsComponent } from 'src/app/alerts/alerts.component';
   styleUrls: ['./artist-list.component.css']
 })
 export class ArtistListComponent implements OnInit {
-  artists: Artist[] = [
-    {
-      _id: "fadfaffsffddsaf",
-      name: "Dj Azura",
-      genre: "Techno",
-      image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-    },
-    {
-      _id: "fadfaffsffddsaf",
-      name: "Dj Azura",
-      genre: "Techno",
-      image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-    },
-    {
-      _id: "fadfaffsffddsaf",
-      name: "Dj Azura",
-      genre: "Techno",
-      image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-    },
-    {
-      _id: "fadfaffsffddsaf",
-      name: "Dj Azura",
-      genre: "Techno",
-      image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-    },
-    {
-      _id: "fadfaffsffddsaf",
-      name: "Dj Azura",
-      genre: "Techno",
-      image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-    }
-  ]
-
+  
   displayedColumns: string[] = ['name','genre','delete']
   dataSource: MatTableDataSource<Artist>;
   confirmDialogRef: MatDialogRef<AlertsComponent>;
@@ -53,12 +21,9 @@ export class ArtistListComponent implements OnInit {
   private selectArtist: Artist;
   private _loading: boolean;
 
-  artist: Artist = {
-    _id: "fadfaffsffddsaf",
-    name: "Dj Azura",
-    genre: "Techno",
-    image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-  }
+  artist: Artist;
+  artists: Artist[]
+
 
   constructor(
     private router: Router,

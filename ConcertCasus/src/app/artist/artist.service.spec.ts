@@ -1,6 +1,7 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
+import { User } from '../user/user.model';
 import { Artist } from './artist.model';
 
 import { ApiResponse, ArtistService } from './artist.service';
@@ -10,35 +11,56 @@ fdescribe('ArtistService', () => {
   let httpSpy: jasmine.SpyObj<HttpClient>;
 
   //mock data
-  const artists: Artist[] = [{
-    _id: "Test",
-    name: "Dj Azura",
-    genre: "Techno",
-    image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-  },{
-  _id: "Test2",
-  name: "Dj Azuras2",
-  genre: "DupStep",
-  image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-},{
-_id: "Test3",
-name: "Dj Azuras1",
-genre: "Classic",
-image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-}]
 
-const artist: Artist = {
-  _id: "Test1",
-name: "Dj Azuras1",
-genre: "Classic",
-image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-}
-const updateartist: Artist ={
-  _id: "Update1",
-name: "Dj Azuras1 Edit",
-genre: "Classic",
-image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-}
+  const user: User = {
+    id: "testZId",
+   firstname: "ataas",
+   lastname: "dfwersa",
+
+   email: "adttw@sdfasdf.nl",
+   password: "qaz",
+   
+
+    
+  }
+//   const artists: Artist[] = [{
+//     _id: "Test",
+//     name: "Dj Azura",
+//     genre: "Techno",
+//     image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
+//     ,
+// user: new User()
+//   },{
+//   _id: "Test2",
+//   name: "Dj Azuras2",
+//   genre: "DupStep",
+//   image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
+//   ,
+// user: new User()
+// },{
+// _id: "Test3",
+// name: "Dj Azuras1",
+// genre: "Classic",
+// image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
+// ,
+// user: new User()
+// }]
+
+// const artist: Artist = {
+//   _id: "Test1",
+// name: "Dj Azuras1",
+// genre: "Classic",
+// image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
+// ,
+// user: new User()
+// }
+// const updateartist: Artist ={
+//   _id: "Update1",
+// name: "Dj Azuras1 Edit",
+// genre: "Classic",
+// image: "https://material.angular.io/assets/img/examples/shiba2.jpg",
+// user: new User()
+// }
 
 
   

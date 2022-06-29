@@ -11,17 +11,12 @@ const routes: Routes =[
 
     {path: "artist/list",
     component: ArtistListComponent,
+    canActivate: [AuthGuard],
     children: [
-        {path: "new", component: ArtistNewComponent,
-         canActivate: [AuthGuard]},
-        {path: ":id", component: ArtistDetailComponent},
         
-        {path: "edit/:id", component: ArtistEditComponent,
-        data: {
-            title: "Edit Artist"
-        },
-        canActivate: [AuthGuard]
-    }
+        {path: ":id", component: ArtistDetailComponent, canActivate: [AuthGuard]},
+        
+       
         
     ]},
 
@@ -30,11 +25,12 @@ const routes: Routes =[
     
     {path: "artist",
     component: ArtistComponent,
+    canActivate: [AuthGuard],
     children: [
         {path: "new", component: ArtistNewComponent,
     canActivate: [AuthGuard]
     },
-        {path: ":id", component: ArtistDetailComponent},
+        {path: ":id", component: ArtistDetailComponent, canActivate: [AuthGuard]},
         
         {path: "edit/:id", component: ArtistEditComponent,
         data: {

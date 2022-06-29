@@ -17,22 +17,22 @@ export class UserRoleNamePipe implements PipeTransform {
   }
 }
 export class User {
-  public id: number;
+  public id: string;
   public firstname: string;
   public lastname: string;
 
   public email: string;
   public password: string;
 
-  roles: UserRole[] = [UserRole.Basic];
+  //roles: UserRole[] = [UserRole.Basic];
 
   constructor(values = {}) {
     Object.assign(this, values);
   }
-  public hasRole(rolename: UserRole): Observable<boolean> {
-    return from(this.roles).pipe(
-      map(val => val === rolename),
-      reduce((a, b) => a || b)
-    );
-  }
+  // public hasRole(rolename: UserRole): Observable<boolean> {
+  //   return from(this.roles).pipe(
+  //     map(val => val === rolename),
+  //     reduce((a, b) => a || b)
+  //   );
+  
 }

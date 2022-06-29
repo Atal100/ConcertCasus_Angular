@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription, Subject } from 'rxjs';
+import { AlertService } from 'src/app/alerts/alert.service';
 import { Artist } from 'src/app/artist/artist.model';
 import { ArtistService } from 'src/app/artist/artist.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Music } from 'src/app/music/music.model';
 import { MusicService } from 'src/app/music/music.service';
 import { Concert } from '../concert.model';
@@ -37,7 +39,9 @@ export class ConcertNewComponent implements OnInit {
     private _route: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private _artistService: ArtistService,
-    private _concertService: ConcertService
+    private _concertService: ConcertService,
+    private _authService: AuthService,
+    private alertService: AlertService
 
   ) {
     this.concertForm = this._formBuilder.group({
@@ -67,9 +71,11 @@ export class ConcertNewComponent implements OnInit {
     concert.music = this.concertForm.controls['music'].value;
     concert.adres = this.concertForm.controls['adres'].value;
     concert.date = this.concertForm.controls['date'].value;
+    concert.user = this._authService.currentUser$.value
 
     this._concertService.createConcert(concert).subscribe(response => {
       this._router.navigate(['concert/list'])
+      this.alertService.success("Succesfully added Concert ");
     })
   }
 

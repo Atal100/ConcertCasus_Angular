@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { of, Subject, Subscription, switchMap, tap } from 'rxjs';
+import { AlertService } from 'src/app/alerts/alert.service';
 import { Artist } from '../artist.model';
 import { ArtistService } from '../artist.service';
 
@@ -43,7 +44,8 @@ export class ArtistEditComponent implements OnInit {
     private _router: Router,
     private _artistService: ArtistService,
     private _route: ActivatedRoute,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private alertService: AlertService
     ) {
       this.artistForm = this._formBuilder.group({
         name: ['', [Validators.required, Validators.minLength(4)]],
@@ -105,6 +107,7 @@ export class ArtistEditComponent implements OnInit {
       this.subscription.add(this._artistService.updateArtist(this.artist, this.artist._id).subscribe(response =>{
         console.log(response)
         this._router.navigate(['artist/list']);
+        this.alertService.success("Succesfully edited Artist ");
       }))
 
      

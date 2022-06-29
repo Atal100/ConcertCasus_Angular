@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
+import { AlertService } from 'src/app/alerts/alert.service';
 import { Artist } from 'src/app/artist/artist.model';
 import { ArtistService } from 'src/app/artist/artist.service';
 import { Music } from '../music.model';
@@ -32,7 +33,8 @@ export class MusicEditComponent implements OnInit {
     private _musicService: MusicService,
     private _route: ActivatedRoute,
     private _formBuilder: FormBuilder,
-    private _artistService: ArtistService
+    private _artistService: ArtistService,
+    private alertService: AlertService
 
   ) {
     this.musicForm = this._formBuilder.group({
@@ -98,6 +100,7 @@ this.musicForm = this._formBuilder.group({
       this.subscription.add(this._musicService.updateMusic(this.music, this.music._id).subscribe(response =>{
         console.log(response)
         this._router.navigate(['music/list']);
+        this.alertService.success("Succesfully edited Music ");
       }))
 
      

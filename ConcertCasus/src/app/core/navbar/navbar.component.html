@@ -92,13 +92,13 @@
         <div class="hidden sm:block sm:ml-6">
           <div class="flex space-x-4">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a routerLinkActive="active" routerLink="dashboard" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
+            <a routerLinkActive="active" routerLink="dashboard"  class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
 
-            <a routerLinkActive="active" routerLink="artist/list" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Artists</a>
+            <a routerLinkActive="active" routerLink="artist/list" *ngIf="isAuthenticated" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Artists</a>
 
-            <a routerLinkActive="active" routerLink="concert/list" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Concerts</a>
+            <a routerLinkActive="active" routerLink="concert/list" *ngIf="isAuthenticated" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Concerts</a>
 
-            <a routerLinkActive="active" routerLink="music/list" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Music</a>
+            <a routerLinkActive="active" routerLink="music/list" *ngIf="isAuthenticated" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Music</a>
           </div>
         </div>
       </div>
@@ -106,15 +106,15 @@
         
       </div>
     
-       <div *ngIf="(isLoggedIn$ | async) === false" class="nav-item">
+       <div *ngIf="!isAuthenticated" class="nav-item">
          
           <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" routerLinkActive="active"routerLink="/login" style="color: #FFFF">Login</a>
         </div>
-       <div *ngIf="(isLoggedIn$ | async) === false" class="nav-item">
+       <div *ngIf="!isAuthenticated" class="nav-item">
           <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" routerLinkActive="active"routerLink="/register" style="color: #FFFF">Register</a>
         </div>
         
-        <div *ngIf="(isLoggedIn$ | async) === true" class="nav-item">
+        <div *ngIf="isAuthenticated"class="nav-item">
           <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" routerLinkActive="active" (click)="(onLogout())" routerLink=""style="color: #FFFF">Log Out</a>
         </div>
 

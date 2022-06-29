@@ -1,54 +1,139 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
 import { User, UserRole } from "../user/user.model";
 import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
-import { map, tap, catchError } from "rxjs/operators";
+import { map, tap, catchError, switchMap } from "rxjs/operators";
 import { AlertService } from "src/app/alerts/alert.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable()
 export class AuthService {
-  public isLoggedInUser = new BehaviorSubject<boolean>(false);
+
+  public isLoggedInUser = new BehaviorSubject<User>(undefined);
+  public currentUser$ = new BehaviorSubject<User>(undefined);
   token: string;
+  private readonly CURRENT_USER = 'currentUser';
+  private readonly headers = new HttpHeaders({
+    'Content-Type': 'application/json'
+  });
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private alertService: AlertService,
+    private http: HttpClient,
+    private router: Router) {
 
-  userLogin(email: string, password: string): any {
-    return this.http
-      .post<any>(`${environment.apiUrl}/api/user/login`, {
-        email,
-        password
+       // Check of we al een ingelogde user hebben
+    // Zo ja, check dan op de backend of het token nog valid is.
+    // Het token kan namelijk verlopen zijn. Indien verlopen
+    // retourneren we meteen een nieuw token.
+    this.getUserFromLocalStorage()
+    .pipe(
+      // switchMap is overbodig als we validateToken() niet gebruiken...
+      switchMap((user: User) => {
+        if (user) {
+          console.log('User found in local storage ' + user);
+          this.currentUser$.next(user);
+          // return this.validateToken(user);
+          return of(user);
+        } else {
+          console.log(`No current user found`);
+          return of(undefined);
+        }
       })
-      .pipe(
-        map(user => {
-          console.log("user.login before if");
+    )
+    .subscribe(() => console.log('Startup auth done'));
+    }
 
-          if (user && user.token) {
-            console.log("after login if");
-            this.isLoggedInUser.next(true);
-            console.log("user1111" + user.value)
-            localStorage.setItem("currentUser", JSON.stringify(user));
-          }
+    userLogin(email: string, password: string): any {
+      return this.http
+        .post<User>(`${environment.apiUrl}/api/user/login`, {
+          email,
+          password
+        })
+        .pipe(
+          map(user => {
+            console.log("user.login before if");
+  
+            if (user) {
+              console.log("after login if");
+              this.currentUser$.next(user);
+              localStorage.setItem("currentUser", JSON.stringify(user));
+            }
+            return user;
+          }),
+        catchError((error: any) => {
+          console.log('error:', error);
+          console.log('error.message:', error.message);
+          console.log('error.error.message:', error.error.message);
+          this.alertService.error(error.error.message || error.message);
+          return of(undefined);
+        })
+      );
+  }
+
+  register(user: User) {
+    console.log("createUser");
+    console.log('user', user)
+    return this.http
+      .post<User>(`${environment.apiUrl}/api/user/register`, user, {})
+      .pipe(
+        map((user) => {
+          // const user = new User(response);
+          console.dir(user);
+        //  this.saveUserToLocalStorage(user);
+        //  this.currentUser$.next(user);
+          this.alertService.success('You have been registered');
           return user;
+        }),
+        catchError((error: any) => {
+          console.log('error:', error);
+          console.log('error.message:', error.message);
+          console.log('error.error.message:', error.error.message);
+          this.alertService.error(error.error.message || error.message);
+          return of(undefined);
         })
       );
   }
 
   userLogOut() {
-    console.log("LocalStorage " + localStorage.getItem("currentUser"))
-    localStorage.removeItem("currenUser");
-
-    this.isLoggedInUser.next(false);
+    this.router
+      .navigate(['/'])
+      .then((success) => {
+        // true when canDeactivate allows us to leave the page.
+        if (success) {
+          console.log('logout - removing local user info');
+          localStorage.removeItem("currentUser");
+          this.currentUser$.next(undefined);
+          this.alertService.success('You have been logged out.');
+        } else {
+          console.log('navigate result:', success);
+        }
+      })
+      .catch((error) => console.log('not logged out!'));
   }
 
   getToken() {
     return this.token;
   }
 
-  get userIsLoggedIn(): Observable<boolean> {
-    console.log("userIsLoggedIn() " + this.isLoggedInUser.value);
-    return this.isLoggedInUser.asObservable();
+  // get userIsLoggedIn(): Observable<boolean> {
+  //   console.log("userIsLoggedIn() " + this.isLoggedInUser.value);
+  //   return this.isLoggedInUser.asObservable();
+  // }
+
+  getUserFromLocalStorage(): Observable<User> {
+    const localUser = JSON.parse(localStorage.getItem("currentUser"));
+    return of(localUser);
+  }
+  private saveUserToLocalStorage(user: User): void {
+    localStorage.setItem(this.CURRENT_USER, JSON.stringify(user));
+  }
+
+  userMayEdit(itemUserId: string): Observable<boolean> {
+    return this.currentUser$.pipe(
+      map((user: User) => (user ? user.id === itemUserId : false))
+    );
   }
 
 
