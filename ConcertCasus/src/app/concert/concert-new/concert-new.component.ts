@@ -71,7 +71,7 @@ export class ConcertNewComponent implements OnInit {
     concert.music = this.concertForm.controls['music'].value;
     concert.adres = this.concertForm.controls['adres'].value;
     concert.date = this.concertForm.controls['date'].value;
-    concert.user = this._authService.currentUser$.value
+    //concert.user = this._authService.currentUser$.value
 
     this._concertService.createConcert(concert).subscribe(response => {
       this._router.navigate(['concert/list'])

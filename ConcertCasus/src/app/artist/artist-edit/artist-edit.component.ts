@@ -50,7 +50,7 @@ export class ArtistEditComponent implements OnInit {
       this.artistForm = this._formBuilder.group({
         name: ['', [Validators.required, Validators.minLength(4)]],
         genre: ['',[Validators.required]],
-        image: ['', [Validators.required, Validators.minLength(4)]]
+        country: ['', [Validators.required, Validators.minLength(4)]]
       })
 
       this.submitWaiting = false;
@@ -84,7 +84,7 @@ export class ArtistEditComponent implements OnInit {
   fillForm(artist: Artist): void{
   this.artistForm = this._formBuilder.group({
         name:  [artist['name']],
-        image: [artist['image']],
+        country: [artist['country']],
         genre: [artist['genre']]
       })
   
@@ -101,7 +101,7 @@ export class ArtistEditComponent implements OnInit {
       this.artist._id = this.params.id
       this.artist.name = this.artistForm.controls['name'].value;
       this.artist.genre = this.artistForm.controls['genre'].value;
-      this.artist.image = this.artistForm.controls['image'].value;
+      this.artist.country = this.artistForm.controls['country'].value;
       console.log("After add " + this.artist.name)
 
       this.subscription.add(this._artistService.updateArtist(this.artist, this.artist._id).subscribe(response =>{

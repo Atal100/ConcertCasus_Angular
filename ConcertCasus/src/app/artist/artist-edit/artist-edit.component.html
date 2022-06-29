@@ -42,13 +42,13 @@
   </div>
 
   <div class="form-group">
-    <label for="image">image url</label>
+    <label for="country">country url</label>
     <input
       type="text"
       class="form-control"
-      placeholder="Image url"
-      formControlName="image"
-      name="image"
+      placeholder="country url"
+      formControlName="country"
+      name="country"
       required
       minlength="3"
     />
@@ -144,29 +144,29 @@
           <div class="form-group">
             <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
               <div class="sm:col-span-3">
-                <label for="image" class="block text-sm font-medium text-gray-700"> Image Url </label>
+                <label for="country" class="block text-sm font-medium text-gray-700"> Country </label>
                 <div class="mt-1">
                   <input
                   type="text"
                   class="form-control"
-                  placeholder="Image url"
-                  formControlName="image"
-                  name="image"
+                  placeholder="Country"
+                  formControlName="country"
+                  name="country"
                   required
                   minlength="3"
                   class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
                   
-                  <div *ngIf="fields.image.invalid && (fields.image.dirty || fields.image.touched)"
+                  <div *ngIf="fields.country.invalid && (fields.country.dirty || fields.country.touched)"
                   class="alert">
                 
-                  <div *ngIf="fields.image.errors?.['required']">
-                    Image name is required.
+                  <div *ngIf="fields.country.errors?.['required']">
+                    Country name is required.
                   </div>
-                  <div *ngIf="fields.image.errors?.['minlength']">
-                    Image must be at least 4 characters long.
+                  <div *ngIf="fields.country.errors?.['minlength']">
+                    Country must be at least 4 characters long.
                   </div>
-                  <div *ngIf="fields.image.errors?.['forbiddenName']">
-                    Image cannot be Bob.
+                  <div *ngIf="fields.country.errors?.['forbiddenName']">
+                    Country cannot be Bob.
                   </div>
                 
                 </div>

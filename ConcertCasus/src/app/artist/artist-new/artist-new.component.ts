@@ -27,6 +27,7 @@ export class ArtistNewComponent implements OnInit {
   //Form
   artistForm: FormGroup
   params: Params;
+  public files: any[];
 
  
 
@@ -42,9 +43,9 @@ export class ArtistNewComponent implements OnInit {
       this.artistForm = this._formBuilder.group({
         name: ['', [Validators.required, Validators.minLength(4)]],
         genre: ['',[Validators.required]],
-        image: ['', [Validators.required, Validators.minLength(4)]]
+        country: ['', [Validators.required, Validators.minLength(4)]]
       })
-
+      this.files = [];
       this.submitWaiting = false;
 
      }
@@ -53,9 +54,30 @@ export class ArtistNewComponent implements OnInit {
   
   }
 
+  string = "placeholder.png"
+
+ 
+
   public get fields() {
     return this.artistForm.controls;
   }
+
+  onFileChanged(event: any) {
+    this.files = event.target.files;
+
+    if(event.target.files){
+           var reader = new FileReader();
+           reader.readAsDataURL(event.target.files[0])
+           reader.onload=(event: any) => {
+             this.string = event.target.result;
+           }
+    
+         }
+  }
+
+  
+
+
 
   onArtistSubmit(){
     this.submitWaiting = true;
@@ -65,7 +87,7 @@ export class ArtistNewComponent implements OnInit {
 
       artist.name = this.artistForm.controls['name'].value;
       artist.genre = this.artistForm.controls['genre'].value;
-      artist.image = this.artistForm.controls['image'].value;
+      artist.country = this.artistForm.controls['country'].value;
       
        
     

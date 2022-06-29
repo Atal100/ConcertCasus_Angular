@@ -14,7 +14,7 @@ import { AlertsComponent } from 'src/app/alerts/alerts.component';
 })
 export class ArtistListComponent implements OnInit {
   
-  displayedColumns: string[] = ['name','genre','delete']
+  displayedColumns: string[] = ['name','genre','country', 'delete']
   dataSource: MatTableDataSource<Artist>;
   confirmDialogRef: MatDialogRef<AlertsComponent>;
 
@@ -37,6 +37,19 @@ export class ArtistListComponent implements OnInit {
     console.log(this.artists)
     this.loadArtist()   
   }
+
+  // onselectFile(e){
+  //   if(e.target.files){
+  //     var reader = new FileReader();
+  //     reader.readAsDataURL(e.target.files[0])
+  //     reader.onload=(event: any) => {
+  //       this.string = event.target.result;
+  //     }
+
+  //   }
+  // }
+
+  string ="../../assets/img/placeholder.png "
 
   loadArtist() {
     this.artistService.getArtists().subscribe(

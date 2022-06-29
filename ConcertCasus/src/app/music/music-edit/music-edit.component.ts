@@ -41,7 +41,7 @@ export class MusicEditComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(4)]],
       artist: ['',[Validators.required]],
       duration: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
-      image: ['', [Validators.required, Validators.minLength(4)]]
+      country: ['', [Validators.required, Validators.minLength(4)]]
     })
 
     this.submitWaiting = false;
@@ -76,7 +76,7 @@ export class MusicEditComponent implements OnInit {
   fillForm(music: Music): void{
 this.musicForm = this._formBuilder.group({
   name: [music['name']],
-  image: [music['image']],
+  country: [music['country']],
   duration: [music['duration']],
   artist: [music['artist']]
 })
@@ -93,7 +93,7 @@ this.musicForm = this._formBuilder.group({
       this.music._id = this.params.id
       this.music.name = this.musicForm.controls['name'].value;
       this.music.duration = this.musicForm.controls['duration'].value;
-      this.music.image = this.musicForm.controls['image'].value;
+      this.music.country = this.musicForm.controls['country'].value;
       this.music.artist = this.musicForm.controls['artist'].value
       console.log("After add " + this.music.name)
 

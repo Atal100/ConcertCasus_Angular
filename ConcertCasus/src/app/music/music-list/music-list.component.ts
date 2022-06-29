@@ -18,7 +18,7 @@ export class MusicListComponent implements OnInit {
   musics: Music[];
   artists: Artist[];
 
-  displayedColumns: string[] = ['name','artist','duration','delete']
+  displayedColumns: string[] = ['name','artist','duration','country','delete']
   dataSource: MatTableDataSource<Music>;
   confirmDialogRef: MatDialogRef<AlertsComponent>;
 

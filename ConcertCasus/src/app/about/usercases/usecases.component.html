@@ -1,117 +1,114 @@
-<div class="row">
-    <div class="col-sm-6 col-md-8 col-lg-9">
-      <h1>Over deze applicatie</h1>
-      <p>
-        Deze applicatie is gemaakt in het kader van het vak 'Clientside web frameworks' van Avans Hogeschool
-        Breda. 
-      </p>
-      <h3>ConcertCasus</h3>
-      <p>
-        Het project houdt als volgt in. Ik moet een angular applicatie maken waarbij ik een bepaald onderwerp toezeg. Ik heb bij dit project gekozen voor een BioscoopCasus.
-        Hierbij maak ik gebruik van 5 enititeiten namelijk: Artist, Concert, Music, Ticket en natuurlijk de User.
-<br>
-<br>
-        <li>
-          Artist wordt gebruikt,omdat bij elk concert een artist op het podium speelt.
-        </li>
-        <li>
-          Concert wordt gebruikt,omdat er een plek moet zijn om artisten te laten optreden en daarbij worden ook de muziek keuzes aangegeven en tickets.
-        </li>
-        <li>
-          Ticket wordt gebruikt, zodat mensen tickets kunnen halen voor een specifieke concert.
-        </li>
-        <li>
-          Music wordt gebruikt, omdat je naar een concert gaat om een artist  te zien optreden.
-        </li>
-        <li>
-          User wordt gebruikt, omdat je hiermee kun authenticeren en een concert binnen gaan.
-        </li>
-  
-  
-      </p>
-    </div>
-    <div class="col-sm-6 col-md-4 col-lg-3">
-      <div class="card">
-        <div class="d-flex justify-content-center align-items-center">
-          <img src="assets\img\Atal_profiel.jpg"
-               class="card-img-top  border profile-pic"
-               alt="..." />
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Atal Kakar</h5>
-          <p class="card-text">
-            Studentnummer: 2126643
-          </p>
-        </div>
-      </div>
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+  <div class="grid grid-cols-3 gap-4">
+<div class="col-span-2">
+  <h1 class= "text-xl font-bold">Over deze applicatie</h1>
+  <p>
+    Deze applicatie is gemaakt in het kader van het vak 'Clientside web
+    frameworks' van Avans Hogeschool Breda.
+  </p>
+  <br/>
+  <h3 class= "text-xl font-bold">ConcertCasus</h3>
+  <p>
+    Het project houdt als volgt in. Ik moet een angular applicatie maken waarbij
+    ik een bepaald onderwerp toezeg. Ik heb bij dit project gekozen voor een
+    ConcertCasus. Hierbij maak ik gebruik van 4 enititeiten namelijk: Artist,
+    Concert, Music en natuurlijk de User.
+    <br />
+    <br />
+    <li>
+      Artist wordt gebruikt,omdat bij elk concert een artist op het podium
+      speelt.
+    </li>
+    <li>
+      Concert wordt gebruikt,omdat er een plek moet zijn om artisten te laten
+      optreden en daarbij worden ook de muziek keuzes aangegeven.
+    </li>
+
+    <li>
+      Music wordt gebruikt, omdat je naar een concert gaat om een artist te zien
+      optreden.
+    </li>
+    <li>
+      User wordt gebruikt, omdat je hiermee kun authenticeren en een concert
+      binnen gaan.
+    </li>
+  </p>
+</div>
+
+<div class="col-span-1">
+  <div class="flex-wrap max-w-sm rounded overflow-hidden shadow-lg">
+    <img
+      class="w-full"
+      src="assets\img\Atal_profiel.jpg"
+      alt="Sunset in the mountains"
+    />
+    <div class="px-6 py-4">
+      <div class="font-bold text-xl mb-2">Atal Kakar</div>
+      <p class="text-gray-700 text-base">Studentnummer: 2126643</p>
     </div>
   </div>
-  
-  <h3>Entiteiten</h3>
-  <div class="row">
-    <div class="col-sm-12 col-md-4">
+</div>
+</div>
+
+  <h3 class= "text-xl font-bold">Entiteiten</h3>
+  <div class="grid grid-flow-col grid-rows- grid-cols- gap-8">
+
+    <div>
       <p>Concert</p>
       <ul>
         <li>_Id: string</li>
         <li>name: string</li>
         <li>music: Music</li>
-        <li>tickets: array<></li>
+
         <li>date: date</li>
         <li>adres: string</li>
       </ul>
     </div>
-    <div class="col-sm-12 col-md-4">
-      <p>Artist</p>
+ <div>
+    <p>Artist</p>
+    <ul>
+      <li>_Id: string</li>
+      <li>name: string</li>
+      <li>genre: string</li>
+      <li>country: string</li>
+    </ul>
+    </div>
+
+    <div>
+      <p>Music</p>
+      <p></p>
       <ul>
         <li>_Id: string</li>
         <li>name: string</li>
-        <li>genre: string</li>
-        <li>image: string</li>
+        <li>artist: Artist</li>
+        <li>duration: number</li>
+        <li>country: string</li>
       </ul>
     </div>
-    <div class="col-sm-12 col-md-4">
-      <p>Music<p>
-        <ul>
-          <li>_Id: string</li>
-          <li>name: string</li>
-          <li>artist: Artist</li>
-          <li>duration: number</li>
-          <li>image: string</li>
-        </ul>
-    </div>
-    <div class="col-sm-12 col-md-4">
-      <p>Ticket<p>
-        <ul>
-          <li>_id: string</li>
-          <li>artist: Artist</li>
-          <li>music: Music</li>
-          <li>concert: Concert</li>
-          <li>date: date</li>
-          <li>userId: number</li>
-        </ul>
-    </div>
-    <div class="col-sm-12 col-md-4">
-      <p>User<p>
-        <ul>
-          <li>email: string</li>
-          <li>password: string</li>
-          <li>firstname: string</li>
-          <li>lastname: string</li>
-         
-        </ul>
+    <div>
+      <p>User</p>
+      <p></p>
+      <ul>
+        <li>email: string</li>
+        <li>password: string</li>
+        <li>firstname: string</li>
+        <li>lastname: string</li>
+      </ul>
     </div>
   </div>
-  
-  
-  
-  <div class="row">
-    <div class="col-12">
-      <h3>Use Cases</h3>
-      <p>De applicatie biedt de volgende functionaliteit.</p>
-      <div *ngFor="let UC of useCases">
-        <app-usecase [useCase]="UC"></app-usecase>
-      </div>
-      <p>Ik weet niet of dit genoeg use- cases zijn dit is alles wat er nu in me op komt.</p>
-    </div>
+
+  <br/>
+  <br/>
+
+  <h3 class= "text-2xl font-bold">Use Cases</h3>
+  <p>De applicatie biedt de volgende functionaliteit.</p>
+  <div class="grid grid-flow-col grid-rows-5 grid-cols-1 gap-8">
+  <div *ngFor="let UC of useCases">
+    <app-usecase [useCase]="UC"></app-usecase>
   </div>
-  
+</div>
+  <p>
+    Ik weet niet of dit genoeg use- cases zijn dit is alles wat er nu in me op
+    komt.
+  </p>
+</div>

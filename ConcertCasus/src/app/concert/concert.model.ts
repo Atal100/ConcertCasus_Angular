@@ -9,7 +9,7 @@ export class Concert{
     music: Music;   
     date: Date;
     adres: string;
-    user: User;
+    //user: User;
 
     constructor(values = {}) {
         Object.assign(this, values);

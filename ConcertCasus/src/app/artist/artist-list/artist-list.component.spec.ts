@@ -2,6 +2,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AlertService } from 'src/app/alerts/alert.service';
 import { Artist } from '../artist.model';
 
 import { ArtistListComponent } from './artist-list.component';
@@ -11,22 +12,6 @@ describe('ArtistListComponent', () => {
   let fixture: ComponentFixture<ArtistListComponent>;
   let httpSpy: jasmine.SpyObj<HttpClient>;
   
-  const artists: Artist[] = [{
-    _id: "Test",
-    name: "Dj Azura",
-    genre: "Techno",
-    image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-  },{
-  _id: "Test2",
-  name: "Dj Azuras2",
-  genre: "DupStep",
-  image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-},{
-_id: "Test3",
-name: "Dj Azuras1",
-genre: "Classic",
-image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-}]
 
   beforeEach(async () => {
     return await TestBed.configureTestingModule({
@@ -34,7 +19,8 @@ image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
       declarations: [ArtistListComponent],
       providers: [
         {provide: MatDialogRef, useValue: {}},
-        {provide: MatDialog, useValue: {}}
+        {provide: MatDialog, useValue: {}},
+        {provide: AlertService, useValue: {}}
       ]
     })
       .compileComponents();
@@ -47,7 +33,7 @@ image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
     fixture.detectChanges();
   });
 
-  fit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

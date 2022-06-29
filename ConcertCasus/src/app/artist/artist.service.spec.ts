@@ -1,13 +1,29 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
+import { AlertService } from '../alerts/alert.service';
+import { AlertsComponent } from '../alerts/alerts.component';
 import { User } from '../user/user.model';
 import { Artist } from './artist.model';
 
 import { ApiResponse, ArtistService } from './artist.service';
+export class TestAlertService{
 
+  private subject = new Subject<any>();
+  private keepAfterNavigationChange = false;
+  
+  success(message: string, keepAfterNavigationChange = false) {
+    this.keepAfterNavigationChange = keepAfterNavigationChange;
+    this.subject.next({ type: "success", text: message });
+  }
+  error(message: string, keepAfterNavigationChange = false) {
+    this.keepAfterNavigationChange = keepAfterNavigationChange;
+    this.subject.next({ type: "success", text: message });
+  }
+}
 fdescribe('ArtistService', () => {
   let service: ArtistService;
+
   let httpSpy: jasmine.SpyObj<HttpClient>;
 
   //mock data
@@ -23,44 +39,41 @@ fdescribe('ArtistService', () => {
 
     
   }
-//   const artists: Artist[] = [{
-//     _id: "Test",
-//     name: "Dj Azura",
-//     genre: "Techno",
-//     image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-//     ,
-// user: new User()
-//   },{
-//   _id: "Test2",
-//   name: "Dj Azuras2",
-//   genre: "DupStep",
-//   image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-//   ,
-// user: new User()
-// },{
-// _id: "Test3",
-// name: "Dj Azuras1",
-// genre: "Classic",
-// image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-// ,
-// user: new User()
-// }]
+   const artists: Artist[] = [{
+     _id: "Test",
+     name: "Dj Azura",
+     genre: "Techno",
+     country: "Nederland" 
 
-// const artist: Artist = {
-//   _id: "Test1",
-// name: "Dj Azuras1",
-// genre: "Classic",
-// image: "https://material.angular.io/assets/img/examples/shiba2.jpg"
-// ,
-// user: new User()
-// }
-// const updateartist: Artist ={
-//   _id: "Update1",
-// name: "Dj Azuras1 Edit",
-// genre: "Classic",
-// image: "https://material.angular.io/assets/img/examples/shiba2.jpg",
-// user: new User()
-// }
+   },{
+   _id: "Test2",
+   name: "Dj Azuras2",
+   genre: "DupStep",
+   country: "Japan"
+   
+
+ },{
+ _id: "Test3",
+ name: "Dj Azuras1",
+ genre: "Classic",
+ country: "Belgie"
+}]
+
+ const artist: Artist = {
+   _id: "Test1",
+ name: "Dj Azuras1",
+ genre: "Classic",
+ country: "Amerika"
+ 
+
+ }
+ const updateartist: Artist ={
+   _id: "Test1",
+ name: "Dj Azuras1 Edit",
+ genre: "Classic",
+ country: "Nederland"
+
+ }
 
 
   
@@ -70,9 +83,12 @@ fdescribe('ArtistService', () => {
 
     TestBed.configureTestingModule({
       
-      providers: [{ provide: HttpClient, useValue: httpSpy}]
+      providers: 
+      [{ provide: HttpClient, useValue: httpSpy},
+        {provide: AlertService, useClass: TestAlertService}]
     });
     service = TestBed.inject(ArtistService);
+    //alertservice = TestBed.inject(AlertService)
     httpSpy = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>
   });
 
@@ -105,23 +121,40 @@ fdescribe('ArtistService', () => {
   });
 
   fit('should edit artist',(done: DoneFn) =>{
-    httpSpy.put.and.returnValue(of(artist))
+    httpSpy.put.and.returnValue(of(updateartist))
 
      service.updateArtist(updateartist,artist._id).subscribe(artistupdate => {
        console.log(artistupdate)
-       expect(artistupdate).toBe(artist)
+       expect(artistupdate).toBe(updateartist)
       
        done();
      })
   });
 
   fit('should delete artist',(done:DoneFn) =>{
-    httpSpy.delete.and.returnValue(of(artist))
+    httpSpy.delete.and.returnValue(of(true))
 
-    service.deleteArtist(artist._id).subscribe(response => {
-      expect(response).toBe(artist)
-       
+
+    const artistdeletes: Artist = {
+      _id: "Test",
+      name: "Dj Azura",
+      genre: "Techno",
+      country: "Nederland" 
+    }
+ 
+  
+    service.deleteArtist(artistdeletes._id).subscribe(response => {
+     
+      console.log(response)
+      console.log(artistdeletes)
+      console.log(artistdeletes._id)
+      expect(response).toBe(true)
+      
       done();
+     
+      
     })
+ 
+ 
   })
 });

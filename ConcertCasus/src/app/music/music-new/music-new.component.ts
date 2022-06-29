@@ -42,7 +42,7 @@ export class MusicNewComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(4)]],
       artist: ['',[Validators.required]],
       duration: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
-      image: ['', [Validators.required, Validators.minLength(4)]]
+      country: ['', [Validators.required, Validators.minLength(4)]]
     })
 
     this.submitWaiting = false;
@@ -64,9 +64,9 @@ export class MusicNewComponent implements OnInit {
 
     music.name = this.musicForm.controls['name'].value;
     music.duration = this.musicForm.controls['duration'].value;
-    music.image = this.musicForm.controls['image'].value;
+    music.country = this.musicForm.controls['country'].value;
     music.artist = this.musicForm.controls['artist'].value;
-    music.user = this._authService.currentUser$.value
+    //music.user = this._authService.currentUser$.value
 
     this._musicService.createMusic(music).subscribe(response => {
   
