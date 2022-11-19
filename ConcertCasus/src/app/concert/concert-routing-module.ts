@@ -11,7 +11,7 @@ import { Concert } from "./concert.model";
 const routes: Routes = [
     {path: "concert/list",
     component: ConcertListComponent,
-    canActivate: [AuthGuard],
+ 
     children: [
    
         {path: ":id", component: ConcertDetailComponent, canActivate: [AuthGuard]},
@@ -23,18 +23,18 @@ const routes: Routes = [
     
     {path: "concert",
     component: ConcertComponent,
-    canActivate: [AuthGuard],
+  
     children: [
         {path: "new", component: ConcertNewComponent,
     canActivate: [AuthGuard]
     },
-        {path: ":id", component: ConcertDetailComponent, canActivate: [AuthGuard]},
+        {path: ":id", component: ConcertDetailComponent},
         
         {path: "edit/:id", component: ConcertEditComponent,
         data: {
             title: "Edit Concert"
         },
-    canActivate: [AuthGuard]
+  
     }
     ]},
 ];
