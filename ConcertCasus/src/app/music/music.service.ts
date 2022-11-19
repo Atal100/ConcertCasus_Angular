@@ -13,7 +13,7 @@ export class MusicService {
   music: Music
 
 
-  private MusicUrl = "https://backend-sportcasus.herokuapp.com/"
+  private MusicUrl = "http://localhost:3000/api/music/"
 
   constructor(private http: HttpClient, private alertService: AlertService) {
     console.log("MusicService constructed");

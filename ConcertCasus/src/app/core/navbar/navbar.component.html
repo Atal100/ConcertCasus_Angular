@@ -99,6 +99,7 @@
             <a routerLinkActive="active" routerLink="concert/list" *ngIf="isAuthenticated" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Concerts</a>
 
             <a routerLinkActive="active" routerLink="music/list" *ngIf="isAuthenticated" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Music</a>
+            <a routerLinkActive="active" routerLink="about" *ngIf="isAuthenticated" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Music</a>
           </div>
         </div>
       </div>
@@ -106,18 +107,7 @@
         
       </div>
     
-       <div *ngIf="!isAuthenticated" class="nav-item">
-         
-          <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" routerLinkActive="active"routerLink="/login" style="color: #FFFF">Login</a>
-        </div>
-       <div *ngIf="!isAuthenticated" class="nav-item">
-          <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" routerLinkActive="active"routerLink="/register" style="color: #FFFF">Register</a>
-        </div>
-        
-        <div *ngIf="isAuthenticated"class="nav-item">
-          <a class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" routerLinkActive="active" (click)="(onLogout())" routerLink=""style="color: #FFFF">Log Out</a>
-        </div>
-
+      
       
   
     </div>
