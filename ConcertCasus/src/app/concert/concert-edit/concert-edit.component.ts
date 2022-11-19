@@ -71,7 +71,7 @@ export class ConcertEditComponent implements OnInit {
         )
       }
     }))
-    this.getMusic()
+    // this.getMusic()
   }
 
   public get fields() {
@@ -115,21 +115,21 @@ export class ConcertEditComponent implements OnInit {
     }
   }
 
-  getMusic(){
-    this._musicService.getMusics().subscribe(
-      musics => {
-        this.musics = musics
+  // getMusic(){
+  //   this._musicService.getMusics().subscribe(
+  //     musics => {
+  //       this.musics = musics
 
-        this.musics.forEach(c => {
-          if(c._id == this.concert._id){
-            this.music = c
-          }
-        })
-      }
-    )
+  //       this.musics.forEach(c => {
+  //         if(c._id == this.concert._id){
+  //           this.music = c
+  //         }
+  //       })
+  //     }
+  //   )
 
     
-  }
+  // }
 
 
 

@@ -27,7 +27,7 @@ export class ArtistDetailComponent implements OnInit {
     this.params = this.route.params.subscribe(params =>{
       this.artist._id = params['id']
       
-      this.getArtist();
+      // this.getArtist();
     }
     
      
@@ -46,19 +46,19 @@ export class ArtistDetailComponent implements OnInit {
     this.router.navigate(["/artist/list"])*/
   } 
   
-  getArtist(){
+  // getArtist(){
     
-  this.artistService.getArtists().subscribe(
-    artists => {
-    this.artists = artists
+  // this.artistService.getArtists().subscribe(
+  //   artists => {
+  //   this.artists = artists
 
-   this.artists.forEach(c => {
-     if(c._id == this.artist._id){
-       this.artist = c;
+  //  this.artists.forEach(c => {
+  //    if(c._id == this.artist._id){
+  //      this.artist = c;
 
-     }
-   })
-    })
-  }
+  //    }
+  //  })
+  //   })
+  // }
 
 }

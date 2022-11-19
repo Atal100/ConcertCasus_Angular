@@ -1,99 +1,3 @@
-<!-- <form
-  name="musicForm"
-  autocomplete="off"
-  [formGroup]="musicForm"
-  (ngSubmit)="onMusicSubmit()"
-  novalidate
->
-<div class="form-group">
-    <label for="name">Music Name</label>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Music name"
-      formControlName="name"
-      name="name"
-      required
-      minlength="3"
-    />
-  </div>
-
-  <div class='form-group'>
-    <label>Duration</label>
-    <input
-      required
-      type='number'
-      class='form-control'
-      min='1'
-      maxval='5'
-      max='5'
-      [(ngModel)]='music.duration'
-      #duration='ngModel'
-      placeholder='Music time in minutes'
-      name='duration'
-    />
-    <div
-      [hidden]='duration.valid || duration.pristine'
-      class='alert alert-danger'
-    >
-      <span>A duration needs to be in between 1 and 5 minutes</span>
-    </div>
-  </div>
-
-
-  <div class="form-row align-items-center">
-    <div class="col-auto my-1">
-      <label class="mr-sm-2" for="duration">Artiesten</label>
-      <select
-        class="custom-select mr-sm-2"
-        id="artist"
-        name="duration"
-        formControlName="duration"
-        required
-      >
-      <option value="Techno">Techno</option>
-      <option value="Dupstep">Dupstep</option>
-      <option value="Rock">Rock</option>
-      <option value="Punk">Punk</option>
-      <option value="Classic">Classic</option>
-      <option value="HipHop">Hip Hop</option>
-      </select>
-      
-    </div>
-  </div>
-
-
-  <div class="form-group">
-    <label for="country">country url</label>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="country url"
-      formControlName="country"
-      name="country"
-      required
-      minlength="3"
-    />
-  </div>
-
-  
-
-  <div class="form-group">
-    <button
-      type="submit"
-      class="btn btn-primary"
-      [disabled]="musicForm.invalid"
-    >
-      Save
-    </button>
-    <button type="button" class="btn btn-danger" routerLink="../">
-      Cancel
-    </button>
-  </div>
-
-
-</form> -->
-
 <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
   <form class="space-y-8  justify-end"  
   name="musicForm"
@@ -105,19 +9,18 @@
       <div class="pt-8">
   
         <div>
-          <h3 class="text-lg leading-6 font-medium text-gray-900">Create Music</h3>
-          <p class="mt-1 text-sm text-gray-500">This artist wil be added to future concerts</p>
+          <h3 class="text-lg leading-6 font-medium text-gray-900">Create Song</h3>
         </div>
   
         <div class="form-group">
         <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
           <div class="sm:col-span-3">
-            <label for="name" class="block text-sm font-medium text-gray-700"> Name Music </label>
+            <label for="name" class="block text-sm font-medium text-gray-700"> Name Song </label>
             <div class="mt-1">
               <input
               type="text"
               class="form-control"
-              placeholder="Music name"
+              placeholder="Song name"
               formControlName="name"
               name="name"
               required
@@ -142,12 +45,12 @@
    
   
           <div class="sm:col-span-3">
-            <label for="artist" class="block text-sm font-medium text-gray-700"> Artists </label>
+            <label for="artists" class="block text-sm font-medium text-gray-700"> Artists </label>
             <div class="mt-1">
               <select     class="custom-select mr-sm-2"
-              id="artist"
-              name="artist"
-              formControlName="artist"
+              id="artists"
+              name="artists"
+              formControlName="artists"
               required
               class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
               
@@ -223,6 +126,25 @@
               </div>
             </div>
             </div>  
+            <div class="sm:col-span-1">
+              <label for="genre" class="block text-sm font-medium text-gray-700"> Genre </label>
+              <div class="mt-1">
+                <select     class="custom-select mr-sm-2"
+                id="genre"
+                name="genre"
+                formControlName="genre"
+                [(ngModel)]="music.genre"
+                required
+                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                  <option value="Techno">Techno</option>
+                  <option value="Dupstep">Dupstep</option>
+                  <option value="Rock">Rock</option>
+                  <option value="Punk">Punk</option>
+                  <option value="Classic">Classic</option>
+                  <option value="HipHop">Hip Hop</option>
+                </select>
+              </div>
+            </div>
        
   
          

@@ -58,64 +58,64 @@ export class ArtistEditComponent implements OnInit {
      }
 
   ngOnInit() {
-    this.subscription.add(this._route.params.subscribe((params) => {
-      this.params = params
-      if(this.params != null) {
-        this._artistService.getArtists().subscribe(
-          artists => {
-          this.artists = artists
+    // this.subscription.add(this._route.params.subscribe((params) => {
+    //   this.params = params
+    //   if(this.params != null) {
+    //     this._artistService.getArtists().subscribe(
+    //       artists => {
+    //       this.artists = artists
       
-         this.artists.forEach(c => {
-           if(c._id == this.params['id']){
-             this.artist = c;
-             console.log("this.Artist d" + this.artist)
-             this.fillForm(this.artist)
-           }
-         })
-          })
-      }
-    }))
+    //      this.artists.forEach(c => {
+    //        if(c._id == this.params['id']){
+    //          this.artist = c;
+    //          console.log("this.Artist d" + this.artist)
+    //          this.fillForm(this.artist)
+    //        }
+    //      })
+    //       })
+    //   }
+    // }))
   }
   public get fields() {
     return this.artistForm.controls;
   }
 
 
-  fillForm(artist: Artist): void{
-  this.artistForm = this._formBuilder.group({
-        name:  [artist['name']],
-        country: [artist['country']],
-        genre: [artist['genre']]
-      })
+  // fillForm(artist: Artist): void{
+  // this.artistForm = this._formBuilder.group({
+  //       name:  [artist['name']],
+  //       country: [artist['country']],
+  //       genre: [artist['genre']]
+  //     })
   
-  }
+  // }
 
-  onArtistSubmit(){
-    this.subscription.add(this._route.params.subscribe((params) => {
-      this.params = params
-    }))
-    this.submitWaiting = true;
-    console.log("artist update", this.artist)
-    if(this.artist != null){
-    console.log(this.params.id)
-      this.artist._id = this.params.id
-      this.artist.name = this.artistForm.controls['name'].value;
-      this.artist.genre = this.artistForm.controls['genre'].value;
-      this.artist.country = this.artistForm.controls['country'].value;
-      console.log("After add " + this.artist.name)
+  // onArtistSubmit(){
+  //   this.subscription.add(this._route.params.subscribe((params) => {
+  //     this.params = params
+  //   }))
+  //   this.submitWaiting = true;
+  //   console.log("artist update", this.artist)
+  //   if(this.artist != null){
+  //   console.log(this.params.id)
+  //     this.artist._id = this.params.id
+  //     this.artist.name = this.artistForm.controls['name'].value;
+  //     this.artist.genre = this.artistForm.controls['genre'].value;
+  //     this.artist.country = this.artistForm.controls['country'].value;
+  //     console.log("After add " + this.artist.name)
 
-      this.subscription.add(this._artistService.updateArtist(this.artist, this.artist._id).subscribe(response =>{
-        console.log(response)
-        this._router.navigate(['artist/list']);
-        this.alertService.success("Succesfully edited Artist ");
-      }))
+  //     this.subscription.add(this._artistService.updateArtist(this.artist, this.artist._id).subscribe(response =>{
+  //       console.log(response)
+  //       this._router.navigate(['artist/list']);
+  //       this.alertService.success("Succesfully edited Artist ");
+  //     }))
 
      
-    }
-    else {
+  //   }
+  //   else {
       
-    }
-  }
+  //   }
+  // }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

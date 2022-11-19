@@ -13,7 +13,7 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     children: [
       
-        {path: ":id", component: MusicDetailComponent}
+        // {path: ":id", component: MusicDetailComponent}
        
     ]},
 

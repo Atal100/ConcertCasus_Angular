@@ -54,8 +54,8 @@ export class ConcertNewComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.getArtists();
-    this.getMusics();
+    // this.getArtists();
+    // this.getMusics();
   }
 
   public get fields() {
@@ -79,28 +79,28 @@ export class ConcertNewComponent implements OnInit {
     })
   }
 
-  getArtists(): any{
-    this._artistService.getArtists().subscribe(
+  // getArtists(): any{
+  //   this._artistService.getArtists().subscribe(
       
-      artists => {
-        console.log("artisten" + artists)
-        this.artists = artists;
-        this._loading = false
-      }
+  //     artists => {
+  //       console.log("artisten" + artists)
+  //       this.artists = artists;
+  //       this._loading = false
+  //     }
       
-    )
-  }
+  //   )
+  // }
 
-  getMusics(): any{
-    this._musicService.getMusics().subscribe(
+  // getMusics(): any{
+  //   this._musicService.getMusics().subscribe(
       
-      musics => {
-        console.log("musics" + musics)
-        this.musics = musics;
-        this._loading = false
-      }
+  //     musics => {
+  //       console.log("musics" + musics)
+  //       this.musics = musics;
+  //       this._loading = false
+  //     }
       
-    )
-  }
+  //   )
+  // }
 
 }

@@ -35,7 +35,7 @@ export class ArtistListComponent implements OnInit {
   
   ngOnInit() {
     console.log(this.artists)
-    this.loadArtist()   
+    // this.loadArtist()   
   }
 
   // onselectFile(e){
@@ -51,17 +51,17 @@ export class ArtistListComponent implements OnInit {
 
   string ="../../assets/img/placeholder.png "
 
-  loadArtist() {
-    this.artistService.getArtists().subscribe(
-      artists => {
+  // loadArtist() {
+  //   this.artistService.getArtists().subscribe(
+  //     artists => {
     
-        this.artists = artists;
-        console.log(this.artists)
-        this._loading = false;
-        this.dataSource = new MatTableDataSource(this.artists)
-      }
-    );
-  }
+  //       this.artists = artists;
+  //       console.log(this.artists)
+  //       this._loading = false;
+  //       this.dataSource = new MatTableDataSource(this.artists)
+  //     }
+  //   );
+  // }
 
   public get loading(): boolean {
     return this._loading;
@@ -78,7 +78,7 @@ export class ArtistListComponent implements OnInit {
 
   deleteartist(artistId: string): void{
     this.artistService.deleteArtist(artistId).subscribe(response => {
-      this.loadArtist();
+      // this.loadArtist();
       console.log(response)
     })
   }

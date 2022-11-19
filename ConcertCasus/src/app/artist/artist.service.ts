@@ -9,7 +9,28 @@ import { Artist } from './artist.model';
 })
 export class ArtistService {
 
-  artists: Artist[];
+  artistss: Artist[] = [
+    {
+      "_id": "AD1",
+      "name": "50 Cent",
+    },
+    {
+      "_id": "AD2",
+      "name": "Kanye West",
+    },
+    {
+      "_id": "AD3",
+      "name": "Maroon 5",
+    },
+    {
+      "_id": "AD4",
+      "name": "Katy Perry",
+    },
+    {
+      "_id": "AD5",
+      "name": "Bruno Mars",
+    }
+  ]
   artist: Artist;
   private ArtistUrl = "http://localhost:3000/api/artist/"
 
@@ -23,20 +44,35 @@ export class ArtistService {
     console.log("Connected to" + this.ArtistUrl);
   }
 
-  getArtists(): Observable<Artist[]>{
-    console.log('getArtists')
-    return this.http
-    .get<Artist[]>(this.ArtistUrl)
-    .pipe(map(artists => artists.map((artist) => new Artist(artist))))
+  getArtists(): Artist[]{
+    // console.log('getArtists')
+    // return this.http
+    // .get<Artist[]>(this.ArtistUrl)
+    // .pipe(map(artists => artists.map((artist) => new Artist(artist))))
 
+    return this.artistss
 
   }
-  getArtist(id: string): Observable<Artist> {
-    console.log('getArtist ' + this.ArtistUrl + id)
-    console.log('https' + this.http
-      .get<Artist>(this.ArtistUrl + id))
+  getArtist(id: string): Artist {
+    // console.log('getArtist ' + this.ArtistUrl + id)
+    // console.log('https' + this.http
+    //   .get<Artist>(this.ArtistUrl + id))
 
-    return this.http.get<Artist>(`${this.ArtistUrl}${id}`)
+    // return this.http.get<Artist>(`${this.ArtistUrl}${id}`)
+
+    this.artistss.forEach(c =>{
+      if(c._id === id){
+        console.log('servicemusic ' + c.name);
+        this.artist = c
+        return c
+
+      }
+      console.log('test')
+      return undefined
+    })
+  return this.artist;
+ 
+
      
     
 
