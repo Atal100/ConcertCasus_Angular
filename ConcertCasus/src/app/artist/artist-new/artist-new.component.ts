@@ -79,29 +79,29 @@ export class ArtistNewComponent implements OnInit {
 
 
 
-  onArtistSubmit(){
-    this.submitWaiting = true;
-    console.log("artist new", this.artist)
+  // onArtistSubmit(){
+  //   this.submitWaiting = true;
+  //   console.log("artist new", this.artist)
   
-        const artist = new Artist();
+  //       const artist = new Artist();
 
-      artist.name = this.artistForm.controls['name'].value;
-      artist.genre = this.artistForm.controls['genre'].value;
-      artist.country = this.artistForm.controls['country'].value;
+  //     artist.name = this.artistForm.controls['name'].value;
+  //     artist.genre = this.artistForm.controls['genre'].value;
+  //     artist.country = this.artistForm.controls['country'].value;
       
        
     
-      console.log("artist new 2 ", artist)
+  //     console.log("artist new 2 ", artist)
 
     
-      this._artistService.createArtist(artist).subscribe(response =>{
-        console.log(response)
-        this._router.navigate(['artist/list'])
-        this.alertService.success("Succesfully added a Artist ");
-      })
+  //     this._artistService.createArtist(artist).subscribe(response =>{
+  //       console.log(response)
+  //       this._router.navigate(['artist/list'])
+  //       this.alertService.success("Succesfully added a Artist ");
+  //     })
     
 
-  }
+  // }
 
 
 

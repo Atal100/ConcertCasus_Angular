@@ -18,6 +18,7 @@ export class MusicNewComponent implements OnInit {
 
   music = new Music();
   artists: Artist[];
+  artist: Artist;
   private _loading: boolean;
   private _error: boolean;
   subscription: Subscription = new Subscription;
@@ -40,9 +41,10 @@ export class MusicNewComponent implements OnInit {
   ) {
     this.musicForm = this._formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
-      artist: ['',[Validators.required]],
+      artists: ['',[Validators.required]],
       duration: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
-      country: ['', [Validators.required, Validators.minLength(4)]]
+      country: ['', [Validators.required, Validators.minLength(4)]],
+      genre: ['', [Validators.required, Validators.minLength(4)]]
     })
 
     this.submitWaiting = false;
@@ -65,26 +67,39 @@ export class MusicNewComponent implements OnInit {
     music.name = this.musicForm.controls['name'].value;
     music.duration = this.musicForm.controls['duration'].value;
     music.country = this.musicForm.controls['country'].value;
-    music.artist = this.musicForm.controls['artist'].value;
+    console.log("test " + this.musicForm.controls['artists'].value)
+    music.artists = [{"_id": this.musicForm.controls['artists'].value , "name": this.getArtist(this.musicForm.controls['artists'].value)  }]
+    music.genre = this.musicForm.controls['genre'].value;
     //music.user = this._authService.currentUser$.value
 
-    this._musicService.createMusic(music).subscribe(response => {
+    this._musicService.createMusic(music)
+    this._router.navigate(['music/list'])
+
+    // this._musicService.createMusic(music).subscribe(response => {
   
-      this._router.navigate(['music/list'])
-      this.alertService.success("Succesfully added Music ");
-    })
+    //   this._router.navigate(['music/list'])
+    //   this.alertService.success("Succesfully added Music ");
+    // })
   }
 
   getArtists(): any{
-    this._artistService.getArtists().subscribe(
+
+
+    this.artists = this._artistService.getArtists();
+
+   
+    // this._artistService.getArtists().subscribe(
       
-      artists => {
-        console.log("artisten" + artists)
-        this.artists = artists;
-        this._loading = false
-      }
+    //   artists => {
+    //     console.log("artisten" + artists)
+    //     this.artists = artists;
+    //     this._loading = false
+    //   }
       
-    )
+    // )
+  }
+  getArtist(id : string): any{
+    this.artist = this._artistService.getArtist(id);
   }
 
   ngOnDestroy(): void {

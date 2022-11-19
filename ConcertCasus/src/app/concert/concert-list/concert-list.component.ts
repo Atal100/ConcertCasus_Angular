@@ -38,9 +38,9 @@ export class ConcertListComponent implements OnInit {
   ) { }
 
   ngOnInit(){
-    this.loadConcert();
-    this.loadMusic();
-    this.getArtists();
+    // this.loadConcert();
+    // this.loadMusic();
+    // this.getArtists();
     
   }
 
@@ -56,29 +56,29 @@ export class ConcertListComponent implements OnInit {
     )
   }
 
-  loadMusic() {
-    this.musicService.getMusics().subscribe(
-      musics => {
+  // loadMusic() {
+  //   this.musicService.getMusics().subscribe(
+  //     musics => {
     
-        this.musics = musics;
-        console.log(this.musics)
-        this._loading = false;
+  //       this.musics = musics;
+  //       console.log(this.musics)
+  //       this._loading = false;
        
-      }
-    );
-  }
+  //     }
+  //   );
+  // }
 
-  getArtists() {
-    this._artistService.getArtists().subscribe(
+  // getArtists() {
+  //   this._artistService.getArtists().subscribe(
       
-      artists => {
-        console.log("artisten" + artists)
-        this.artists = artists;
-        this._loading = false
-      }
+  //     artists => {
+  //       console.log("artisten" + artists)
+  //       this.artists = artists;
+  //       this._loading = false
+  //     }
       
-    )
-  }
+  //   )
+  // }
 
   onSelectConcert(concert: Concert){
     this.selectConcert = concert;

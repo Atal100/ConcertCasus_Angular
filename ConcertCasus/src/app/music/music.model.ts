@@ -4,9 +4,10 @@ import { User } from "../user/user.model";
 export class Music {
     _id: string;
     name: string; 
-    artist: Artist;
     duration: Number;
     country: string;
+    genre: string;
+    artists: Artist[];
     //user: User
 
     constructor(values = {}) {

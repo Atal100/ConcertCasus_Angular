@@ -20,7 +20,7 @@ export class ConcertDetailComponent implements OnInit {
   music: Music
   musics: Music[]
   concert: Concert
-  concerts: Concert[]
+  // concerts: Concert[]
 
   private params: Subscription
 
@@ -40,53 +40,53 @@ export class ConcertDetailComponent implements OnInit {
       this.concert._id = params['id']
       console.log('concerts ' + this.concert._id)
   })
-  this.getConcert();
+  // this.getConcert();
 }
 
 
-getConcert(){
-  this.concertService.getConcerts().subscribe(
-    concerts => {
-      this.concerts = concerts
+// getConcert(){
+//   this.concertService.getConcerts().subscribe(
+//     concerts => {
+//       this.concerts = concerts
 
-      this.concerts.forEach(c => {
-        if(c._id == this.concert._id){
-          this.concert = c
+//       this.concerts.forEach(c => {
+//         if(c._id == this.concert._id){
+//           this.concert = c
 
-          this.musicService.getMusics().subscribe(
-            musics => {
-              this.musics = musics
+//           this.musicService.getMusics().subscribe(
+//             musics => {
+//               this.musics = musics
 
-              this.musics.forEach(c => {
-                if(c._id == this.concert.music.toString()){
-                  this.music = c
-                }
-              })
-            }
-          )
-        }
-      })
-    }
-  )
-}
+//               this.musics.forEach(c => {
+//                 if(c._id == this.concert.music.toString()){
+//                   this.music = c
+//                 }
+//               })
+//             }
+//           )
+//         }
+//       })
+//     }
+//   )
+// }
 
-getArtist(){
+// getArtist(){
     
-  this.artistService.getArtists().subscribe(
-    artists => {
-    this.artists = artists
-    console.log("Test " + this.artists)
+//   this.artistService.getArtists().subscribe(
+//     artists => {
+//     this.artists = artists
+//     console.log("Test " + this.artists)
 
-    this.artists.forEach(c => {
-      console.log("c" + c)
-      console.log("music artis " + this.music.artist)
-      if(c == this.music.artist){
-        this.artist = c
-        console.log("Tessdfadsf " + this.artist)
-      }
-    })
-    })
-  }
+//     this.artists.forEach(c => {
+//       console.log("c" + c)
+//       console.log("music artis " + this.music.artist)
+//       if(c == this.music.artist){
+//         this.artist = c
+//         console.log("Tessdfadsf " + this.artist)
+//       }
+//     })
+//     })
+//   }
 
   // getMusic(){
   //   this.musicService.getMusics().subscribe(
