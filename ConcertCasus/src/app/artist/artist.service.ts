@@ -11,7 +11,7 @@ export class ArtistService {
 
   artists: Artist[];
   artist: Artist;
-  private ArtistUrl = "https://backend-sportcasus.herokuapp.com//"
+  private ArtistUrl = "http://localhost:3000/api/artist/"
 
   private extractData(res: Response) {
     let body = res;

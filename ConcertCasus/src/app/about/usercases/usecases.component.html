@@ -16,8 +16,7 @@
     <br />
     <br />
     <li>
-      Artist wordt gebruikt,omdat bij elk concert een artist op het podium
-      speelt.
+      De entiteit Artist wordt gebruikt, omdat hiermee de concert gevuld kan worden en tijdens een concert zullen artiesten verschillende muziek performen samen of alleen..
     </li>
     <li>
       Concert wordt gebruikt,omdat er een plek moet zijn om artisten te laten
@@ -25,12 +24,10 @@
     </li>
 
     <li>
-      Music wordt gebruikt, omdat je naar een concert gaat om een artist te zien
-      optreden.
+      Music wordt gebruikt, omdat tijdens een concert verschillende muziek wordt gespeeld door verschillende artisten of dezelfde artist.
     </li>
     <li>
-      User wordt gebruikt, omdat je hiermee kun authenticeren en een concert
-      binnen gaan.
+      User wordt gebruikt, omdat je hiermee kun authenticeren. De users zijn evenement orgranizers die concerten aanmaken en daarbij artisten eraan koppelen of maken daarnaast maken en deleten ze muziek en artiesten die zij hebben aangemaakt.
     </li>
   </p>
 </div>
@@ -61,42 +58,43 @@
       <p>Concert</p>
       <ul>
         <li>_Id: string</li>
-        <li>name: string</li>
-        <li>music: Music</li>
-
-        <li>date: date</li>
-        <li>adres: string</li>
+        <li>Name: string</li>
+        <li>Artists: List Artist</li>
+        <li>Date: date</li>
+        <li>Adres: string</li>
       </ul>
     </div>
  <div>
     <p>Artist</p>
     <ul>
       <li>_Id: string</li>
-      <li>name: string</li>
-      <li>genre: string</li>
-      <li>country: string</li>
+      <li>Name: string</li>
+      <li>Musics: List Music</li>
+ 
+     
     </ul>
     </div>
 
     <div>
       <p>Music</p>
-      <p></p>
+     
       <ul>
         <li>_Id: string</li>
-        <li>name: string</li>
-        <li>artist: Artist</li>
-        <li>duration: number</li>
-        <li>country: string</li>
+        <li>Name: string</li>
+        <li>Artist: List Artist</li>
+        <li>Genre: string</li>
+        <li>Duration: number</li>
+        <li>Country: string</li>
       </ul>
     </div>
     <div>
       <p>User</p>
       <p></p>
       <ul>
-        <li>email: string</li>
-        <li>password: string</li>
-        <li>firstname: string</li>
-        <li>lastname: string</li>
+        <li>Email: string</li>
+        <li>Password: string</li>
+        <li>Firstname: string</li>
+        <li>Lastname: string</li>
       </ul>
     </div>
   </div>

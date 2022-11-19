@@ -10,27 +10,24 @@ import { MusicComponent } from "./music.component";
 const routes: Routes = [
     {path: "music/list",
     component: MusicListComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     children: [
       
-        {path: ":id", component: MusicDetailComponent,
-        canActivate: [AuthGuard]},
+        {path: ":id", component: MusicDetailComponent}
+       
     ]},
 
     {path: "music",
     component: MusicComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     children: [
-        {path: "new", component: MusicNewComponent,
-        canActivate: [AuthGuard]},
-        {path: ":id", component: MusicDetailComponent,
-        canActivate: [AuthGuard]},
-        
-        {path: "edit/:id", component: MusicEditComponent,
-        data: {
-            title: "Edit Music"
-        },
-        canActivate: [AuthGuard]}
+        {path: "new", component: MusicNewComponent},
+    
+        {path: ":id", component: MusicDetailComponent},    
+        {path: "edit/:id", component: MusicEditComponent},
+
+      
+    
     ]},
 ];
 
