@@ -4,10 +4,10 @@ import { User } from "../user/user.model";
 export class Music {
     _id: string;
     name: string; 
-    artist: Artist;
+    artists: Artist[];
     duration: Number;
     country: string;
-    //user: User
+    userId: number;
 
     constructor(values = {}) {
         Object.assign(this, values);
