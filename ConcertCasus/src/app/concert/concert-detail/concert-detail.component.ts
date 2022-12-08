@@ -79,11 +79,11 @@ getArtist(){
 
     this.artists.forEach(c => {
       console.log("c" + c)
-      console.log("music artis " + this.music.artist)
-      if(c == this.music.artist){
-        this.artist = c
-        console.log("Tessdfadsf " + this.artist)
-      }
+      console.log("music artis " + this.music.artists)
+      // if(c == this.music.artists){
+      //   this.artist = c
+      //   console.log("Tessdfadsf " + this.artist)
+      // }
     })
     })
   }

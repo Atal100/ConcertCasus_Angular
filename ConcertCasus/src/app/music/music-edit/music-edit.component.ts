@@ -78,7 +78,7 @@ this.musicForm = this._formBuilder.group({
   name: [music['name']],
   country: [music['country']],
   duration: [music['duration']],
-  artist: [music['artist']]
+  artist: [music['artists']]
 })
   }
 
@@ -94,7 +94,7 @@ this.musicForm = this._formBuilder.group({
       this.music.name = this.musicForm.controls['name'].value;
       this.music.duration = this.musicForm.controls['duration'].value;
       this.music.country = this.musicForm.controls['country'].value;
-      this.music.artist = this.musicForm.controls['artist'].value
+      this.music.artists = this.musicForm.controls['artist'].value
       console.log("After add " + this.music.name)
 
       this.subscription.add(this._musicService.updateMusic(this.music, this.music._id).subscribe(response =>{

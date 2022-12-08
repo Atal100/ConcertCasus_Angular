@@ -33,7 +33,7 @@ export class MusicDetailComponent implements OnInit {
     })
 
     this.getMusic();
-    console.log("musicsss" + this.music.artist)
+    console.log("musicsss" + this.music.artists)
    // this.getArtist();
 
    
@@ -53,11 +53,11 @@ export class MusicDetailComponent implements OnInit {
 
       this.artists.forEach(c => {
         console.log("c" + c)
-        console.log("music artis " + this.music.artist)
-        if(c == this.music.artist){
-          this.artist = c
-          console.log("Tessdfadsf " + this.artist)
-        }
+        console.log("music artis " + this.music.artists)
+        // if(c == this.music.artists){
+        //   this.artist = c
+        //   console.log("Tessdfadsf " + this.artist)
+        // }
       })
       })
     }
@@ -70,7 +70,7 @@ export class MusicDetailComponent implements OnInit {
           this.musics.forEach(c => {
             if(c._id == this.music._id){
               this.music = c
-              console.log("music " + this.music.artist)
+              console.log("music " + this.music.artists)
               // this.music.artist = this.artist._id
               this.artistService.getArtists().subscribe(
                 artists => {
@@ -79,8 +79,8 @@ export class MusicDetailComponent implements OnInit {
           
                 this.artists.forEach(c => {
                   console.log("c" + c._id)
-                  console.log("music artis " + this.music.artist)
-                  if(c._id == this.music.artist.toString()){
+                  console.log("music artis " + this.music.artists)
+                  if(c._id == this.music.artists.toString()){
                     this.artist = c
                     console.log("Tessdfadsf " + this.artist)
                   }

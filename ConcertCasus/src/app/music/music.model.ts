@@ -5,9 +5,10 @@ export class Music {
     _id: string;
     name: string; 
     artists: Artist[];
+    genre: string;
     duration: Number;
     country: string;
-    userId: number;
+    userId: string;
 
     constructor(values = {}) {
         Object.assign(this, values);
