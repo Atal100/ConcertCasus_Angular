@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ConcertCasus",
+    "\\ConcertCasus\\src",
+    "\\ConcertCasus\\src\\app",
+    "\\ConcertCasus\\src\\app\\auth",
+    "\\ConcertCasus\\src\\app\\auth\\register"
+  ],
+  "SelectedNode": "\\ConcertCasus\\src\\app\\auth\\register\\register.component.ts",
+  "PreviewInSolutionExplorer": false
+}

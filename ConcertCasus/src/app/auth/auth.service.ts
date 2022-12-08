@@ -79,10 +79,9 @@ export class AuthService {
       .post<User>(`${environment.apiUrl}/api/user/register`, user, {})
       .pipe(
         map((user) => {
-          // const user = new User(response);
+   
           console.dir(user);
-        //  this.saveUserToLocalStorage(user);
-        //  this.currentUser$.next(user);
+    
           this.alertService.success('You have been registered');
           return user;
         }),

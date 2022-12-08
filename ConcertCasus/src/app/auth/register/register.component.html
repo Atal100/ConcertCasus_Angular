@@ -21,13 +21,13 @@
             <input formControlName="firstname" type="text" name="firstname" id="firstname" autocomplete="givenname" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
             
             <div *ngIf="fields.firstname.invalid && (fields.firstname.dirty || fields.firstname.touched)"
-            class="alert">
+            class="alert alert-danger">
           
-            <div *ngIf="fields.firstname.errors?.['required']">
+            <div style="color: red;" *ngIf="fields.firstname.errors?.['required']">
                Firstname is required.
             </div>
-            <div *ngIf="fields.firstname.errors?.['minlength']">
-              Firstname must be at least 4 characters long.
+            <div style="color: red;" *ngIf="fields.firstname.errors?.['minlength']">
+              Firstname must be at least 3 characters long.
             </div>
           </div>
           
@@ -42,10 +42,10 @@
             <div *ngIf="fields.lastname.invalid && (fields.lastname.dirty || fields.lastname.touched)"
             class="alert">
           
-            <div *ngIf="fields.lastname.errors?.['required']">
+            <div style="color: red;" *ngIf="fields.lastname.errors?.['required']">
                Lastname is required.
             </div>
-            <div *ngIf="fields.lastname.errors?.['minlength']">
+            <div style="color: red" *ngIf="fields.lastname.errors?.['minlength']">
               Lastname must be at least 4 characters long.
             </div>
           </div>
@@ -59,8 +59,8 @@
             <input formControlName="email" id="email" name="email" type="email" autocomplete="email" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
             <div *ngIf="fields.email.invalid && (fields.email.dirty || fields.email.touched)"
             class="alert">
-            <div *ngIf="fields.email.errors?.['required']">Email is required</div>
-            <div *ngIf="fields.email.errors?.['email']">This is not a Email</div>
+            <div style="color: red;" *ngIf="fields.email.errors?.['required']">Email is required</div>
+            <div style="color: red;" *ngIf="fields.email.errors?.['email']">This is not a Email, for example  example@something.nl</div>
             </div>
           </div>
         </div>
@@ -76,23 +76,35 @@
           <div *ngIf="fields.password.invalid && (fields.password.dirty || fields.password.touched)"
             class="alert">
           
-            <div *ngIf="fields.password.errors?.['required']">
+            <div style="color: red;" *ngIf="fields.password.errors?.['required']">
                Password is required.
             </div>
-            <div *ngIf="fields.password.errors?.['minlength']">
-              Password must be at least 4 characters long.
+            <div style="color: red;" *ngIf="fields.password.errors?.['minlength']">
+              Password must be at least 6 characters long.
+            </div>
+          </div>  
+        </div>
+
+        
+        <!-- <div class="form-group sm:col-span-3" >
+          <label for="confirmpassword">Repeat Password</label>
+          <input
+            type="password"
+            formControlName="confirmpassword"
+            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+           
+          />
+          <div *ngIf="fields.confirmpassword.invalid && (fields.confirmpassword.dirty || fields.confirmpassword.touched)"
+            class="alert">
+
+            <div *ngIf="fields.confirmpassword.errors?.['notSame']">
+              Password do not match
             </div>
           </div>
 
          
         </div>
-
-        
-       
-
-
-
-       
+   -->
         
       </div>
       <p class="text-center text-muted mt-5 mb-0">
