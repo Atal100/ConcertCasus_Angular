@@ -60,12 +60,13 @@ export class MusicNewComponent implements OnInit {
   onMusicSubmit(){
     this.submitWaiting = true;
 
+    console.log(this.musicForm.controls)
     const music = new Music();
 
-    music.name = this.musicForm.controls['name'].value;
-    music.duration = this.musicForm.controls['duration'].value;
-    music.country = this.musicForm.controls['country'].value;
-    music.artists = this.musicForm.controls['artist'].value;
+    music.name = this.fields['name'].value;
+    music.duration = this.fields['duration'].value;
+    music.country = this.fields['country'].value;
+    music.artists.push(this.fields['artist'].value) 
     music.userId = this._authService.currentUser$.value.id
 
     this._musicService.createMusic(music).subscribe(response => {

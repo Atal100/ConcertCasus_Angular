@@ -23,18 +23,15 @@ export class AuthService {
     private http: HttpClient,
     private router: Router) {
 
-       // Check of we al een ingelogde user hebben
-    // Zo ja, check dan op de backend of het token nog valid is.
-    // Het token kan namelijk verlopen zijn. Indien verlopen
-    // retourneren we meteen een nieuw token.
+
     this.getUserFromLocalStorage()
     .pipe(
-      // switchMap is overbodig als we validateToken() niet gebruiken...
+     
       switchMap((user: User) => {
         if (user) {
-          console.log('User found in local storage ' + user);
+          console.log('User found in local storage ' + user.id);
           this.currentUser$.next(user);
-          // return this.validateToken(user);
+        
           return of(user);
         } else {
           console.log(`No current user found`);
