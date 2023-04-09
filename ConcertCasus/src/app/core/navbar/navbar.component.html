@@ -1,76 +1,4 @@
-<!-- <link rel="stylesheet" routerLink="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-
-
-<nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container-fluid">
-      <a
-      class="navbar-brand"
-      routerLink=""
-      style="color: #FFFF">ConcertCasus</a
-    >
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          
-          <li class="nav-item">
-            <a
-            class="nav-link"
-            routerLinkActive="active"
-            routerLink="artist/list"
-            style="color: #FFFF">Artists</a>
-          </li>
-         
-          <li class="nav-item">
-            <a class="nav-link"routerLinkActive="active" routerLink="concert/list"style="color: #FFFF">Concerts</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"routerLinkActive="active" routerLink="music/list"style="color: #FFFF">Music</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active"routerLink="about"style="color: #FFFF">About</a>
-          </li>
-
-          When logged in-
-          <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active"routerLink="tickets"style="color: #FFFF">My Tickets</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active"routerLink="tickets"style="color: #FFFF">Admin Panel</a>
-          </li>
-          
-      
-        </ul>
-
-
-
-        <ul class="navbar-nav">
-          <li *ngIf="(isLoggedIn$ | async) === false" class="nav-item">
-            <a class="nav-link" routerLinkActive="active"routerLink="/login" style="color: #FFFF">Login in</a>
-          </li>
-          <li *ngIf="(isLoggedIn$ | async) === false" class="nav-item">
-            <a class="nav-link" routerLinkActive="active"routerLink="/register" style="color: #FFFF">Register</a>
-          </li>
-          <li *ngIf="(isLoggedIn$ | async) === true" class="nav-item">
-            <a class="nav-link"routerLinkActive="active" (click)="(onLogout())" routerLink=""style="color: #FFFF">Log Out</a>
-          </li>
-        </ul>
-    
-      </div>
-    </div>
-  </nav>
-
-
-   -->
-
-   <!-- This example requires Tailwind CSS v2.0+ -->
 <nav class="bg-gray-800">
   <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
     <div class="relative flex items-center justify-between h-16">
@@ -95,21 +23,20 @@
       <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
         <div class="hidden sm:block sm:ml-6">
           <div class="flex space-x-4">
-            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
             <a routerLinkActive="active" routerLink="dashboard" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
 
-            <a routerLinkActive="active" routerLink="artist/list"  *ngIf= "this.isAuthenticated == true" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Artists</a>
+            <a routerLinkActive="active" routerLink="artist/list"  *ngIf= "this.isLoggedIn" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Artists</a>
 
-            <a routerLinkActive="active" routerLink="concert/list"  *ngIf= "this.isAuthenticated == true"  class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Concerts</a>
+            <a routerLinkActive="active" routerLink="concert/list"  *ngIf= "this.isLoggedIn"  class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Concerts</a>
 
-            <a routerLinkActive="active" routerLink="music/list"  *ngIf= "this.isAuthenticated == true"  class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Music</a>
+            <a routerLinkActive="active" routerLink="music/list"  *ngIf= "this.isLoggedIn"  class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Music</a>
             <a routerLinkActive="active" routerLink="about"  class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
           </div>
         </div>
       </div>
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
         
-          <div *ngIf="this.isAuthenticated == false" class="nav-item">
+          <div *ngIf="!this.isLoggedIn" class="nav-item">
             <a class="nav-link" routerLinkActive="active" routerLink="/login" style="color: #FFFF">Login</a>
             </div>
           
@@ -117,7 +44,7 @@
             <a class="nav-link" routerLinkActive="active"routerLink="/register" style="color: #FFFF">Register</a>
           </div>
            -->
-          <div *ngIf="this.isAuthenticated == true" class="nav-item">
+          <div *ngIf="this.isLoggedIn" class="nav-item">
             <a class="nav-link"routerLinkActive="active" (click)="(onLogout())" routerLink=""style="color: #FFFF">Log Out</a>
             
             </div>

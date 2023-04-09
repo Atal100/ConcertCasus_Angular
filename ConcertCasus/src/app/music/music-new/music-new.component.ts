@@ -66,7 +66,7 @@ export class MusicNewComponent implements OnInit {
     music.duration = this.musicForm.controls['duration'].value;
     music.country = this.musicForm.controls['country'].value;
     music.artists = this.musicForm.controls['artist'].value;
-    music.userId = this._authService.currentUser$.value.id
+    music.userId = this._authService.currentUser$.id
 
     this._musicService.createMusic(music).subscribe(response => {
   

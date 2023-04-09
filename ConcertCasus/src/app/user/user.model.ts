@@ -24,15 +24,11 @@ export class User {
   public email: string;
   public password: string;
 
-  //roles: UserRole[] = [UserRole.Basic];
+
 
   constructor(values = {}) {
     Object.assign(this, values);
   }
-  // public hasRole(rolename: UserRole): Observable<boolean> {
-  //   return from(this.roles).pipe(
-  //     map(val => val === rolename),
-  //     reduce((a, b) => a || b)
-  //   );
+
   
 }

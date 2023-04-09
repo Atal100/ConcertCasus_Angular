@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       email: ["", Validators.required],
       password: ["", Validators.required]
     });
-    //Login status resetten
+  
     this.authService.userLogOut;
   }
 
@@ -47,11 +47,10 @@ export class LoginComponent implements OnInit {
         const password = this.loginForm.value.password;
   
         this.authService
-          .userLogin(email, password)
-          // .pipe(delay(1000))
-          .subscribe((user: any) => {
-            if (user) {
-              console.log('Logged in');
+          .loginUser(email, password)
+          .subscribe((response: any) => {
+            if (response != null) {
+              this.authService.isLoggedInUser = true;
               this.router.navigate(['/']);
               this.alertService.success("Login successful");
             }
@@ -59,15 +58,10 @@ export class LoginComponent implements OnInit {
           });
       } else {
         this.submitted = false;
-        console.error('loginForm invalid');
         this.alertService.error("Login failed because the form was invalid")
-      }
-      
+      }     
     } catch (error) {
-      this.alertService.error("Login failed");
-      
-    }
-   
+      this.alertService.error("Login failed");      
+    }   
   }
-
   }

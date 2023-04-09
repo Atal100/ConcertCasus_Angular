@@ -10,85 +10,53 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 @Injectable()
 export class AuthService {
 
-  public isLoggedInUser = new BehaviorSubject<User>(undefined);
-  public currentUser$ = new BehaviorSubject<User>(undefined);
-  token: string;
-  private readonly CURRENT_USER = 'currentUser';
-  private readonly headers = new HttpHeaders({
-    'Content-Type': 'application/json'
-  });
+  public isLoggedInUser = false
+  public currentUser$: any
+ 
 
   constructor(
     private alertService: AlertService,
     private http: HttpClient,
     private router: Router) {
 
-       // Check of we al een ingelogde user hebben
-    // Zo ja, check dan op de backend of het token nog valid is.
-    // Het token kan namelijk verlopen zijn. Indien verlopen
-    // retourneren we meteen een nieuw token.
+       
     this.getUserFromLocalStorage()
-    .pipe(
-      // switchMap is overbodig als we validateToken() niet gebruiken...
-      switchMap((user: User) => {
-        if (user) {
-          console.log('User found in local storage ' + user);
-          this.currentUser$.next(user);
-          // return this.validateToken(user);
-          return of(user);
-        } else {
-          console.log(`No current user found`);
-          return of(undefined);
-        }
-      })
+    .pipe(tap(data => {
+      this.currentUser$ = data;
+       if(this.currentUser$ !=null){
+        this.isLoggedInUser = true
+       }
+    })
     )
-    .subscribe(() => console.log('Startup auth done'));
+    }
+    
+
+    loginUser(email: string, password: string) : any{
+      let loginInfo = {email, password}
+       let options = {headers: new HttpHeaders({'Contect-Type': 'application/json'})}
+      return this.http.post(`${environment.apiUrl}/api/user/login`,loginInfo,options)
+      .pipe(tap(data => {
+        this.currentUser$ = data
+        
+        localStorage.setItem("currentUser", JSON.stringify(this.currentUser$.user));
+        return data
+      }))
+      .pipe(catchError( err => {
+        this.alertService.error(err.error.message || err.message);
+        return of (false)
+      }))
     }
 
-    userLogin(email: string, password: string): any {
-      return this.http
-        .post<User>(`${environment.apiUrl}/api/user/login`, {
-          email,
-          password
-        })
-        .pipe(
-          map(user => {
-            console.log("user.login before if");
-  
-            if (user) {
-              console.log("after login if");
-              this.currentUser$.next(user);
-              localStorage.setItem("currentUser", JSON.stringify(user));
-            }
-            return user;
-          }),
-        catchError((error: any) => {
-          console.log('error:', error);
-          console.log('error.message:', error.message);
-          console.log('error.error.message:', error.error.message);
-          this.alertService.error(error.error.message || error.message);
-          return of(undefined);
-        })
-      );
-  }
 
   register(user: User) {
-    console.log("createUser");
-    console.log('user', user)
     return this.http
       .post<User>(`${environment.apiUrl}/api/user/register`, user, {})
       .pipe(
-        map((user) => {
-   
-          console.dir(user);
-    
+        map((user) => {    
           this.alertService.success('You have been registered');
           return user;
         }),
         catchError((error: any) => {
-          console.log('error:', error);
-          console.log('error.message:', error.message);
-          console.log('error.error.message:', error.error.message);
           this.alertService.error(error.error.message || error.message);
           return of(undefined);
         })
@@ -97,13 +65,13 @@ export class AuthService {
 
   userLogOut() {
     this.router
-      .navigate(['/'])
+      .navigate(['/login'])
       .then((success) => {
-        // true when canDeactivate allows us to leave the page.
+       
         if (success) {
-          console.log('logout - removing local user info');
           localStorage.removeItem("currentUser");
-          this.currentUser$.next(undefined);
+          this.currentUser$ = undefined;
+       
           this.alertService.success('You have been logged out.');
         } else {
           console.log('navigate result:', success);
@@ -112,28 +80,20 @@ export class AuthService {
       .catch((error) => console.log('not logged out!'));
   }
 
-  getToken() {
-    return this.token;
-  }
 
-  // get userIsLoggedIn(): Observable<boolean> {
-  //   console.log("userIsLoggedIn() " + this.isLoggedInUser.value);
-  //   return this.isLoggedInUser.asObservable();
-  // }
+  
 
-  getUserFromLocalStorage(): Observable<User> {
+  getUserFromLocalStorage(): any {
     const localUser = JSON.parse(localStorage.getItem("currentUser"));
+    console.log(localUser)
     return of(localUser);
   }
-  private saveUserToLocalStorage(user: User): void {
-    localStorage.setItem(this.CURRENT_USER, JSON.stringify(user));
-  }
 
-  userMayEdit(itemUserId: string): Observable<boolean> {
-    return this.currentUser$.pipe(
-      map((user: User) => (user ? user.id === itemUserId : false))
-    );
-  }
+  // userMayEdit(itemUserId: string): Observable<boolean> {
+  //   return this.currentUser$.pipe(
+  //     map((user: User) => (user ? user.id === itemUserId : false))
+  //   );
+  // }
 
 
 }
