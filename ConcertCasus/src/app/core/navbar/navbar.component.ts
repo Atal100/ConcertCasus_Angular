@@ -11,10 +11,7 @@ import { relativeTimeThreshold } from "moment";
   templateUrl: "./navbar.component.html"
 })
 export class NavbarComponent {
-  isAuthenticated = false
-  private userSub: Subscription;
   isLoggedIn: any;
-  json: any
   constructor(private authService: AuthService, private router: Router) {}
 
   @Input() apptitle: string;
@@ -23,29 +20,17 @@ export class NavbarComponent {
 
   ngOnInit() {
 
-   // this.isLoggedIn$ = this.authService.currentUser$
-    console.log("logged in " + this.isLoggedIn)
-    this.userSub = this.authService.currentUser$.subscribe(user => {
-      this.isAuthenticated = !!user;
-      console.log(!user);
-      console.log(!!user);
-
-        })
-
-   this.authService.getUserFromLocalStorage().subscribe(user => {
-      console.log(user);
-       this.json = user
-     
-    });
-    console.log(this.isLoggedIn);
-  
-    
-    
-    
+    this.router.events.subscribe(event => {
+      if (event.constructor.name === "NavigationEnd") {
+       this.isLoggedIn = this.authService.isLoggedInUser;
+      }
+    })
   }
 
   onLogout() {
     this.authService.userLogOut();
+    this.authService.isLoggedInUser = false
+    this.ngOnInit()
   }
 
   @Input() title: string;
