@@ -8,7 +8,7 @@ export class Music {
     genre: string;
     duration: Number;
     country: string;
-    userId: string;
+    user: User;
 
     constructor(values = {}) {
         Object.assign(this, values);

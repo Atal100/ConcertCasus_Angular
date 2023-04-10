@@ -12,25 +12,31 @@ import { relativeTimeThreshold } from "moment";
 })
 export class NavbarComponent {
   isLoggedIn: any;
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   @Input() apptitle: string;
 
 
 
-  ngOnInit() {
 
-    this.router.events.subscribe(event => {
-      if (event.constructor.name === "NavigationEnd") {
-       this.isLoggedIn = this.authService.isLoggedInUser;
+  ngOnInit() {
+    console.log("called in")
+    
+        console.log("test" + this.authService.getUserFromLocalStorage())
+        if(this.authService.getUserFromLocalStorage() != null){
+          this.isLoggedIn = this.authService.isLoggedInUser
+        }
+       
       }
-    })
-  }
+
+
+
 
   onLogout() {
+    console.log("called out")
     this.authService.userLogOut();
-    this.authService.isLoggedInUser = false
-    this.ngOnInit()
+
+
   }
 
   @Input() title: string;

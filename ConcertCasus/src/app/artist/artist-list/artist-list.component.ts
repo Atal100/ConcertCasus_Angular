@@ -28,7 +28,6 @@ export class ArtistListComponent implements OnInit {
   constructor(
     private router: Router,
     private artistService: ArtistService,
-    private _matDialog: MatDialog
   ) { 
   }
   

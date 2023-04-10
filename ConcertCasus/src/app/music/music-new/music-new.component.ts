@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { AlertService } from 'src/app/alerts/alert.service';
@@ -40,7 +40,7 @@ export class MusicNewComponent implements OnInit {
   ) {
     this.musicForm = this._formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
-      artist: ['',[Validators.required]],
+      artists: this._formBuilder.array([]),
       duration: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
       country: ['', [Validators.required, Validators.minLength(4)]]
     })
@@ -50,6 +50,7 @@ export class MusicNewComponent implements OnInit {
 
   ngOnInit(){
     this.getArtists();
+    this.addArtist();
   
   }
 
@@ -57,22 +58,40 @@ export class MusicNewComponent implements OnInit {
     return this.musicForm.controls;
   }
 
+  public get newartist() {
+    return this.musicForm.controls["artists"] as FormArray
+  }
+
+  addArtist(){
+    const artistForm = this._formBuilder.group({
+      artists: ['',[Validators.required]],
+    });
+
+    this.newartist.push(artistForm);
+
+  }
+  deleteArtist(artistIndex: number) {
+    this.newartist.removeAt(artistIndex);
+}
+
   onMusicSubmit(){
     this.submitWaiting = true;
-
-    console.log(this.musicForm.controls)
     const music = new Music();
-
+    music.artists = [];
     music.name = this.fields['name'].value;
     music.duration = this.fields['duration'].value;
     music.country = this.fields['country'].value;
-    music.artists.push(this.fields['artist'].value) 
-    music.userId = this._authService.currentUser$.value.id
+    music.artists = this.fields['artists'].value 
+    music.user = this._authService.currentUser$
+
+    console.log(music)
 
     this._musicService.createMusic(music).subscribe(response => {
-  
-      this._router.navigate(['music/list'])
-      this.alertService.success("Succesfully added Music ");
+     
+        this._router.navigate(['music/list'])
+        this.alertService.success("You have succesfully created a Music")
+    
+      
     })
   }
 

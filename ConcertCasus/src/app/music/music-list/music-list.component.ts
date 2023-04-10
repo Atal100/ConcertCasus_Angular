@@ -18,7 +18,7 @@ export class MusicListComponent implements OnInit {
   musics: Music[];
   artists: Artist[];
 
-  displayedColumns: string[] = ['name','artist','duration','country','delete']
+  displayedColumns: string[] = ['name','artists','duration','country','delete']
   dataSource: MatTableDataSource<Music>;
   confirmDialogRef: MatDialogRef<AlertsComponent>;
 
@@ -43,7 +43,9 @@ export class MusicListComponent implements OnInit {
       musics => {
     
         this.musics = musics;
-        console.log(this.musics)
+    
+        console.log("Muzieken ",this.musics)
+        
         this._loading = false;
         this.dataSource = new MatTableDataSource(this.musics)
       }

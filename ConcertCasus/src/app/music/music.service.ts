@@ -16,28 +16,21 @@ export class MusicService {
   private MusicUrl = "http://localhost:3000/api/music/"
 
   constructor(private http: HttpClient, private alertService: AlertService) {
-    console.log("MusicService constructed");
-    console.log("Connected to" + this.MusicUrl);
+
    }
 
    getMusics(): Observable<Music[]>{
-     console.log('getMusics')
 
      return this.http
      .get<Music[]>(this.MusicUrl)
-     .pipe(map(musics => musics.map((music) => new Music(music))))
+     
    }
 
-   getMusic(id: string): Observable<Music> {
-    console.log('getMusic ' + this.MusicUrl + id)
-    console.log('https' + this.http
-      .get<Music>(this.MusicUrl + id))
-
+   getMusic(id: string): any {
     return this.http.get<Music>(this.MusicUrl + id)
   }
 
   createMusic(music: Music){
-    console.log('createMusic')
 
     return this.http
     .post<Music>(this.MusicUrl, music).pipe(
@@ -46,18 +39,14 @@ export class MusicService {
         return music
       }),
       catchError((error: any) => {
-        console.log('error:', error);
-        console.log('error.message:', error.message);
-        console.log('error.error.message:', error.error.message);
         this.alertService.error(error.error.message || error.message);
-        return of(undefined);
+        return error;
       })
     )
    }
 
   updateMusic(music: Music, id: string){
-    console.log('updateMusic')
-    console.log(id);
+
     return this.http.put(this.MusicUrl + music._id, music).pipe(
       map((music) => {
         this.alertService.success("You have succesfully updated a Music")
@@ -82,9 +71,6 @@ export class MusicService {
         return music
       }),
       catchError((error: any) => {
-        console.log('error:', error);
-        console.log('error.message:', error.message);
-        console.log('error.error.message:', error.error.message);
         this.alertService.error(error.error.message || error.message);
         return of(undefined);
       })

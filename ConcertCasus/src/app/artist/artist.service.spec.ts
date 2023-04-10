@@ -1,17 +1,20 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { TestBed } from '@angular/core/testing';
-import { of, Subject } from 'rxjs';
+import { RouterModule } from '@angular/router';
+import { Router } from 'express';
+import { Observable, of, Subject } from 'rxjs';
 import { AlertService } from '../alerts/alert.service';
 import { AlertsComponent } from '../alerts/alerts.component';
 import { User } from '../user/user.model';
 import { Artist } from './artist.model';
 
 import { ApiResponse, ArtistService } from './artist.service';
-export class TestAlertService{
+export class TestAlertService {
 
   private subject = new Subject<any>();
   private keepAfterNavigationChange = false;
-  
+
   success(message: string, keepAfterNavigationChange = false) {
     this.keepAfterNavigationChange = keepAfterNavigationChange;
     this.subject.next({ type: "success", text: message });
@@ -22,6 +25,7 @@ export class TestAlertService{
   }
 }
 fdescribe('ArtistService', () => {
+
   let service: ArtistService;
 
   let httpSpy: jasmine.SpyObj<HttpClient>;
@@ -76,8 +80,6 @@ fdescribe('ArtistService', () => {
  }
 
 
-  
-
   beforeEach(() => {
     httpSpy = jasmine.createSpyObj('HttpClient', ['get', 'post','put','delete']);
 
@@ -115,6 +117,7 @@ fdescribe('ArtistService', () => {
       console.log(artistcreated)
       expect(artistcreated).toBe(artist);
       expect(artistcreated._id).toBe(artist._id)
+      expect(artistcreated.name).toEqual("Dj Azuras1")
       done();
 
     })
@@ -124,9 +127,9 @@ fdescribe('ArtistService', () => {
     httpSpy.put.and.returnValue(of(updateartist))
 
      service.updateArtist(updateartist,artist._id).subscribe(artistupdate => {
-       console.log(artistupdate)
+       console.log(updateartist)
        expect(artistupdate).toBe(updateartist)
-      
+       expect(artistupdate.name).toEqual("Dj Azuras1 Edit")    
        done();
      })
   });
@@ -143,13 +146,11 @@ fdescribe('ArtistService', () => {
     }
  
   
-    service.deleteArtist(artistdeletes._id).subscribe(response => {
-     
+    service.deleteArtist(artistdeletes._id).subscribe(response => {   
       console.log(response)
       console.log(artistdeletes)
       console.log(artistdeletes._id)
-      expect(response).toBe(true)
-      
+      expect(response).toBe(true)     
       done();
      
       

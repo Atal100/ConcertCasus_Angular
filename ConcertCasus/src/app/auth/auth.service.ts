@@ -18,16 +18,15 @@ export class AuthService {
     private alertService: AlertService,
     private http: HttpClient,
     private router: Router) {
+      console.log(" test")
 
        
-    this.getUserFromLocalStorage()
-    .pipe(tap(data => {
-      this.currentUser$ = data;
-       if(this.currentUser$ !=null){
-        this.isLoggedInUser = true
-       }
-    })
-    )
+    this.currentUser$ = this.getUserFromLocalStorage()
+    if(this.currentUser$ != null){
+      console.log("logged uin")
+      this.isLoggedInUser = true
+ 
+  }
     }
     
 
@@ -39,7 +38,7 @@ export class AuthService {
         this.currentUser$ = data
         
         localStorage.setItem("currentUser", JSON.stringify(this.currentUser$.user));
-        return data
+        return this.currentUser$
       }))
       .pipe(catchError( err => {
         this.alertService.error(err.error.message || err.message);
@@ -69,8 +68,10 @@ export class AuthService {
       .then((success) => {
        
         if (success) {
+          console.log("removed")
           localStorage.removeItem("currentUser");
-          this.currentUser$ = undefined;
+          this.currentUser$ = null;
+          this.isLoggedInUser = false;
        
           this.alertService.success('You have been logged out.');
         } else {
@@ -83,11 +84,15 @@ export class AuthService {
 
   
 
-  getUserFromLocalStorage(): any {
+  getUserFromLocalStorage(): User {
     const localUser = JSON.parse(localStorage.getItem("currentUser"));
     console.log(localUser)
-    return of(localUser);
+    return <User>localUser;
   }
+isAuthenticated(){
+  return !!this.currentUser$
+}
+
 
   // userMayEdit(itemUserId: string): Observable<boolean> {
   //   return this.currentUser$.pipe(
