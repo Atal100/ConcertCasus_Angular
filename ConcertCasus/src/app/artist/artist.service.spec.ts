@@ -1,7 +1,6 @@
 import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { TestBed } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
 import { Router } from 'express';
 import { Observable, of, Subject } from 'rxjs';
 import { AlertService } from '../alerts/alert.service';
