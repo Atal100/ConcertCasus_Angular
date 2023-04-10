@@ -29,5 +29,5 @@ jobs:
 
      
     - run: npm ci
-
+    - run: npm install @angular/cdk --save
     - run: npm test
