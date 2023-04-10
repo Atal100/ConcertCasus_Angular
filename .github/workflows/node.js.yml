@@ -36,6 +36,9 @@ jobs:
     
   deploy:
     name: 'Deploy'
+    defaults:
+        run:
+         working-directory: './ConcertCasus'
     runs-on: ubuntu-latest
     needs:
             - run-affected-unit-tests   
