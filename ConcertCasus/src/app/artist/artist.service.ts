@@ -89,9 +89,6 @@ export class ArtistService {
         return artist
       }),
       catchError((error: any) => {
-        console.log('error:', error);
-        console.log('error.message:', error.message);
-        console.log('error.error.message:', error.error.message);
         this.alertService.error(error.error.message || error.message);
         return of(undefined);
       })
@@ -100,17 +97,13 @@ export class ArtistService {
    }
 
   updateArtist(artist: Artist, id: string){
-    console.log('updateArtist')
-    console.log(id);
-    return this.http.put(this.ArtistUrl + artist._id, artist).pipe(
+    return this.http.put<Artist>(this.ArtistUrl + artist._id, artist).pipe(
       map((artist) => {
         this.alertService.success("You have succesfully updated a Artist")
         return artist
       }),
       catchError((error: any) => {
-        console.log('error:', error);
-        console.log('error.message:', error.message);
-        console.log('error.error.message:', error.error.message);
+
         this.alertService.error(error.error.message || error.message);
         return of(undefined);
       })
@@ -118,17 +111,12 @@ export class ArtistService {
   }
   
   deleteArtist(id: string){
-    console.log('deleteArtist ' + id)
-    console.log(this.http.delete(this.ArtistUrl + id))
     return this.http.delete(this.ArtistUrl + id).pipe(
       map((artist) => {
         this.alertService.success("You have succesfully deleted a Artist")
         return artist
       }),
       catchError((error: any) => {
-        console.log('error:', error);
-        console.log('error.message:', error.message);
-        console.log('error.error.message:', error.error.message);
         this.alertService.error(error.error.message || error.message);
         return of(undefined);
       })

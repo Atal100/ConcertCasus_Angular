@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { AlertService } from 'src/app/alerts/alert.service';
@@ -18,7 +18,6 @@ export class MusicNewComponent implements OnInit {
 
   music = new Music();
   artists: Artist[];
-  artist: Artist;
   private _loading: boolean;
   private _error: boolean;
   subscription: Subscription = new Subscription;
@@ -41,10 +40,9 @@ export class MusicNewComponent implements OnInit {
   ) {
     this.musicForm = this._formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
-      artists: ['',[Validators.required]],
+      artists: this._formBuilder.array([]),
       duration: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
-      country: ['', [Validators.required, Validators.minLength(4)]],
-      genre: ['', [Validators.required, Validators.minLength(4)]]
+      country: ['', [Validators.required, Validators.minLength(4)]]
     })
 
     this.submitWaiting = false;
@@ -52,6 +50,7 @@ export class MusicNewComponent implements OnInit {
 
   ngOnInit(){
     this.getArtists();
+    this.addArtist();
   
   }
 
@@ -59,47 +58,53 @@ export class MusicNewComponent implements OnInit {
     return this.musicForm.controls;
   }
 
+  public get newartist() {
+    return this.musicForm.controls["artists"] as FormArray
+  }
+
+  addArtist(){
+    const artistForm = this._formBuilder.group({
+      artists: ['',[Validators.required]],
+    });
+
+    this.newartist.push(artistForm);
+
+  }
+  deleteArtist(artistIndex: number) {
+    this.newartist.removeAt(artistIndex);
+}
+
   onMusicSubmit(){
     this.submitWaiting = true;
-
     const music = new Music();
+    music.artists = [];
+    music.name = this.fields['name'].value;
+    music.duration = this.fields['duration'].value;
+    music.country = this.fields['country'].value;
+    music.artists = this.fields['artists'].value 
+    music.user = this._authService.currentUser$
 
-    music.name = this.musicForm.controls['name'].value;
-    music.duration = this.musicForm.controls['duration'].value;
-    music.country = this.musicForm.controls['country'].value;
-    console.log("test " + this.musicForm.controls['artists'].value)
-    music.artists = [{"_id": this.musicForm.controls['artists'].value , "name": this.getArtist(this.musicForm.controls['artists'].value)  }]
-    music.genre = this.musicForm.controls['genre'].value;
-    //music.user = this._authService.currentUser$.value
+    console.log(music)
 
-    this._musicService.createMusic(music)
-    this._router.navigate(['music/list'])
-
-    // this._musicService.createMusic(music).subscribe(response => {
-  
-    //   this._router.navigate(['music/list'])
-    //   this.alertService.success("Succesfully added Music ");
-    // })
+    this._musicService.createMusic(music).subscribe(response => {
+     
+        this._router.navigate(['music/list'])
+        this.alertService.success("You have succesfully created a Music")
+    
+      
+    })
   }
 
   getArtists(): any{
-
-
-    this.artists = this._artistService.getArtists();
-
-   
-    // this._artistService.getArtists().subscribe(
+    this._artistService.getArtists().subscribe(
       
-    //   artists => {
-    //     console.log("artisten" + artists)
-    //     this.artists = artists;
-    //     this._loading = false
-    //   }
+      artists => {
+        console.log("artisten" + artists)
+        this.artists = artists;
+        this._loading = false
+      }
       
-    // )
-  }
-  getArtist(id : string): any{
-    this.artist = this._artistService.getArtist(id);
+    )
   }
 
   ngOnDestroy(): void {

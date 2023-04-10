@@ -18,7 +18,7 @@ export class MusicListComponent implements OnInit {
   musics: Music[];
   artists: Artist[];
 
-  displayedColumns: string[] = ['name','artist','duration','genre','country', 'delete']
+  displayedColumns: string[] = ['name','artists','duration','country','delete']
   dataSource: MatTableDataSource<Music>;
   confirmDialogRef: MatDialogRef<AlertsComponent>;
 
@@ -39,22 +39,17 @@ export class MusicListComponent implements OnInit {
   }
 
   loadMusic() {
-   
-
-    this.musics = this.musicService.getMusics()
-    console.log(this.musics);
-   this.loading = false;
-   this.dataSource = new MatTableDataSource(this.musics);
-   
-    // this.musicService.getMusics().subscribe(
-    //   musics => {
+    this.musicService.getMusics().subscribe(
+      musics => {
     
-    //     this.musics = musics;
-    //     console.log(this.musics)
-    //     this._loading = false;
-    //     this.dataSource = new MatTableDataSource(this.musics)
-    //   }
-    // );
+        this.musics = musics;
+    
+        console.log("Muzieken ",this.musics)
+        
+        this._loading = false;
+        this.dataSource = new MatTableDataSource(this.musics)
+      }
+    );
   }
 
   public get loading(): boolean {
@@ -67,34 +62,26 @@ export class MusicListComponent implements OnInit {
 
   onSelectMusic(music: Music){
     this.selectMusic = music;
-    this.router.navigate(["../"+ this.selectMusic._id])
+    this.router.navigate(["/music/list/" + this.selectMusic._id])
   }
 
   getArtists(): any{
-
-    this.artists = this._artistService.getArtists()
-
-   
-    this.loading = false;
-   
-    // this._artistService.getArtists().subscribe(
+    this._artistService.getArtists().subscribe(
       
-    //   artists => {
-    //     console.log("artisten" + artists)
-    //     this.artists = artists;
-    //     this._loading = false
-    //   }
+      artists => {
+        console.log("artisten" + artists)
+        this.artists = artists;
+        this._loading = false
+      }
       
-    // )
+    )
   }
 
   deletemusic(musicId: string): void{
-    this.musicService.deleteMusic(musicId)
-    this.loadMusic();
-    // this.musicService.deleteMusic(musicId).subscribe(response => {
-    //   this.loadMusic();
-    //   console.log(response)
-    // })
+    this.musicService.deleteMusic(musicId).subscribe(response => {
+      this.loadMusic();
+      console.log(response)
+    })
   }
 
 }

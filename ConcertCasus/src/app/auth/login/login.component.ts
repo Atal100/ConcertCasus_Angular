@@ -39,25 +39,34 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void  {
-    if (this.loginForm.valid) {
-      this.submitted = true;
-      const email = this.loginForm.value.email;
-      const password = this.loginForm.value.password;
-      this.authService
-        .userLogin(email, password)
-        // .pipe(delay(1000))
-        .subscribe((user: any) => {
-          if (user) {
-            console.log('Logged in');
-            this.router.navigate(['/']);
-            this.alertService.success("Login successful");
-          }
-          this.submitted = false;
-        });
-    } else {
-      this.submitted = false;
-      console.error('loginForm invalid');
+    try {
+      if (this.loginForm.valid) {
+        this.submitted = true;
+  
+        const email = this.loginForm.value.email;
+        const password = this.loginForm.value.password;
+  
+        this.authService
+          .loginUser(email, password)
+          .subscribe((response: any) => {
+            if (response) {
+              console.log('Logged in');
+              this.router.navigate(['/']);
+              this.alertService.success("Login successful");
+            }
+            this.submitted = false;
+          });
+      } else {
+        this.submitted = false;
+        console.error('loginForm invalid');
+        this.alertService.error("Login failed because the form was invalid")
+      }
+      
+    } catch (error) {
+      this.alertService.error("Login failed");
+      
     }
+   
   }
 
   }

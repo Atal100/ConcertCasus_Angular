@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
 import { Artist } from 'src/app/artist/artist.model';
 import { ArtistService } from 'src/app/artist/artist.service';
 import { Music } from '../music.model';
@@ -16,7 +16,6 @@ export class MusicDetailComponent implements OnInit {
   artist: Artist
   artists: Artist[]
   music: Music
-  musics: Music[]
   private params: Subscription
 
   constructor(    private router: Router,
@@ -30,75 +29,69 @@ export class MusicDetailComponent implements OnInit {
   ngOnInit(){
     this.params = this.route.params.subscribe(params =>{
       this.music._id = params['id']
+      console.log("params" + params['id'])
+    })
+    this.musicService.getMusic(this.music._id).subscribe((c: any) => {
+
+      this.music = <Music>c.music
+      console.log(c.music.artists + " astsadt")
+      c.music.artists.forEach((a: any) => {
+        console.log(a._id)
+      })
+
+  
     })
 
-    this.getMusic();
-    this.getArtist();
-    console.log("musicsss" + this.artists)
-   // this.getArtist();
+   this.getArtist()
+ 
 
-   
     
-   
-    
-
-
   }
 
-   getArtist(){
-     this.artists = this.artistService.getArtists()
+  getArtist(){
     
-  //   this.artistService.getArtists().subscribe(
-  //     artists => {
-  //     this.artists = artists
-  //     console.log("Test " + this.artists)
+    this.artistService.getArtists().subscribe(
+      artists => {
+      this.artists = artists
+    })
+  }
 
-  //     this.artists.forEach(c => {
-  //       console.log("c" + c)
-  //       console.log("music artis " + this.music.artist)
-  //       if(c == this.music.artist){
-  //         this.artist = c
-  //         console.log("Tessdfadsf " + this.artist)
-  //       }
-  //     })
-  //     })
-    }
+  
 
-    getMusic(){
+    
 
-     this.music = this.musicService.getMusic(this.music._id)
-     console.log("music: " + this.music);
-      // this.musicService.getMusics().subscribe(
-      //   musics => {
-      //     this.musics = musics
+    // getMusic(){
+    //   this.musicService.getMusics().subscribe(
+    //     musics => {
+    //       this.musics = musics
           
-      //     this.musics.forEach(c => {
-      //       if(c._id == this.music._id){
-      //         this.music = c
-      //         console.log("music " + this.music.artist)
-      //         // this.music.artist = this.artist._id
-      //         this.artistService.getArtists().subscribe(
-      //           artists => {
-      //           this.artists = artists
-      //           console.log("Test " + this.artists)
+    //       this.musics.forEach(c => {
+    //         if(c._id == this.music._id){
+    //           this.music = c
+    //           console.log("music " + this.music.artists)
+        
+    //           this.artistService.getArtists().subscribe(
+    //             artists => {
+    //             this.artists = artists
+    //             console.log("Test " + this.artists)
           
-      //           this.artists.forEach(c => {
-      //             console.log("c" + c._id)
-      //             console.log("music artis " + this.music.artist)
-      //             if(c._id == this.music.artist.toString()){
-      //               this.artist = c
-      //               console.log("Tessdfadsf " + this.artist)
-      //             }
-      //           })
-      //           })
-      //       }
-      //     })
+    //             this.artists.forEach(c => {
+    //               console.log("c" + c._id)
+    //               console.log("music artis " + this.music.artists)
+    //               if(c._id == this.music.artists.toString()){
+    //                 this.artist = c
+    //                 console.log("Tessdfadsf " + this.artist)
+    //               }
+    //             })
+    //             })
+    //         }
+    //       })
 
-      //     this.getArtist()
-      //   }
-      // )
+    //       this.getArtist()
+    //     }
+    //   )
       
-    }
+    // }
 
     onEditMusic(){
       this.router.navigate(["/music/" + "/edit/" + this.music._id ]);

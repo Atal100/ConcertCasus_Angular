@@ -4,11 +4,11 @@ import { User } from "../user/user.model";
 export class Music {
     _id: string;
     name: string; 
+    artists: Artist[];
+    genre: string;
     duration: Number;
     country: string;
-    genre: string;
-    artists: Artist[];
-    //user: User
+    user: User;
 
     constructor(values = {}) {
         Object.assign(this, values);

@@ -1,4 +1,4 @@
-  <!-- This example requires Tailwind CSS v2.0+ -->
+
 <nav class="bg-gray-800">
   <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
     <div class="relative flex items-center justify-between h-16">
@@ -6,6 +6,10 @@
 
         <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
+
+          
+
+          
 
           <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
@@ -19,26 +23,32 @@
       <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
         <div class="hidden sm:block sm:ml-6">
           <div class="flex space-x-4">
-            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a routerLinkActive="active" routerLink="dashboard"  class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
-            <!-- <a routerLinkActive="active" routerLink="artist/list"  class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Artists</a>
+            <a routerLinkActive="active" routerLink="dashboard" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
 
-            <a routerLinkActive="active" routerLink="concert/list" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Concerts</a> -->
+            <a routerLinkActive="active" routerLink="artist/list"  *ngIf= "this.isLoggedIn" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Artists</a>
 
-            <a routerLinkActive="active" routerLink="music/list"  class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Music</a>
+            <a routerLinkActive="active" routerLink="concert/list"  *ngIf= "this.isLoggedIn"  class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Concerts</a>
+
+            <a routerLinkActive="active" routerLink="music/list"  *ngIf= "this.isLoggedIn"  class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Music</a>
             <a routerLinkActive="active" routerLink="about"  class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
-
-
-            <!-- <a routerLinkActive="active" routerLink="artist/list" *ngIf="isAuthenticated" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Artists</a>
-
-            <a routerLinkActive="active" routerLink="concert/list" *ngIf="isAuthenticated" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Concerts</a>
-
-            <a routerLinkActive="active" routerLink="music/list" *ngIf="isAuthenticated" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Music</a>
-            <a routerLinkActive="active" routerLink="about" *ngIf="isAuthenticated" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a> -->
           </div>
         </div>
       </div>
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+        
+          <div *ngIf="!this.isLoggedIn" class="nav-item">
+            <a class="nav-link" routerLinkActive="active" routerLink="/login" style="color: #FFFF">Login</a>
+            </div>
+          
+          <!-- <div *ngIf="this.isAuthenticated == false" class="nav-item">
+            <a class="nav-link" routerLinkActive="active"routerLink="/register" style="color: #FFFF">Register</a>
+          </div>
+           -->
+          <div *ngIf="this.isLoggedIn" class="nav-item">
+            <a class="nav-link"routerLinkActive="active" (click)="(onLogout())" routerLink=""style="color: #FFFF">Log Out</a>
+            
+            </div>
+       
         
       </div>
     

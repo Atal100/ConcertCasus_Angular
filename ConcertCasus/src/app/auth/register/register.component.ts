@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "../../user/user.service";
 import { AlertService } from "../../alerts/alert.service";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from "@angular/forms";
 import { Router } from "@angular/router";
 import { catchError, first } from "rxjs/operators";
 import { AuthService } from "../auth.service";
@@ -27,10 +27,11 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      firstname: ["", Validators.required],
-      lastname: ["", Validators.required],
+      firstname: ["", [Validators.required, Validators.minLength(3)]],
+      lastname: ["", [Validators.required, Validators.minLength(3)]],
       email: ["", [Validators.email, Validators.required]],
-      password: ["", [Validators.required, Validators.minLength(6)]]
+      password: ["", [Validators.required, Validators.minLength(6)]],
+      // confirmpassword: ["", [this.checkPasswords]],
     });
   }
 
@@ -66,4 +67,12 @@ export class RegisterComponent implements OnInit {
       
    );
   }
+  
+  // checkPasswords: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => { 
+
+  //   let pass = group.get('password').value;
+  //   let confirmPass = group.get('confirmPassword').value
+  //   return pass === confirmPass ? null : { notSame: true }
+  // }
+
 }

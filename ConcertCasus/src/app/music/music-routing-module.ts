@@ -10,7 +10,7 @@ import { MusicComponent } from "./music.component";
 const routes: Routes = [
     {path: "music/list",
     component: MusicListComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       
         // {path: ":id", component: MusicDetailComponent}
@@ -19,7 +19,7 @@ const routes: Routes = [
 
     {path: "music",
     component: MusicComponent,
-    // canActivate: [AuthGuard],
+     canActivate: [AuthGuard],
     children: [
         {path: "new", component: MusicNewComponent},
     

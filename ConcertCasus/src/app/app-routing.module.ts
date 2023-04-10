@@ -8,18 +8,20 @@ import { ConcertComponent } from './concert/concert.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { UsecasesComponent } from './about/usercases/usecases.component';
+import { AuthGuard } from './auth/auth.guard';
 
 
 const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
 
-  {path: 'about', component: UsecasesComponent},
-  {path: 'music', component: MusicComponent},
-  {path: 'concert', component: ConcertComponent},
+  {path: 'about',  component: UsecasesComponent},
+  {path: 'music', canActivate: [AuthGuard], component: MusicComponent},
+  {path: 'concert', canActivate: [AuthGuard], component: ConcertComponent},
+  {path: 'artist', canActivate: [AuthGuard] ,component: ArtistComponent},
 
 
   //Authenticatie
-  {path: 'login', component: LoginComponent},
+  {path: 'login',  component: LoginComponent},
   {path: 'register', component: RegisterComponent},
 
 
