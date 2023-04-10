@@ -43,7 +43,7 @@ jobs:
     needs:
             - run-affected-unit-tests   
     steps:
-
+      - uses: actions/checkout@v3
       - uses: jsmrcaga/action-netlify-deploy@master
         with:
          NETLIFY_AUTH_TOKEN: co8sbr5c2C6zA08W_q6icH_6e1qyi2t3JTjmRENrfZI
