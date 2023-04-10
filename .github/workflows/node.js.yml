@@ -8,6 +8,7 @@ on:
     branches: [ "develop" ]
 
 jobs:
+
   run-affected-unit-tests:
     name: Run unit tests
     defaults:
@@ -29,5 +30,8 @@ jobs:
 
      
     - run: npm ci
-    - run: npm run build --if-present  
-    - run: CI=true npm test
+    - run: npm run build --if-present
+    - run: npm test
+      env:
+          CI: true
+    
