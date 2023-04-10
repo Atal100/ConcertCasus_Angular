@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { AlertService } from 'src/app/alerts/alert.service';
@@ -27,7 +27,7 @@ export class MusicEditComponent implements OnInit {
 
   musicForm: FormGroup
   params: Params;
-  
+
   constructor(
     private _router: Router,
     private _musicService: MusicService,
@@ -39,106 +39,125 @@ export class MusicEditComponent implements OnInit {
   ) {
     this.musicForm = this._formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
-      artist: ['',[Validators.required]],
+      artists: this._formBuilder.array([]),
       duration: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
       country: ['', [Validators.required, Validators.minLength(4)]]
     })
 
     this.submitWaiting = false;
-   }
-
-   ngOnInit() {
-     this.subscription.add(this._route.params.subscribe((params) => {
-       this.params = params
-
-       if(this.params != null) {
-         this._musicService.getMusics().subscribe(
-           musics => {
-             this.musics = musics
-
-             this.musics.forEach(c => {
-               if(c._id == this.params['id']){
-                 this.music = c
-                 this.fillForm(this.music)
-               }
-             })
-           }
-         )
-       }
-     }))
-    this.getArtist()
   }
+
+  ngOnInit() {
+    
+    this.subscription.add(this._route.params.subscribe((params) => {
+      this.params = params
+      
+      if (this.params != null) {
+        this._musicService.getMusics().subscribe(
+          musics => {
+            this.musics = musics
+
+            this.musics.forEach(c => {
+              if (c._id == this.params['id']) {
+                this.music = c
+                
+                this.fillForm(this.music)
+              }
+            })
+          }
+        )
+      }
+    }))
   
+    this.getArtist()
+    this.addArtist()
+  }
+
   public get fields() {
     return this.musicForm.controls;
   }
-
-  fillForm(music: Music): void{
-this.musicForm = this._formBuilder.group({
-  name: [music['name']],
-  country: [music['country']],
-  duration: [music['duration']],
-  artist: [music['artists']]
-})
+  public get newartist() {
+    return this.musicForm.controls["artists"] as FormArray
   }
 
-  onMusicSubmit(){
+  addArtist() {
+    const artistForm = this._formBuilder.group({
+      artists: ['', [Validators.required]],
+    });
+
+    this.newartist.push(artistForm);
+
+  }
+  deleteArtist(artistIndex: number) {
+    this.newartist.removeAt(artistIndex);
+  }
+
+  fillForm(music: Music): void {
+    this.musicForm = this._formBuilder.group({
+      name: [music['name']],
+      country: [music['country']],
+      duration: [music['duration']],
+      artists: [music['artists']]
+    })
+  }
+
+  onMusicSubmit() {
     this.subscription.add(this._route.params.subscribe((params) => {
       this.params = params
     }))
     this.submitWaiting = true;
     console.log("music update", this.music)
-    if(this.music != null){
-    console.log(this.params.id)
+    if (this.music != null) {
+      console.log(this.params.id)
       this.music._id = this.params.id
       this.music.name = this.musicForm.controls['name'].value;
       this.music.duration = this.musicForm.controls['duration'].value;
       this.music.country = this.musicForm.controls['country'].value;
-      this.music.artists = this.musicForm.controls['artist'].value
+      this.music.artists = this.fields['artists'].value 
       console.log("After add " + this.music.name)
 
-      this.subscription.add(this._musicService.updateMusic(this.music, this.music._id).subscribe(response =>{
+      this.subscription.add(this._musicService.updateMusic(this.music, this.music._id).subscribe(response => {
         console.log(response)
         this._router.navigate(['music/list']);
         this.alertService.success("Succesfully edited Music ");
       }))
 
-     
+
     }
     else {
-      
+
     }
   }
 
 
-  getMusics(){
- 
+  getMusics() {
+
     this._musicService.getMusics().subscribe(
       musics => {
         this.musics = musics
 
         this.musics.forEach(c => {
-          if(c._id == this.music._id){
+          if (c._id == this.music._id) {
             this.music = c
           }
         })
       }
     )
 
-    
+
   }
 
-  getArtist(){
-    
+  getArtist() {
+
     this._artistService.getArtists().subscribe(
       artists => {
-      this.artists = artists
-      console.log("Test " + this.artists)
-    })
+        this.artists = artists
+        console.log("Test " + this.artists)
+      })
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-}
+  }
 
 }

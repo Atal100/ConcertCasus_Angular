@@ -63,6 +63,7 @@ export class AuthService {
   }
 
   userLogOut() {
+    this.currentUser$ = null;
     this.router
       .navigate(['/login'])
       .then((success) => {

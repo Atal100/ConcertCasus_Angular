@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, tap } from 'rxjs';
 import { Artist } from 'src/app/artist/artist.model';
 import { ArtistService } from 'src/app/artist/artist.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { User } from 'src/app/user/user.model';
 import { Music } from '../music.model';
 import { MusicService } from '../music.service';
 
@@ -16,12 +18,15 @@ export class MusicDetailComponent implements OnInit {
   artist: Artist
   artists: Artist[]
   music: Music
+  user: User
   private params: Subscription
 
-  constructor(    private router: Router,
+  constructor(
+    private router: Router,
     private artistService: ArtistService,
     private musicService: MusicService,
-    private route: ActivatedRoute,) {
+    private route: ActivatedRoute,
+    private authService: AuthService) {
       this.artist = new Artist();
       this.music = new Music();
      }
@@ -34,17 +39,15 @@ export class MusicDetailComponent implements OnInit {
     this.musicService.getMusic(this.music._id).subscribe((c: any) => {
 
       this.music = <Music>c.music
-      console.log(c.music.artists + " astsadt")
-      c.music.artists.forEach((a: any) => {
-        console.log(a._id)
-      })
-
+      this.getArtist()
+      
   
     })
 
-   this.getArtist()
+ 
  
 
+   
     
   }
 

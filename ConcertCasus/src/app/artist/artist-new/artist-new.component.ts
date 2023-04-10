@@ -88,10 +88,7 @@ export class ArtistNewComponent implements OnInit {
       artist.name = this.artistForm.controls['name'].value;
       artist.genre = this.artistForm.controls['genre'].value;
       artist.country = this.artistForm.controls['country'].value;
-      
-       
-    
-      console.log("artist new 2 ", artist)
+      artist.user = this._authService.currentUser$
 
     
       this._artistService.createArtist(artist).subscribe(response =>{

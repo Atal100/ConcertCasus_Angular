@@ -21,20 +21,30 @@ export class NavbarComponent {
 
   ngOnInit() {
     console.log("called in")
-    
-        console.log("test" + this.authService.getUserFromLocalStorage())
-        if(this.authService.getUserFromLocalStorage() != null){
-          this.isLoggedIn = this.authService.isLoggedInUser
+
+
+    this.router.events.subscribe(event => {
+      if (event.constructor.name === "NavigationEnd") {
+        if(this.authService.currentUser$ != null){
+          this.isLoggedIn = true
+        } else {
+          this.isLoggedIn = false
         }
-       
+     
+
       }
+    })
+  }
+
 
 
 
 
   onLogout() {
     console.log("called out")
+    this.isLoggedIn = false
     this.authService.userLogOut();
+    
 
 
   }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscriber, Subscription } from 'rxjs';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Artist } from '../artist.model';
 import { ArtistService } from '../artist.service';
 
@@ -12,13 +13,16 @@ import { ArtistService } from '../artist.service';
 })
 export class ArtistDetailComponent implements OnInit {
   artist: Artist 
-   artists: Artist[]
+  artists: Artist[]
+  user: any
+
+
   private params: Subscription
   constructor(
     private router: Router,
     private artistService: ArtistService,
     private route: ActivatedRoute,
-    
+    private authService: AuthService
   ) { 
     this.artist = new Artist();
   }
@@ -28,11 +32,10 @@ export class ArtistDetailComponent implements OnInit {
       this.artist._id = params['id']
       
       this.getArtist();
-    }
-    
-     
-    );  
-    console.log("id",this.artist)
+      this.user.id = this.authService.currentUser$._id;
+      
+    })  
+    console.log("id ",this.authService.currentUser$._id)
   }
 
   onEditArtist(){
@@ -46,8 +49,7 @@ export class ArtistDetailComponent implements OnInit {
     this.router.navigate(["/artist/list"])*/
   } 
   
-  getArtist(){
-    
+  getArtist(){ 
   this.artistService.getArtists().subscribe(
     artists => {
     this.artists = artists
