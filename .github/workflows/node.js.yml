@@ -34,9 +34,9 @@ jobs:
     - run: npm test
     
     - name: Deploy to Netlify
-      uses: netlify/actions/cli@v1
+      uses: netlify/actions/cli@master
       with:
-          args: deploy --prod --dir=dist/my-app
+          args: deploy --prod
       env:
           NETLIFY_AUTH_TOKEN: co8sbr5c2C6zA08W_q6icH_6e1qyi2t3JTjmRENrfZI
           NETLIFY_SITE_ID: c185e400-86f4-4be8-95e7-78471f31f216
