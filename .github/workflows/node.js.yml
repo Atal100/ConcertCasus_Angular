@@ -43,6 +43,8 @@ jobs:
 
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
+      - name: List build directory contents
+        run: ls -R ./ConcertCasus/dist
 
       - name: Deploy to Netlify
         env:
