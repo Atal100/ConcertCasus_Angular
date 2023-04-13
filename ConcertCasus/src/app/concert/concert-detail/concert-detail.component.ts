@@ -51,7 +51,6 @@ export class ConcertDetailComponent implements OnInit {
 
     this.concert = concert
     
-    console.log("concert", concert)
     const formattedDate = this.datePipe.transform(this.concert.date, 'yyyy-MM-dd');
     this.concert.date = new Date(formattedDate)
     this.getArtist()

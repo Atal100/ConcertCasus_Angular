@@ -32,7 +32,6 @@ const routes: Routes =[
         data: {
             title: "Edit Artist"
         },
-
     }
     ]},
 ];
