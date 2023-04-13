@@ -48,7 +48,7 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: M1hBJmw1kE9SYcxbr42ZvjTjxwks-_Kdbjn6ZsW0SD0
           NETLIFY_SITE_ID: c185e400-86f4-4be8-95e7-78471f31f216
-        run: netlify deploy --prod
+        run: netlify deploy --prod --dir=ConcertCasus/dist/ConcertCasus
 
           
 
