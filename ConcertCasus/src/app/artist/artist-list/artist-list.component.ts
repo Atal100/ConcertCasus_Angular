@@ -6,6 +6,7 @@ import { ArtistService } from '../artist.service';
 import {    MatTableDataSource } from '@angular/material/table'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AlertsComponent } from 'src/app/alerts/alerts.component';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-artist-list',
@@ -28,6 +29,7 @@ export class ArtistListComponent implements OnInit {
   constructor(
     private router: Router,
     private artistService: ArtistService,
+    public authService: AuthService
   ) { 
   }
   
@@ -36,18 +38,6 @@ export class ArtistListComponent implements OnInit {
     console.log(this.artists)
     this.loadArtist()   
   }
-
-  // onselectFile(e){
-  //   if(e.target.files){
-  //     var reader = new FileReader();
-  //     reader.readAsDataURL(e.target.files[0])
-  //     reader.onload=(event: any) => {
-  //       this.string = event.target.result;
-  //     }
-
-  //   }
-  // }
-
   string ="../../assets/img/placeholder.png "
 
   loadArtist() {

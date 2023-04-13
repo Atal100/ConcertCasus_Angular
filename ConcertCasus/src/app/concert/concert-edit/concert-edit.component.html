@@ -42,25 +42,34 @@
             </div>
           </div>
      
-          <div class="form-group">
-            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-            <div class="sm:col-span-3">            
-              <label for="music" class="block text-sm font-medium text-gray-700"> Musics </label>
-              <div class="mt-1">
-                <select     class="custom-select mr-sm-2"
-                id="music"
-                name="music"
-                formControlName="music"
-                required
-                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-                
-                <option *ngFor="let music of musics" value="{{music._id}}"> {{music.name}}</option>
-                </select>
+          <ng-container formArrayName="artists">
+            <ng-container *ngFor="let artistForm of newartist.controls; let i = index">
+              <div class="artists-form-row" [formGroupName]="i">
+                <div class="sm:col-span-3">
+                  <label for="artists" class="block text-sm font-medium text-gray-700"> Artists </label>
+                  <div class="mt-1">
+                    <select class="custom-select mr-sm-2" id="artists" name="artists" formControlName="artists"
+                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                  
+                    <option *ngFor="let artist of artists" value="{{artist._id}}">
+                      {{artist.name}}
+                    </option>
+                  </select>
+                  
+                  </div>
+                </div>
+                <!-- Only show the delete button if there is more than one form control -->
+                <ng-container *ngIf="newartist.controls.length > 1">
+                  <a (click)="deleteArtist(i)" style="color: red">&#10008;</a>
+                </ng-container>
               </div>
-            </div>
-            </div>
-          </div>
-            
+            </ng-container>
+          </ng-container>
+    
+    
+          <button type="button" (click)="addArtist()"
+            class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-5">Add</button>
+    
 
             <div class="form-group">
                 <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">

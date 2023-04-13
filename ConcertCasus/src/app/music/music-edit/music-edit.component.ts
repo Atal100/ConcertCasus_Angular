@@ -5,6 +5,7 @@ import { Subject, Subscription } from 'rxjs';
 import { AlertService } from 'src/app/alerts/alert.service';
 import { Artist } from 'src/app/artist/artist.model';
 import { ArtistService } from 'src/app/artist/artist.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Music } from '../music.model';
 import { MusicService } from '../music.service';
 
@@ -34,7 +35,8 @@ export class MusicEditComponent implements OnInit {
     private _route: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private _artistService: ArtistService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private _authService: AuthService
 
   ) {
     this.musicForm = this._formBuilder.group({
@@ -60,17 +62,20 @@ export class MusicEditComponent implements OnInit {
             this.musics.forEach(c => {
               if (c._id == this.params['id']) {
                 this.music = c
-                
+                console.log("FormMusic " , this.music)
+             
                 this.fillForm(this.music)
               }
             })
+         
+            this.getArtist()
+      
           }
         )
       }
     }))
   
-    this.getArtist()
-    this.addArtist()
+
   }
 
   public get fields() {
@@ -97,8 +102,23 @@ export class MusicEditComponent implements OnInit {
       name: [music['name']],
       country: [music['country']],
       duration: [music['duration']],
-      artists: [music['artists']]
+      artists: this._formBuilder.array([])
     })
+    const artistFormArray = this.musicForm.get("artists") as FormArray
+    var i = 0;
+    music['artists'].forEach((c: any)=> {
+
+      console.log("dfsadfasfdas", c.artists)
+     const formGroup = this._formBuilder.group({
+        artists: [c.artists, Validators.required]
+      })
+    
+      artistFormArray.push(formGroup);
+
+     
+      console.log("Rund Dowqn " + i,c)
+      i++;
+    });
   }
 
   onMusicSubmit() {
@@ -114,6 +134,9 @@ export class MusicEditComponent implements OnInit {
       this.music.duration = this.musicForm.controls['duration'].value;
       this.music.country = this.musicForm.controls['country'].value;
       this.music.artists = this.fields['artists'].value 
+          this._authService.getUserFromLocalStorage().subscribe(user => {
+      this.music.user = user._id
+    })
       console.log("After add " + this.music.name)
 
       this.subscription.add(this._musicService.updateMusic(this.music, this.music._id).subscribe(response => {

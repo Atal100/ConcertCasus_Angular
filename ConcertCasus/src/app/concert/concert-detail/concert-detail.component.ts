@@ -1,10 +1,14 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Artist } from 'src/app/artist/artist.model';
 import { ArtistService } from 'src/app/artist/artist.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Music } from 'src/app/music/music.model';
 import { MusicService } from 'src/app/music/music.service';
+import { User } from 'src/app/user/user.model';
+import { UserService } from 'src/app/user/user.service';
 import { Concert } from '../concert.model';
 import { ConcertService } from '../concert.service';
 
@@ -17,20 +21,22 @@ export class ConcertDetailComponent implements OnInit {
 
   artist: Artist
   artists: Artist[]
-  music: Music
-  musics: Music[]
   concert: Concert
-  concerts: Concert[]
+  concerts: Artist[]
+  user: User
 
   private params: Subscription
+  Subscriptionuser: Subscription;
 
   constructor( private router: Router,
     private artistService: ArtistService,
     private concertService: ConcertService,
-    private musicService: MusicService,
+    private userService: UserService,
+    public authService: AuthService,
+    private datePipe: DatePipe,
     private route: ActivatedRoute,) {
       this.artist = new Artist();
-      this.music = new Music();
+
       this.concert = new Concert();
      }
 
@@ -40,87 +46,49 @@ export class ConcertDetailComponent implements OnInit {
       this.concert._id = params['id']
       console.log('concerts ' + this.concert._id)
   })
-  this.getConcert();
+  this.concertService.getConcert(this.concert._id).subscribe((concert) => {
+
+
+    this.concert = concert
+    
+    
+    const formattedDate = this.datePipe.transform(this.concert.date, 'yyyy-MM-dd');
+    this.concert.date = new Date(formattedDate)
+    this.getArtist()
+    
+
+  })
+
 }
 
 
-getConcert(){
-  this.concertService.getConcerts().subscribe(
-    concerts => {
-      this.concerts = concerts
 
-      this.concerts.forEach(c => {
-        if(c._id == this.concert._id){
-          this.concert = c
-
-          this.musicService.getMusics().subscribe(
-            musics => {
-              this.musics = musics
-
-              this.musics.forEach(c => {
-                if(c._id == this.concert.music.toString()){
-                  this.music = c
-                }
-              })
-            }
-          )
-        }
-      })
-    }
-  )
-}
 
 getArtist(){
     
   this.artistService.getArtists().subscribe(
     artists => {
     this.artists = artists
-    console.log("Test " + this.artists)
-
-    this.artists.forEach(c => {
-      console.log("c" + c)
-      console.log("music artis " + this.music.artists)
-      // if(c == this.music.artists){
-      //   this.artist = c
-      //   console.log("Tessdfadsf " + this.artist)
-      // }
-    })
-    })
-  }
-
-  // getMusic(){
-  //   this.musicService.getMusics().subscribe(
-  //     musics => {
-  //       this.musics = musics
-        
-  //       this.musics.forEach(c => {
-  //         if(c._id == this.music._id){
-  //           this.music = c
-  //           console.log("music " + this.music.artist)
-  //           // this.music.artist = this.artist._id
-  //           this.artistService.getArtists().subscribe(
-  //             artists => {
-  //             this.artists = artists
-  //             console.log("Test " + this.artists)
-        
-  //             this.artists.forEach(c => {
-  //               console.log("c" + c._id)
-  //               console.log("music artis " + this.music.artist)
-  //               if(c._id == this.music.artist.toString()){
-  //                 this.artist = c
-  //                 console.log("Tessdfadsf " + this.artist)
-  //               }
-  //             })
-  //             })
-  //         }
-  //       })
-
-  //       this.getArtist()
-  //     }
-  //   )
     
-  // }
-
+    this.concerts = []
+    this.concert.artists.forEach((a : any) => {      
+      this.artists.forEach(c => {
+    
+        if(a.artists == c._id){
+        
+          this.concerts.push(c)
+        }
+      })
+    })
+   console.log("Concerts", this.concerts)
+   this.Subscriptionuser = this.userService.getUser(this.concert.user)
+    .subscribe((user) => {
+      console.log("user object:", user);
+      this.user = user;
+      console.log("Is nu pas klaar");
+    });
+  })
+}
   onEditConcert(){
     this.router.navigate(["/concert/" + "/edit/" + this.concert._id ]);
   }

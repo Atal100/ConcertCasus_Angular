@@ -26,7 +26,7 @@ export class MusicService {
      
    }
 
-   getMusic(id: string): any {
+   getMusic(id: string): Observable<Music> {
     return this.http.get<Music>(this.MusicUrl + id)
   }
 

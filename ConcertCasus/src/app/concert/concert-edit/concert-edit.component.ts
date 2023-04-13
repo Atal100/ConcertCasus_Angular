@@ -1,11 +1,13 @@
+import { DatePipe } from '@angular/common';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Params, Router, ActivatedRoute } from '@angular/router';
 import { Subscription, Subject } from 'rxjs';
 import { AlertService } from 'src/app/alerts/alert.service';
 import { Artist } from 'src/app/artist/artist.model';
 import { ArtistService } from 'src/app/artist/artist.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Music } from 'src/app/music/music.model';
 import { MusicService } from 'src/app/music/music.service';
 import { Concert } from '../concert.model';
@@ -34,17 +36,18 @@ export class ConcertEditComponent implements OnInit {
   
   constructor(
     private _router: Router,
-    private _musicService: MusicService,
+    private datePipe: DatePipe,
     private _route: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private _artistService: ArtistService,
     private _concertService: ConcertService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private _authService: AuthService
 
   ) {
     this.concertForm = this._formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
-      music: ['',[Validators.required]],
+      artists: this._formBuilder.array([]),
       date: ['', [Validators.required]],
       adres: ['', [Validators.required, Validators.minLength(4)]]
     })
@@ -67,24 +70,61 @@ export class ConcertEditComponent implements OnInit {
                 this.fillForm(this.concert)
               }
             })
+
+            this.getArtist()
           }
         )
       }
     }))
-    this.getMusic()
+
   }
 
   public get fields() {
     return this.concertForm.controls;
   }
 
+  public get newartist() {
+    return this.concertForm.controls["artists"] as FormArray
+  }
+
+  addArtist() {
+    const artistForm = this._formBuilder.group({
+      artists: ['', [Validators.required]],
+    });
+
+    this.newartist.push(artistForm);
+
+  }
+  deleteArtist(artistIndex: number) {
+    this.newartist.removeAt(artistIndex);
+  }
+
+
   fillForm(concert:Concert){
+    console.log(" CONCERT", concert)
+    const formattedDate = this.datePipe.transform(concert.date, 'yyyy-MM-dd');
     this.concertForm = this._formBuilder.group({
       name: [concert['name']],
-      music: [concert['music']],
-      date: [concert['date']],
+      artists: this._formBuilder.array([]),
+      date: [formattedDate],
       adres: [concert['adres']]
     })
+
+    const artistFormArray = this.concertForm.get("artists") as FormArray
+    var i = 0;
+    concert['artists'].forEach((c: any)=> {
+
+      console.log("dfsadfasfdas", c.artists)
+     const formGroup = this._formBuilder.group({
+        artists: [c.artists, Validators.required]
+      })
+    
+      artistFormArray.push(formGroup);
+
+     
+      console.log("Rund Dowqn " + i,c)
+      i++;
+    });
   }
 
   onConcertSubmit(){
@@ -97,10 +137,12 @@ export class ConcertEditComponent implements OnInit {
     console.log(this.params.id)
       this.concert._id = this.params.id
       this.concert.name = this.concertForm.controls['name'].value;
-      this.concert.music = this.concertForm.controls['music'].value;
+      this.concert.artists = this.concertForm.controls['artists'].value;
       this.concert.adres = this.concertForm.controls['adres'].value;
       this.concert.date = this.concertForm.controls['date'].value
-      console.log("After add " + this.concert.name)
+      this._authService.getUserFromLocalStorage().subscribe(user => {
+        this.concert.user = user._id
+      })
 
       this.subscription.add(this._concertService.updateConcert(this.concert, this.concert._id).subscribe(response =>{
         console.log(response)
@@ -115,23 +157,15 @@ export class ConcertEditComponent implements OnInit {
     }
   }
 
-  getMusic(){
-    this._musicService.getMusics().subscribe(
-      musics => {
-        this.musics = musics
+ 
+  getArtist() {
 
-        this.musics.forEach(c => {
-          if(c._id == this.concert._id){
-            this.music = c
-          }
-        })
-      }
-    )
-
-    
+    this._artistService.getArtists().subscribe(
+      artists => {
+        this.artists = artists
+        console.log("Test " + this.artists)
+      })
   }
-
-
 
 
   ngOnDestroy(): void {

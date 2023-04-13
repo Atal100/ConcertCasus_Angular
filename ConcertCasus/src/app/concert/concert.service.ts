@@ -19,6 +19,16 @@ private ConcertUrl = "http://localhost:3000/api/concert/"
     console.log("Connected to" + this.ConcertUrl);
    }
 
+    getConcert(id: string): Observable<Concert> {
+    console.log('https' + this.http
+      .get<Concert>(this.ConcertUrl + id))
+
+    return this.http.get<Concert>(this.ConcertUrl + id)
+     
+    
+
+    
+  }
 
 
   getConcerts(): Observable<Concert[]>{

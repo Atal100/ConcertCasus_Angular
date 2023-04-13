@@ -2,7 +2,7 @@ import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { TestBed } from '@angular/core/testing';
 import { Router } from 'express';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of, Subject, throwError } from 'rxjs';
 import { AlertService } from '../alerts/alert.service';
 import { AlertsComponent } from '../alerts/alerts.component';
 import { User } from '../user/user.model';
@@ -32,7 +32,7 @@ fdescribe('ArtistService', () => {
   //mock data
 
   const user: User = {
-    id: "testZId",
+    _id: "testZId",
    firstname: "ataas",
    lastname: "dfwersa",
 
@@ -46,27 +46,31 @@ fdescribe('ArtistService', () => {
      _id: "Test",
      name: "Dj Azura",
      genre: "Techno",
-     country: "Nederland" 
+     country: "Nederland" ,
+     user: "testZId",
 
    },{
    _id: "Test2",
    name: "Dj Azuras2",
    genre: "DupStep",
-   country: "Japan"
+   country: "Japan",
+   user: "testZId",
    
 
  },{
  _id: "Test3",
  name: "Dj Azuras1",
  genre: "Classic",
- country: "Belgie"
+ country: "Belgie",
+ user: "testZId",
 }]
 
  const artist: Artist = {
    _id: "Test1",
  name: "Dj Azuras1",
  genre: "Classic",
- country: "Amerika"
+ country: "Amerika",
+ user: "testZId",
  
 
  }
@@ -74,7 +78,8 @@ fdescribe('ArtistService', () => {
    _id: "Test1",
  name: "Dj Azuras1 Edit",
  genre: "Classic",
- country: "Nederland"
+ country: "Nederland",
+ user: "testZId",
 
  }
 
@@ -105,9 +110,7 @@ fdescribe('ArtistService', () => {
       expect(getartists[0]._id).toEqual(artists[0]._id);
       done();
     });
-  });
-
-  
+  });  
 
   fit('should create artist', (done: DoneFn) => {
     httpSpy.post.and.returnValue(of(artist));
@@ -141,7 +144,8 @@ fdescribe('ArtistService', () => {
       _id: "Test",
       name: "Dj Azura",
       genre: "Techno",
-      country: "Nederland" 
+      country: "Nederland",
+      user: "testZId",
     }
  
   

@@ -17,7 +17,7 @@ export class UserRoleNamePipe implements PipeTransform {
   }
 }
 export class User {
-  public id: string;
+  public _id: string;
   public firstname: string;
   public lastname: string;
 

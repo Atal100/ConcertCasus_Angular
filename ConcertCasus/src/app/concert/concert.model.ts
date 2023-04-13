@@ -6,10 +6,10 @@ import { User } from "../user/user.model";
 export class Concert{
     _id: string;
     name: string;
-    music: Music;   
+    artists: Artist[];   
     date: Date;
     adres: string;
-    //user: User;
+    user: string;
 
     constructor(values = {}) {
         Object.assign(this, values);

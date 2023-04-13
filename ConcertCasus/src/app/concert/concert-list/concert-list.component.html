@@ -26,19 +26,23 @@
                                 <td mat-cell *matCellDef="let row"><a class="tableLink" [routerLink]="['../list', row._id]"> {{row.name}}</a></td>
                             </ng-container>
                             
-                            <ng-container matColumnDef="music">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Music</th>
-                                <td mat-cell *matCellDef="let row"> 
-                                    <div *ngFor="let music of musics">
-
-                                        <div *ngIf="row.music == this.music._id">
-                                            {{this.music.name}} 
-                                        </div>
-                                    </div>
+                            <ng-container matColumnDef="artists">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> Artist</th>
+                              <td mat-cell *matCellDef="let row">
+                                  <div *ngFor="let row_artist of row.artists">
                                  
-                                
-                                </td>
-                            </ng-container>
+                                          <div *ngFor="let artist of artists">
+
+
+                                              <div *ngIf="row_artist.artists == this.artist._id">
+                                                  {{this.artist.name}}
+                                              </div>
+                                          </div>
+                                      
+                                  </div>
+
+                              </td>
+                          </ng-container>
 
                             <ng-container matColumnDef="date">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Date</th>
@@ -52,7 +56,7 @@
     
                             <ng-container matColumnDef="delete">
                                 <th mat-header-cell [ngClass]="'deleteCell'" *matHeaderCellDef> Delete  </th>
-                                <td mat-cell class="deleteCell" *matCellDef="let row" > <a (click)="deleteConcert(row._id)" style="color: red">&#10008;</a> </td>
+                                <td mat-cell class="deleteCell" *matCellDef="let row" > <a *ngIf="authService.userMayEdit(row.user) | async" (click)="deleteConcert(row._id)" style="color: red">&#10008;</a> </td>
                             </ng-container>
     
                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

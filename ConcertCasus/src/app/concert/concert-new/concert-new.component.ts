@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription, Subject } from 'rxjs';
 import { AlertService } from 'src/app/alerts/alert.service';
@@ -46,7 +46,7 @@ export class ConcertNewComponent implements OnInit {
   ) {
     this.concertForm = this._formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
-      music: ['',[Validators.required]],
+      artists: this._formBuilder.array([]),
       adres: ['', [Validators.required, Validators.minLength(4)]],
       date: ['', [Validators.required]]
     })
@@ -55,23 +55,42 @@ export class ConcertNewComponent implements OnInit {
 
   ngOnInit() {
     this.getArtists();
-    this.getMusics();
+    this.addArtist();
   }
 
   public get fields() {
     return this.concertForm.controls;
   }
 
+
+  public get newartist() {
+    return this.concertForm.controls["artists"] as FormArray
+  }
+
+  addArtist(){
+    const artistForm = this._formBuilder.group({
+      artists: ['',[Validators.required]],
+    });
+
+    this.newartist.push(artistForm); 
+
+  }
+  deleteArtist(artistIndex: number) {
+    this.newartist.removeAt(artistIndex);
+}
+
   onConcertSubmit(){
     this.submitWaiting = true;
 
     const concert = new Concert();
-
+    concert.artists = [];
     concert.name = this.concertForm.controls['name'].value;
-    concert.music = this.concertForm.controls['music'].value;
     concert.adres = this.concertForm.controls['adres'].value;
     concert.date = this.concertForm.controls['date'].value;
-    //concert.user = this._authService.currentUser$.value
+    concert.artists = this.concertForm.controls['artists'].value;
+    this._authService.getUserFromLocalStorage().subscribe(user => {
+      concert.user = user._id
+    })
 
     this._concertService.createConcert(concert).subscribe(response => {
       this._router.navigate(['concert/list'])
@@ -85,18 +104,6 @@ export class ConcertNewComponent implements OnInit {
       artists => {
         console.log("artisten" + artists)
         this.artists = artists;
-        this._loading = false
-      }
-      
-    )
-  }
-
-  getMusics(): any{
-    this._musicService.getMusics().subscribe(
-      
-      musics => {
-        console.log("musics" + musics)
-        this.musics = musics;
         this._loading = false
       }
       

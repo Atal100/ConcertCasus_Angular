@@ -27,6 +27,7 @@ import { MusicEditComponent } from './music/music-edit/music-edit.component';
 import { MusicNewComponent } from './music/music-new/music-new.component';
 import { MusicModule } from './music/music.module';
 import { ConcertModule } from './concert/concert.module';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -65,6 +66,7 @@ import { ConcertModule } from './concert/concert.module';
   providers: [
     AlertService,
     AuthService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

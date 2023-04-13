@@ -9,47 +9,64 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable()
 export class AuthService {
-
-  public isLoggedInUser = false
-  public currentUser$: any
+  public currentUser$ = new BehaviorSubject<User>(undefined);
+  private readonly CURRENT_USER = 'currentuser';
+  private readonly headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+  });
  
 
   constructor(
     private alertService: AlertService,
     private http: HttpClient,
     private router: Router) {
-      console.log(" test")
 
        
-    this.currentUser$ = this.getUserFromLocalStorage()
-    if(this.currentUser$ != null){
-      console.log("logged uin")
-      this.isLoggedInUser = true
- 
-  }
+      this.getUserFromLocalStorage()
+      .pipe(
+        // switchMap is overbodig als we validateToken() niet gebruiken...
+        switchMap((user: User) => {
+          if (user) {
+            console.log('User found in local storage');
+            this.currentUser$.next(user);
+            // return this.validateToken(user);
+            return of(user);
+          } else {
+            console.log(`No current user found`);
+            return of(undefined);
+          }
+        })
+      )
+      .subscribe(() => console.log('Startup auth done'));
     }
     
 
-    loginUser(email: string, password: string) : any{
-      let loginInfo = {email, password}
-       let options = {headers: new HttpHeaders({'Contect-Type': 'application/json'})}
-      return this.http.post(`${environment.apiUrl}/api/user/login`,loginInfo,options)
-      .pipe(tap(data => {
-        this.currentUser$ = data
-        
-        localStorage.setItem("currentUser", JSON.stringify(this.currentUser$.user));
-        return this.currentUser$
-      }))
-      .pipe(catchError( err => {
-        this.alertService.error(err.error.message || err.message);
-        return of (false)
-      }))
+    loginUser(email: string, password: string) : Observable<User> {
+      let options = {headers: new HttpHeaders({'Contect-Type': 'application/json'})}
+
+      return this.http.post<User>(`${environment.apiUrl}/api/user/login`,
+      { email: email, password: password},options
+      )
+       .pipe(
+        map((user) => {
+          this.saveUserToLocalStorage(user);
+          this.currentUser$.next(user);
+          this.alertService.success('You have been logged in');
+          return user;
+        }),
+        catchError((error: any) => {
+          this.alertService.error(error.error.message || error.message);
+          return of(undefined);
+        })
+      );
     }
+
+    
 
 
   register(user: User) {
     return this.http
-      .post<User>(`${environment.apiUrl}/api/user/register`, user, {})
+      .post<User>(`${environment.apiUrl}/api/user/register`, user, { headers: this.headers})
       .pipe(
         map((user) => {    
           this.alertService.success('You have been registered');
@@ -62,18 +79,16 @@ export class AuthService {
       );
   }
 
-  userLogOut() {
-    this.currentUser$ = null;
+
+  userLogout(){
     this.router
-      .navigate(['/login'])
+      .navigate(['/'])
       .then((success) => {
-       
+        // true when canDeactivate allows us to leave the page.
         if (success) {
-          console.log("removed")
-          localStorage.removeItem("currentUser");
-          this.currentUser$ = null;
-          this.isLoggedInUser = false;
-       
+          console.log('logout - removing local user info');
+          localStorage.removeItem(this.CURRENT_USER);
+          this.currentUser$.next(undefined);
           this.alertService.success('You have been logged out.');
         } else {
           console.log('navigate result:', success);
@@ -85,21 +100,20 @@ export class AuthService {
 
   
 
-  getUserFromLocalStorage(): User {
-    const localUser = JSON.parse(localStorage.getItem("currentUser"));
-    console.log(localUser)
-    return <User>localUser;
+  getUserFromLocalStorage(): Observable<User> {
+    const localUser = JSON.parse(localStorage.getItem(this.CURRENT_USER));
+    return of(localUser);
   }
-isAuthenticated(){
-  return !!this.currentUser$
-}
 
+  private saveUserToLocalStorage(user: User): void {
+    localStorage.setItem(this.CURRENT_USER, JSON.stringify(user));
+  }
 
-  // userMayEdit(itemUserId: string): Observable<boolean> {
-  //   return this.currentUser$.pipe(
-  //     map((user: User) => (user ? user.id === itemUserId : false))
-  //   );
-  // }
-
+  userMayEdit(itemUserId: string): Observable<boolean> {
+    console.log("Gets called")
+    return this.currentUser$.pipe(
+      map((user: User) => (user ? user._id === itemUserId : false))
+    );
+  }
 
 }

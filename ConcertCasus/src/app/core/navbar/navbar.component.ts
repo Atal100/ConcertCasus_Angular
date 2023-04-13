@@ -12,6 +12,7 @@ import { relativeTimeThreshold } from "moment";
 })
 export class NavbarComponent {
   isLoggedIn: any;
+  loggedInUser$: Observable<User>;
   constructor(private authService: AuthService, private router: Router) { }
 
   @Input() apptitle: string;
@@ -22,18 +23,7 @@ export class NavbarComponent {
   ngOnInit() {
     console.log("called in")
 
-
-    this.router.events.subscribe(event => {
-      if (event.constructor.name === "NavigationEnd") {
-        if(this.authService.currentUser$ != null){
-          this.isLoggedIn = true
-        } else {
-          this.isLoggedIn = false
-        }
-     
-
-      }
-    })
+    this.loggedInUser$ = this.authService.currentUser$;
   }
 
 
@@ -42,8 +32,8 @@ export class NavbarComponent {
 
   onLogout() {
     console.log("called out")
-    this.isLoggedIn = false
-    this.authService.userLogOut();
+  
+    this.authService.userLogout();
     
 
 

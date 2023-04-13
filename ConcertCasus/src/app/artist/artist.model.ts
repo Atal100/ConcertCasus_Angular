@@ -5,7 +5,7 @@ export  class Artist{
      name: string;
      genre: string;
      country: string;
-     user: User;
+     user: string;
     
      constructor(values = {}) {
           Object.assign(this, values);

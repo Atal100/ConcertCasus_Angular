@@ -13,6 +13,9 @@ export class UserService {
 
   usersAvailable = new BehaviorSubject<boolean>(false);
 
+  private userUrl = "http://localhost:3000"
+ 
+
   constructor(private http: HttpClient) {
     console.log("UserService constructed");
     console.log(`Connected to ${environment.apiUrl}`);
@@ -20,12 +23,12 @@ export class UserService {
 
   public getUsers(): Observable<User[]> {
     console.log("getUsers");
-    return this.http.get<User[]>(`${environment.apiUrl}/api/user`, {});
+    return this.http.get<User[]>( this.userUrl + '/api/user', {});
   }
 
-  getUser(id: number) {
+  getUser(id: string) {
     console.log(`getUser(${id})`);
-    return this.http.get(`${environment.apiUrl}` + id);
+    return this.http.get<User>(this.userUrl + '/api/user/' + id);
   }
 
   
@@ -33,7 +36,7 @@ export class UserService {
   updateUser(user: User) {
     console.log("updateUser");
 
-    return this.http.put(`${environment.apiUrl}/api/user/` + user.id, user);
+    return this.http.put(this.userUrl + '/api/user/' + user._id, user);
   }
 
   private handleError(error: HttpErrorResponse) {

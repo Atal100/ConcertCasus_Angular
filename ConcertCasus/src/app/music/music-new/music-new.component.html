@@ -37,13 +37,19 @@
               <label for="artists" class="block text-sm font-medium text-gray-700"> Artists </label>
               <div class="mt-1">
                 <select class="custom-select mr-sm-2" id="artists" name="artists" formControlName="artists"
-                  class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-
-                  <option *ngFor="let artist of artists" value="{{artist._id}}"> {{artist.name}}</option>
-                </select>
+                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+              
+                <option *ngFor="let artist of artists" value="{{artist._id}}">
+                  {{artist.name}}
+                </option>
+              </select>
+              
               </div>
             </div>
-            <a (click)="deleteArtist(i)" style="color: red">&#10008;</a>
+            <!-- Only show the delete button if there is more than one form control -->
+            <ng-container *ngIf="newartist.controls.length > 1">
+              <a (click)="deleteArtist(i)" style="color: red">&#10008;</a>
+            </ng-container>
           </div>
         </ng-container>
       </ng-container>

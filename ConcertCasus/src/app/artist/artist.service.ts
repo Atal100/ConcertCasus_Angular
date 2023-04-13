@@ -36,7 +36,7 @@ export class ArtistService {
     console.log('https' + this.http
       .get<Artist>(this.ArtistUrl + id))
 
-    return this.http.get<Artist>(`${this.ArtistUrl}${id}`)
+    return this.http.get<Artist>(this.ArtistUrl + id)
      
     
 

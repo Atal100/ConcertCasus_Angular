@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AlertsComponent } from 'src/app/alerts/alerts.component';
 import { Artist } from 'src/app/artist/artist.model';
 import { ArtistService } from 'src/app/artist/artist.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Music } from '../music.model';
 import { MusicService } from '../music.service';
 
@@ -30,7 +31,8 @@ export class MusicListComponent implements OnInit {
     private router: Router,
     private musicService: MusicService,
     private _matDialog: MatDialog,
-    private _artistService: ArtistService
+    private _artistService: ArtistService,
+    public authService: AuthService
   ) { }
 
   ngOnInit(){

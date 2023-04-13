@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { map, Subject, Subscription } from 'rxjs';
+import { map, Subject, Subscription, take, tap } from 'rxjs';
 import { AlertService } from 'src/app/alerts/alert.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/user/user.model';
@@ -17,10 +17,12 @@ export class ArtistNewComponent implements OnInit {
 
 
 
-  
+
   artist = new Artist();
-  subscription:  Subscription = new Subscription;
+  subscription: Subscription = new Subscription;
   submitWaiting: boolean;
+  user: User
+
 
   protected onDestroy = new Subject<void>();
 
@@ -29,7 +31,7 @@ export class ArtistNewComponent implements OnInit {
   params: Params;
   public files: any[];
 
- 
+
 
 
   constructor(
@@ -39,24 +41,26 @@ export class ArtistNewComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _authService: AuthService,
     private alertService: AlertService
-    ) {
-      this.artistForm = this._formBuilder.group({
-        name: ['', [Validators.required, Validators.minLength(4)]],
-        genre: ['',[Validators.required]],
-        country: ['', [Validators.required, Validators.minLength(4)]]
-      })
-      this.files = [];
-      this.submitWaiting = false;
+  ) {
+    this.artistForm = this._formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(4)]],
+      genre: ['', [Validators.required]],
+      country: ['', [Validators.required, Validators.minLength(4)]]
+    })
+    this.files = [];
+    this.submitWaiting = false;
 
-     }
+  }
 
   ngOnInit() {
-  
+    this.subscription = this._authService.currentUser$.subscribe(user => {
+      this.user = user
+    })
   }
 
   string = "placeholder.png"
 
- 
+
 
   public get fields() {
     return this.artistForm.controls;
@@ -65,38 +69,45 @@ export class ArtistNewComponent implements OnInit {
   onFileChanged(event: any) {
     this.files = event.target.files;
 
-    if(event.target.files){
-           var reader = new FileReader();
-           reader.readAsDataURL(event.target.files[0])
-           reader.onload=(event: any) => {
-             this.string = event.target.result;
-           }
-    
-         }
+    if (event.target.files) {
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0])
+      reader.onload = (event: any) => {
+        this.string = event.target.result;
+      }
+
+    }
   }
 
-  
 
 
 
-  onArtistSubmit(){
+
+  onArtistSubmit() {
     this.submitWaiting = true;
     console.log("artist new", this.artist)
+    this.subscription = this._authService.currentUser$
+    .pipe(take(1))
+    .subscribe((user) => {
+      console.log(user); // add this line to see if user is emitted
   
-        const artist = new Artist();
-
-      artist.name = this.artistForm.controls['name'].value;
-      artist.genre = this.artistForm.controls['genre'].value;
-      artist.country = this.artistForm.controls['country'].value;
-      artist.user = this._authService.currentUser$
-
-    
-      this._artistService.createArtist(artist).subscribe(response =>{
+      this.user = user;
+      this.artist.name = this.artistForm.controls['name'].value;
+      this.artist.genre = this.artistForm.controls['genre'].value;
+      this.artist.country = this.artistForm.controls['country'].value;
+      this.artist.user = this.user._id;
+  
+      this._artistService.createArtist(this.artist).subscribe(response => {
         console.log(response)
         this._router.navigate(['artist/list'])
         this.alertService.success("Succesfully added a Artist ");
       })
-    
+      console.log(user._id + "User")
+    });
+
+
+
+
 
   }
 
@@ -104,6 +115,6 @@ export class ArtistNewComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-}
+  }
 
 }

@@ -16,7 +16,7 @@ import {
 
     canActivate(route: ActivatedRouteSnapshot,
        state: RouterStateSnapshot) {
-      if (localStorage.getItem("currentUser")) {
+      if (localStorage.getItem("currentuser")) {
         // logged in so return true
         console.log('Authguard' + localStorage.getItem("currentUser"))
         return true;

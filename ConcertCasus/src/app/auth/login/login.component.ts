@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
+  subs: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,8 +31,15 @@ export class LoginComponent implements OnInit {
       email: ["", Validators.required],
       password: ["", Validators.required]
     });
-    //Login status resetten
-    this.authService.userLogOut;
+    this.subs = this.authService
+      .getUserFromLocalStorage()
+      .subscribe((user: User) => {
+        if (user) {
+          console.log('User already logged in > to dashboard');
+          this.router.navigate(['/']);
+        }
+      });
+    
   }
 
   public get fields() {
@@ -48,8 +56,8 @@ export class LoginComponent implements OnInit {
   
         this.authService
           .loginUser(email, password)
-          .subscribe((response: any) => {
-            if (response) {
+          .subscribe((user) => {
+            if (user) {
               console.log('Logged in');
               this.router.navigate(['/']);
               this.alertService.success("Login successful");

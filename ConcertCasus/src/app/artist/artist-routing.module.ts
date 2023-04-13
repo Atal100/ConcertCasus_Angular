@@ -10,14 +10,10 @@ import { ArtistComponent } from "./artist.component";
 const routes: Routes =[
 
     {path: "artist/list",
-    component: ArtistListComponent,
-   
-    children: [
-        
-        {path: ":id", component: ArtistDetailComponent}
-        
-       
-        
+    component: ArtistListComponent, 
+    canActivate: [AuthGuard],
+    children: [   
+        {path: ":id", component: ArtistDetailComponent}     
     ]},
 
 
@@ -25,7 +21,7 @@ const routes: Routes =[
     
     {path: "artist",
     component: ArtistComponent,
-
+    canActivate: [AuthGuard],
     children: [
         {path: "new", component: ArtistNewComponent
    

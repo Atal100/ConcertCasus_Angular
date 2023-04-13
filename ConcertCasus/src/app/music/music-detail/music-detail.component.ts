@@ -5,6 +5,7 @@ import { Artist } from 'src/app/artist/artist.model';
 import { ArtistService } from 'src/app/artist/artist.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/user/user.model';
+import { UserService } from 'src/app/user/user.service';
 import { Music } from '../music.model';
 import { MusicService } from '../music.service';
 
@@ -19,14 +20,17 @@ export class MusicDetailComponent implements OnInit {
   artists: Artist[]
   music: Music
   user: User
+  musics: Artist[]
   private params: Subscription
+  Subscriptionuser: Subscription;
 
   constructor(
     private router: Router,
     private artistService: ArtistService,
     private musicService: MusicService,
     private route: ActivatedRoute,
-    private authService: AuthService) {
+    private userService: UserService,
+    public authService: AuthService) {
       this.artist = new Artist();
       this.music = new Music();
      }
@@ -36,9 +40,15 @@ export class MusicDetailComponent implements OnInit {
       this.music._id = params['id']
       console.log("params" + params['id'])
     })
-    this.musicService.getMusic(this.music._id).subscribe((c: any) => {
+    this.musicService.getMusic(this.music._id).subscribe((music) => {
+      console.log("Music ", music);
+      console.log("Music ", music.artists);
 
-      this.music = <Music>c.music
+      this.music = music
+  
+
+     
+      console.log("Music " + this.music.artists);
       this.getArtist()
       
   
@@ -56,6 +66,26 @@ export class MusicDetailComponent implements OnInit {
     this.artistService.getArtists().subscribe(
       artists => {
       this.artists = artists
+      console.log("Music2222222222 " , this.artists);
+      console.log("Music2232222222 " , this.music.artists);
+      this.musics = []
+      this.music.artists.forEach((a : any) => {      
+        this.artists.forEach(c => {
+          console.log("Music2 " , a.artists);
+          console.log("Music3 " , c);
+          if(a.artists == c._id){
+          
+            this.musics.push(c)
+          }
+        })
+      })
+     console.log("Musics", this.musics)
+     this.Subscriptionuser = this.userService.getUser(this.music.user)
+      .subscribe((user) => {
+        console.log("user object:", user);
+        this.user = user;
+        console.log("Is nu pas klaar");
+      });
     })
   }
 

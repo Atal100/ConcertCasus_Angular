@@ -22,6 +22,9 @@ export class MusicNewComponent implements OnInit {
   private _error: boolean;
   subscription: Subscription = new Subscription;
   submitWaiting: boolean;
+  selectedArtists: string[] = [];
+
+
 
   protected onDestroy = new Subject<void>();
 
@@ -68,11 +71,14 @@ export class MusicNewComponent implements OnInit {
     });
 
     this.newartist.push(artistForm);
+  
+  
 
   }
   deleteArtist(artistIndex: number) {
     this.newartist.removeAt(artistIndex);
 }
+
 
   onMusicSubmit(){
     this.submitWaiting = true;
@@ -82,7 +88,9 @@ export class MusicNewComponent implements OnInit {
     music.duration = this.fields['duration'].value;
     music.country = this.fields['country'].value;
     music.artists = this.fields['artists'].value 
-    music.user = this._authService.currentUser$
+    this._authService.getUserFromLocalStorage().subscribe(user => {
+      music.user = user._id
+    })
 
     console.log(music)
 
