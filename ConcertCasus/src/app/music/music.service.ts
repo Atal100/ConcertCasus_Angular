@@ -13,7 +13,7 @@ export class MusicService {
   music: Music
 
 
-  private MusicUrl = "http://localhost:3000/api/music/"
+  private MusicUrl = "https://concertcasus.onrender.com/api/music/"
 
   constructor(private http: HttpClient, private alertService: AlertService) {
 

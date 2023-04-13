@@ -12,7 +12,7 @@ export class ConcertService {
 concerts: Concert[];
 concert: Concert
 
-private ConcertUrl = "http://localhost:3000/api/concert/"
+private ConcertUrl = "https://concertcasus.onrender.com/api/concert/"
 
   constructor(private http: HttpClient, private alertService: AlertService) {
     console.log("ConcertService constructed");
