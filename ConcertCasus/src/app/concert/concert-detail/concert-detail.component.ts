@@ -44,14 +44,14 @@ export class ConcertDetailComponent implements OnInit {
 
     this.params = this.route.params.subscribe(params =>{
       this.concert._id = params['id']
-      console.log('concerts ' + this.concert._id)
+     
   })
   this.concertService.getConcert(this.concert._id).subscribe((concert) => {
 
 
     this.concert = concert
     
-    
+    console.log("concert", concert)
     const formattedDate = this.datePipe.transform(this.concert.date, 'yyyy-MM-dd');
     this.concert.date = new Date(formattedDate)
     this.getArtist()
@@ -80,12 +80,12 @@ getArtist(){
         }
       })
     })
-   console.log("Concerts", this.concerts)
+ 
    this.Subscriptionuser = this.userService.getUser(this.concert.user)
     .subscribe((user) => {
-      console.log("user object:", user);
+   
       this.user = user;
-      console.log("Is nu pas klaar");
+    
     });
   })
 }

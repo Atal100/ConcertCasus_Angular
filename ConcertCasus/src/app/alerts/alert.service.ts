@@ -9,7 +9,6 @@ export class AlertService {
   private keepAfterNavigationChange = false;
 
   constructor(private router: Router) {
-    console.log("constructor");
     // clear alert message on route change
     router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
@@ -35,7 +34,6 @@ export class AlertService {
   }
 
   getMessage(): Observable<any> {
-    // console.log('getMessage');
     return this.subject.asObservable();
   }
 }

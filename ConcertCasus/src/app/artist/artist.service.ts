@@ -19,12 +19,10 @@ export class ArtistService {
 }
 
   constructor(private http: HttpClient, private alertService: AlertService) { 
-    console.log("ArtistService constructed");
-    console.log("Connected to" + this.ArtistUrl);
+
   }
 
   getArtists(): Observable<Artist[]>{
-    console.log('getArtists')
     return this.http
     .get<Artist[]>(this.ArtistUrl)
     .pipe(map(artists => artists.map((artist) => new Artist(artist))))
@@ -32,9 +30,7 @@ export class ArtistService {
 
   }
   getArtist(id: string): Observable<Artist> {
-    console.log('getArtist ' + this.ArtistUrl + id)
-    console.log('https' + this.http
-      .get<Artist>(this.ArtistUrl + id))
+
 
     return this.http.get<Artist>(this.ArtistUrl + id)
      
@@ -44,7 +40,6 @@ export class ArtistService {
   }
 
   createArtist(artist: Artist){
-    console.log('createArtist')
 
     return this.http
     .post<Artist>(this.ArtistUrl, artist).pipe(
@@ -57,7 +52,6 @@ export class ArtistService {
         return of(undefined);
       })
     )
-    //.pipe(catchError(this.handleError), tap(console.log)); 
    }
 
   updateArtist(artist: Artist, id: string){

@@ -68,7 +68,6 @@ export class ArtistEditComponent implements OnInit {
          this.artists.forEach(c => {
            if(c._id == this.params['id']){
              this.artist = c;
-             console.log("this.Artist d" + this.artist)
              this.fillForm(this.artist)
            }
          })
@@ -95,18 +94,14 @@ export class ArtistEditComponent implements OnInit {
       this.params = params
     }))
     this.submitWaiting = true;
-    console.log("artist update", this.artist)
     if(this.artist != null){
-    console.log(this.params.id)
       this.artist._id = this.params.id
       this.artist.name = this.artistForm.controls['name'].value;
       this.artist.genre = this.artistForm.controls['genre'].value;
       this.artist.country = this.artistForm.controls['country'].value;
       
-      console.log("After add " + this.artist.name)
 
       this.subscription.add(this._artistService.updateArtist(this.artist, this.artist._id).subscribe(response =>{
-        console.log(response)
         this._router.navigate(['artist/list']);
         this.alertService.success("Succesfully edited Artist ");
       }))

@@ -40,7 +40,7 @@
 
                         <ng-container matColumnDef="delete">
                             <th mat-header-cell [ngClass]="'deleteCell'" *matHeaderCellDef> Delete  </th>
-                            <td mat-cell class="deleteCell" *matCellDef="let row" > <a  *ngIf="authService.userMayEdit(row.user) | async" (click)="deleteartist(row._id)" style="color: red">&#10008;</a> </td>
+                            <td mat-cell class="deleteCell mr-5" *matCellDef="let row" > <a  *ngIf="authService.userMayEdit(row.user) | async" (click)="deleteartist(row._id)" style="color: red">&#10008;</a> </td>
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -64,3 +64,4 @@
   
 
   </div>
+

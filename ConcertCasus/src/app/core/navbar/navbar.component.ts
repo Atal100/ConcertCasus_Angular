@@ -21,7 +21,7 @@ export class NavbarComponent {
 
 
   ngOnInit() {
-    console.log("called in")
+
 
     this.loggedInUser$ = this.authService.currentUser$;
   }
@@ -31,7 +31,7 @@ export class NavbarComponent {
 
 
   onLogout() {
-    console.log("called out")
+
   
     this.authService.userLogout();
     

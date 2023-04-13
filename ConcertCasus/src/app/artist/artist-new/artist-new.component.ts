@@ -85,11 +85,9 @@ export class ArtistNewComponent implements OnInit {
 
   onArtistSubmit() {
     this.submitWaiting = true;
-    console.log("artist new", this.artist)
     this.subscription = this._authService.currentUser$
     .pipe(take(1))
     .subscribe((user) => {
-      console.log(user); // add this line to see if user is emitted
   
       this.user = user;
       this.artist.name = this.artistForm.controls['name'].value;
@@ -98,11 +96,9 @@ export class ArtistNewComponent implements OnInit {
       this.artist.user = this.user._id;
   
       this._artistService.createArtist(this.artist).subscribe(response => {
-        console.log(response)
         this._router.navigate(['artist/list'])
         this.alertService.success("Succesfully added a Artist ");
       })
-      console.log(user._id + "User")
     });
 
 

@@ -9,7 +9,6 @@ export class AdminGuard implements CanActivate {
     private isAdmin = false
 
     canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-        console.log(`isAdmin is ${this.isAdmin}`)
         return this.isAdmin
     }
 }

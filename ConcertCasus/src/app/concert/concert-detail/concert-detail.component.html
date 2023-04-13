@@ -1,35 +1,37 @@
 <div *ngIf="user">
 <section *ngIf="concert">
     <div class="row">
+      
       <div class="col-xs-12">
-        <h1>{{ concert.name }}</h1>
+        <label for="name"><b>Name:</b></label>
+      {{concert.name }}
       </div>
     </div>
     <div class="col-3">
-      <label for="artists">Artist:</label>
+      <label for="artists"><b>Artist:</b></label>
   
        <div *ngFor="let artist of concerts">
        {{artist.name}}
         </div>
-   
+    
     </div>
     
     <div class="row">
       <div class="col-xs-12">
-        <label for="genre">date:</label>
+        <label for="genre"><b>Date:</b></label>
         {{ concert.date }} 
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12">
-        <label for="image">adres:</label>
+        <label for="adres"><b>City:</b></label>
         {{ concert.adres }}
       </div>
     </div>
 
     <div class="row">
       <div class="col-xs-12">
-        <label for="user">User:</label>
+        <label for="user"><b>User:</b></label>
        {{this.user.firstname}}
       </div>
     </div>

@@ -116,7 +116,6 @@ fdescribe('ArtistService', () => {
     httpSpy.post.and.returnValue(of(artist));
 
     service.createArtist(artist).subscribe(artistcreated => {
-      console.log(artistcreated)
       expect(artistcreated).toBe(artist);
       expect(artistcreated._id).toBe(artist._id)
       expect(artistcreated.name).toEqual("Dj Azuras1")
@@ -129,7 +128,6 @@ fdescribe('ArtistService', () => {
     httpSpy.put.and.returnValue(of(updateartist))
 
      service.updateArtist(updateartist,artist._id).subscribe(artistupdate => {
-       console.log(updateartist)
        expect(artistupdate).toBe(updateartist)
        expect(artistupdate.name).toEqual("Dj Azuras1 Edit")    
        done();
@@ -150,9 +148,6 @@ fdescribe('ArtistService', () => {
  
   
     service.deleteArtist(artistdeletes._id).subscribe(response => {   
-      console.log(response)
-      console.log(artistdeletes)
-      console.log(artistdeletes._id)
       expect(response).toBe(true)     
       done();
      

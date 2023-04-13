@@ -1,27 +1,27 @@
 <div *ngIf="user">
-<section *ngIf="artist">
+<section class="mt-5" *ngIf="artist">
     <div class="row">
       <div class="col-xs-12">
-        <label for="name">name:</label>
-        <h1>{{ artist.name }}</h1>
+        <label for="name"><b>Name:</b></label>
+        {{ artist.name }}
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12">
-        <label for="genre">Genre:</label>
+        <label for="genre"><b>Genre:</b></label>
         {{ artist.genre }} 
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12">
-        <label for="country">Country:</label>
+        <label for="country"><b>Country:</b></label>
         {{ artist.country }}
       </div>
     </div>
 
     <div class="row">
       <div class="col-xs-12">
-        <label for="user">User:</label>
+        <label for="user"><b>User:</b></label>
        {{this.user.firstname}}
       </div>
     </div>

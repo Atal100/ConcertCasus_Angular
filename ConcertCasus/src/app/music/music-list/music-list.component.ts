@@ -46,7 +46,6 @@ export class MusicListComponent implements OnInit {
     
         this.musics = musics;
     
-        console.log("Muzieken ",this.musics)
         
         this._loading = false;
         this.dataSource = new MatTableDataSource(this.musics)
@@ -71,7 +70,6 @@ export class MusicListComponent implements OnInit {
     this._artistService.getArtists().subscribe(
       
       artists => {
-        console.log("artisten" + artists)
         this.artists = artists;
         this._loading = false
       }
@@ -82,7 +80,6 @@ export class MusicListComponent implements OnInit {
   deletemusic(musicId: string): void{
     this.musicService.deleteMusic(musicId).subscribe(response => {
       this.loadMusic();
-      console.log(response)
     })
   }
 

@@ -53,9 +53,7 @@ export class MusicService {
         return music
       }),
       catchError((error: any) => {
-        console.log('error:', error);
-        console.log('error.message:', error.message);
-        console.log('error.error.message:', error.error.message);
+
         this.alertService.error(error.error.message || error.message);
         return of(undefined);
       })
@@ -63,8 +61,7 @@ export class MusicService {
   }
   
   deleteMusic(id: string){
-    console.log('deleteMusic ' + id)
-    console.log(this.http.delete(this.MusicUrl + id))
+
     return this.http.delete(this.MusicUrl + id).pipe(
       map((music) => {
         this.alertService.success("You have succesfully deleted a music")

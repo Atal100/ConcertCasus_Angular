@@ -36,34 +36,26 @@ export class ArtistDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("ngOnInit called");
   
     this.params = this.route.params.subscribe(params => {
-      console.log("route params:", params);
   
       this.artist._id = params['id'];
-      console.log("artist ID:", this.artist._id);
   
       this.SubscriptionArtist = this.artistService.getArtist(this.artist._id)
         .subscribe((artist) => {
-          console.log("artist object:", artist);
           this.artist = artist;
         
     
-          console.log("artist object after:", this.artist.user);
   
           this.Subscriptionuser = this.userService.getUser(this.artist.user)
             .subscribe((user) => {
-              console.log("user object:", user);
               this.user = user;
-              console.log("Is nu pas klaar");
             });
         });
     });
   }
 
   onEditArtist() {
-    console.log("Edit artist", this.artist._id);
     this.router.navigate(["/artist/" + "/edit/" + this.artist._id]);
   }
 

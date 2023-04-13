@@ -101,7 +101,7 @@ export class ConcertEditComponent implements OnInit {
 
 
   fillForm(concert:Concert){
-    console.log(" CONCERT", concert)
+  
     const formattedDate = this.datePipe.transform(concert.date, 'yyyy-MM-dd');
     this.concertForm = this._formBuilder.group({
       name: [concert['name']],
@@ -114,7 +114,7 @@ export class ConcertEditComponent implements OnInit {
     var i = 0;
     concert['artists'].forEach((c: any)=> {
 
-      console.log("dfsadfasfdas", c.artists)
+    
      const formGroup = this._formBuilder.group({
         artists: [c.artists, Validators.required]
       })
@@ -122,7 +122,7 @@ export class ConcertEditComponent implements OnInit {
       artistFormArray.push(formGroup);
 
      
-      console.log("Rund Dowqn " + i,c)
+     
       i++;
     });
   }
@@ -132,9 +132,9 @@ export class ConcertEditComponent implements OnInit {
       this.params = params
     }))
     this.submitWaiting = true;
-    console.log("concert update", this.concert)
+
     if(this.concert != null){
-    console.log(this.params.id)
+
       this.concert._id = this.params.id
       this.concert.name = this.concertForm.controls['name'].value;
       this.concert.artists = this.concertForm.controls['artists'].value;
@@ -145,7 +145,7 @@ export class ConcertEditComponent implements OnInit {
       })
 
       this.subscription.add(this._concertService.updateConcert(this.concert, this.concert._id).subscribe(response =>{
-        console.log(response)
+     
         this._router.navigate(['concert/list']);
         this.alertService.success("Succesfully edited concert ");
       }))
@@ -163,7 +163,7 @@ export class ConcertEditComponent implements OnInit {
     this._artistService.getArtists().subscribe(
       artists => {
         this.artists = artists
-        console.log("Test " + this.artists)
+     
       })
   }
 

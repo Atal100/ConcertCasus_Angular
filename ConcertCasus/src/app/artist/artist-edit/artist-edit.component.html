@@ -11,7 +11,7 @@
   
         <div>
           <h3 class="text-lg leading-6 font-medium text-gray-900">Edit Artist</h3>
-          <p class="mt-1 text-sm text-gray-500">This artist wil be added to future concerts</p>
+          <p class="mt-1 text-sm text-gray-500">This artist wil be added to future concerts and music</p>
         </div>
   
         <div class="form-group">
@@ -29,16 +29,16 @@
               minlength="3"
               class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
               
-              <div *ngIf="fields.name.invalid && (fields.name.dirty || fields.name.touched)"
+              <div style="color: red;" *ngIf="fields.name.invalid && (fields.name.dirty || fields.name.touched)"
               class="alert">
             
-              <div *ngIf="fields.name.errors?.['required']">
+              <div style="color: red;" *ngIf="fields.name.errors?.['required']">
                 Name is required.
               </div>
-              <div *ngIf="fields.name.errors?.['minlength']">
+              <div style="color: red;" *ngIf="fields.name.errors?.['minlength']">
                 Name must be at least 4 characters long.
               </div>
-              <div *ngIf="fields.name.errors?.['forbiddenName']">
+              <div style="color: red;" *ngIf="fields.name.errors?.['forbiddenName']">
                 Name cannot be Bob.
               </div>
             
@@ -47,7 +47,7 @@
           </div>
         </div>
    
-  
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
           <div class="sm:col-span-1">
             <label for="genre" class="block text-sm font-medium text-gray-700"> Genre </label>
             <div class="mt-1">
@@ -66,6 +66,7 @@
               </select>
             </div>
           </div>
+        </div>
     
   
           <div class="form-group">
@@ -83,16 +84,16 @@
                   minlength="3"
                   class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
                   
-                  <div *ngIf="fields.country.invalid && (fields.country.dirty || fields.country.touched)"
+                  <div  style="color: red;" *ngIf="fields.country.invalid && (fields.country.dirty || fields.country.touched)"
                   class="alert">
                 
-                  <div *ngIf="fields.country.errors?.['required']">
+                  <div style="color: red;" *ngIf="fields.country.errors?.['required']">
                     Country name is required.
                   </div>
-                  <div *ngIf="fields.country.errors?.['minlength']">
+                  <div style="color: red;" *ngIf="fields.country.errors?.['minlength']">
                     Country must be at least 4 characters long.
                   </div>
-                  <div *ngIf="fields.country.errors?.['forbiddenName']">
+                  <div style="color: red;" *ngIf="fields.country.errors?.['forbiddenName']">
                     Country cannot be Bob.
                   </div>
                 

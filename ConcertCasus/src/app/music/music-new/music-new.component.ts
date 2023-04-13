@@ -92,7 +92,7 @@ export class MusicNewComponent implements OnInit {
       music.user = user._id
     })
 
-    console.log(music)
+    
 
     this._musicService.createMusic(music).subscribe(response => {
      
@@ -107,7 +107,7 @@ export class MusicNewComponent implements OnInit {
     this._artistService.getArtists().subscribe(
       
       artists => {
-        console.log("artisten" + artists)
+    
         this.artists = artists;
         this._loading = false
       }

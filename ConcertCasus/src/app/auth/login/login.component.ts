@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
       .getUserFromLocalStorage()
       .subscribe((user: User) => {
         if (user) {
-          console.log('User already logged in > to dashboard');
           this.router.navigate(['/']);
         }
       });

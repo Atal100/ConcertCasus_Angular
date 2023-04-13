@@ -62,7 +62,7 @@ export class MusicEditComponent implements OnInit {
             this.musics.forEach(c => {
               if (c._id == this.params['id']) {
                 this.music = c
-                console.log("FormMusic " , this.music)
+             
              
                 this.fillForm(this.music)
               }
@@ -108,7 +108,7 @@ export class MusicEditComponent implements OnInit {
     var i = 0;
     music['artists'].forEach((c: any)=> {
 
-      console.log("dfsadfasfdas", c.artists)
+    
      const formGroup = this._formBuilder.group({
         artists: [c.artists, Validators.required]
       })
@@ -116,7 +116,7 @@ export class MusicEditComponent implements OnInit {
       artistFormArray.push(formGroup);
 
      
-      console.log("Rund Dowqn " + i,c)
+      
       i++;
     });
   }
@@ -126,9 +126,8 @@ export class MusicEditComponent implements OnInit {
       this.params = params
     }))
     this.submitWaiting = true;
-    console.log("music update", this.music)
+
     if (this.music != null) {
-      console.log(this.params.id)
       this.music._id = this.params.id
       this.music.name = this.musicForm.controls['name'].value;
       this.music.duration = this.musicForm.controls['duration'].value;
@@ -137,10 +136,8 @@ export class MusicEditComponent implements OnInit {
           this._authService.getUserFromLocalStorage().subscribe(user => {
       this.music.user = user._id
     })
-      console.log("After add " + this.music.name)
 
       this.subscription.add(this._musicService.updateMusic(this.music, this.music._id).subscribe(response => {
-        console.log(response)
         this._router.navigate(['music/list']);
         this.alertService.success("Succesfully edited Music ");
       }))
@@ -175,7 +172,6 @@ export class MusicEditComponent implements OnInit {
     this._artistService.getArtists().subscribe(
       artists => {
         this.artists = artists
-        console.log("Test " + this.artists)
       })
   }
 

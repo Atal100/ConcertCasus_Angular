@@ -35,7 +35,6 @@ export class ArtistListComponent implements OnInit {
   
   
   ngOnInit() {
-    console.log(this.artists)
     this.loadArtist()   
   }
   string ="../../assets/img/placeholder.png "
@@ -45,7 +44,6 @@ export class ArtistListComponent implements OnInit {
       artists => {
     
         this.artists = artists;
-        console.log(this.artists)
         this._loading = false;
         this.dataSource = new MatTableDataSource(this.artists)
       }
@@ -68,7 +66,6 @@ export class ArtistListComponent implements OnInit {
   deleteartist(artistId: string): void{
     this.artistService.deleteArtist(artistId).subscribe(response => {
       this.loadArtist();
-      console.log(response)
     })
   }
 

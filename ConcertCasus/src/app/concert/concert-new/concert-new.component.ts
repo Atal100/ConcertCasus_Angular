@@ -102,7 +102,7 @@ export class ConcertNewComponent implements OnInit {
     this._artistService.getArtists().subscribe(
       
       artists => {
-        console.log("artisten" + artists)
+       
         this.artists = artists;
         this._loading = false
       }

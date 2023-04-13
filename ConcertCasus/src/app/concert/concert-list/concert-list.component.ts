@@ -51,7 +51,6 @@ export class ConcertListComponent implements OnInit {
     this._concertService.getConcerts().subscribe(
       
       concerts => {
-        console.log("Concert " + concerts)
         this.concerts = concerts;
         this.concerts.forEach(c => {
           const formattedDate = this.datePipe.transform(c.date, 'yyyy-MM-dd');
@@ -69,7 +68,6 @@ export class ConcertListComponent implements OnInit {
     this._artistService.getArtists().subscribe(
       
       artists => {
-        console.log("artisten" + artists)
         this.artists = artists;
         this._loading = false
       }
@@ -85,7 +83,7 @@ export class ConcertListComponent implements OnInit {
   deleteConcert(concertId: string): void{
     this._concertService.deleteConcert(concertId).subscribe(response => {
       this.loadConcert();
-      console.log(response)
+
     })
   }
 

@@ -18,10 +18,8 @@ import {
        state: RouterStateSnapshot) {
       if (localStorage.getItem("currentuser")) {
         // logged in so return true
-        console.log('Authguard' + localStorage.getItem("currentUser"))
         return true;
       }
-      console.log("Authguard uitgelogd")
       // not logged in so redirect to login page with the return url
       this.router.navigate(["/login"], { queryParams: { returnUrl: state.url } });
       return false;

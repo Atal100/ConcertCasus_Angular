@@ -17,33 +17,25 @@ export class UserService {
  
 
   constructor(private http: HttpClient) {
-    console.log("UserService constructed");
-    console.log(`Connected to ${environment.apiUrl}`);
+
   }
 
   public getUsers(): Observable<User[]> {
-    console.log("getUsers");
     return this.http.get<User[]>( this.userUrl + '/api/user', {});
   }
 
   getUser(id: string) {
-    console.log(`getUser(${id})`);
     return this.http.get<User>(this.userUrl + '/api/user/' + id);
   }
 
   
 
   updateUser(user: User) {
-    console.log("updateUser");
 
     return this.http.put(this.userUrl + '/api/user/' + user._id, user);
   }
 
-  private handleError(error: HttpErrorResponse) {
-    console.log("handleError" + error.message);
 
-    return throwError(error.message || error.error.message);
-  }
 }
 
 export interface ApiResponse {

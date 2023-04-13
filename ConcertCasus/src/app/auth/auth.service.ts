@@ -27,12 +27,10 @@ export class AuthService {
         // switchMap is overbodig als we validateToken() niet gebruiken...
         switchMap((user: User) => {
           if (user) {
-            console.log('User found in local storage');
             this.currentUser$.next(user);
             // return this.validateToken(user);
             return of(user);
           } else {
-            console.log(`No current user found`);
             return of(undefined);
           }
         })
@@ -86,12 +84,10 @@ export class AuthService {
       .then((success) => {
         // true when canDeactivate allows us to leave the page.
         if (success) {
-          console.log('logout - removing local user info');
           localStorage.removeItem(this.CURRENT_USER);
           this.currentUser$.next(undefined);
           this.alertService.success('You have been logged out.');
         } else {
-          console.log('navigate result:', success);
         }
       })
       .catch((error) => console.log('not logged out!'));
@@ -110,7 +106,6 @@ export class AuthService {
   }
 
   userMayEdit(itemUserId: string): Observable<boolean> {
-    console.log("Gets called")
     return this.currentUser$.pipe(
       map((user: User) => (user ? user._id === itemUserId : false))
     );
